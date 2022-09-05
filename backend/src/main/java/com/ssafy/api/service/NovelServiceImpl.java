@@ -1,7 +1,6 @@
 package com.ssafy.api.service;
 
 import com.ssafy.db.entity.Novel;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.NovelRepository;
 import com.ssafy.db.repository.NovelRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +20,32 @@ public class NovelServiceImpl implements NovelService{
 
     //이름으로 조회
     @Override
-    public Novel getNovelByNovelTitle(String novelTitle) {
+    public List<Novel> getNovelsByNovelTitle(String novelTitle) {
         // 디비에 유저 정보 조회 (userId 를 통한 조회).
-        Novel novel = novelRepository.findNovelByNovelTitle(novelTitle).get();
-        return novel;
+        List<Novel> book = novelRepository.findNovelsByNovelTitle(novelTitle).get();
+        if (book.isEmpty() == true) {
+            return null;
+        }
+
+        return book;
     }
 
     @Override
-    public List<Novel> getNovelByNovelWriter(String novelWriter) {
-        List<Novel> book = new ArrayList<>();
-//        book = novelRepository.findNovelByNovelWriter(novelWriter);
-        for (Novel n : novelRepository.findNovelByNovelWriter(novelWriter)) {
-            book.add(n);
-        }
+    public List<Novel> getNovelsByNovelWriter(String novelWriter) {
+        List<Novel> book = novelRepository.findNovelsByNovelWriter(novelWriter).get();
+
+        if (book.isEmpty() == true)
+            return null; //error 코드 줘도 좋을 듯? 404라거나
         return book;
     }
+
+    @Override
+    public Novel getNovelInfoByNovelNo(int novelNo) {
+        Novel novel = novelRepository.findNovelByNovelNo(novelNo).get();
+        return novel;
+    }
+
+//    public List<Novel> getNovelsByTag(String tag) {
+//
+//    }
 }

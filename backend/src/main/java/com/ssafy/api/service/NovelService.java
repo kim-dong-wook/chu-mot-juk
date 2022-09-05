@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface NovelService {
     //이름으로 찾기
-    Novel getNovelByNovelTitle(String novelTitle);
+    List<Novel> getNovelsByNovelTitle(String novelTitle);
     //저자로 찾기
-    List<Novel> getNovelByNovelWriter(String novelWriter);
+    List<Novel> getNovelsByNovelWriter(String novelWriter);
 
-    Novel getNovelInfo(String novelNo);
+    Novel getNovelInfoByNovelNo(int novelNo);
     //태그로 찾기
     //찜 목록에 추가
     //소설 정보 조회

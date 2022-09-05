@@ -4,6 +4,7 @@ import com.ssafy.db.entity.Novel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,9 @@ import java.util.Optional;
  */
 @Repository
 public interface NovelRepository extends JpaRepository<Novel, Long> {
-    Optional<Novel> findNovelByNovelTitle(String novelTitle);
-    List<Novel> findNovelByNovelWriter(String novelWriter);
+    Optional<List<Novel>> findNovelsByNovelTitle(String novelTitle);
+    Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
+    Optional<List<Novel>> findNovelsByNovelTag(String tag);
+    Optional<Novel> findNovelByNovelNo(int novelNo);
 
 }

@@ -18,7 +18,7 @@ buildscript{
         classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
         classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
         //이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요. [시작]
-        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
+//        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
         //[끝] 
         classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
     }
@@ -68,6 +68,11 @@ configurations {
 task webpack(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['run','build']
 }
+//
+//task adminNpmInstall(type: NpmTask) {
+//    workingDir = file("src/main/front/")
+//    args = ['install']
+//}
 
 // processResources is a Java task. Run the webpack bundling before this task using the 'build' task in the package.json
 processResources.dependsOn 'webpack'
