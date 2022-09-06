@@ -17,16 +17,16 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 public class Novel extends BaseEntity{
-    String title;
-    String writer;
-    String intro;
-    String romanceGuide;
-    String url;
-    String link;
-    int newest;
-    boolean isCompleted;
-    String thumbnail;
-    String introImage;
-    String platform;
+    String novelTitle;
+    String novelWriter;
+    String novelIntro;
+    String novelRomanceGuide;
+    String novelUrl;
+    String novelLink;
+    int novelNewest;
+    boolean novelIsCompleted;
+    String novelThumbnail;
+    String novelIntroImage;
+    String novelPlatform;
 
 }

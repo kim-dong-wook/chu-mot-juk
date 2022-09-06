@@ -50,6 +50,8 @@ group 'com.ssafy'
 version '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+//여기 켜져있었음
+
 node {
     download = true
     version = '14.17.0'
@@ -61,18 +63,23 @@ configurations {
     providedRuntime
 }
 
-/*task npmInstall(type: NpmTask, overwrite: true) {
-    args = ['install']
-}*/
+//task npmInstall(type: NpmTask, overwrite: true) {
+//    args = ['install']
+//}
+
+//여기 켜져있었음
 
 task webpack(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['run','build']
 }
-//
+
 //task adminNpmInstall(type: NpmTask) {
 //    workingDir = file("src/main/front/")
 //    args = ['install']
 //}
+
+
+//여기켜져있었음
 
 // processResources is a Java task. Run the webpack bundling before this task using the 'build' task in the package.json
 processResources.dependsOn 'webpack'
@@ -128,15 +135,20 @@ processResources {
 //}
 //[끝]
 
-//// QueryDSL
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
-//        }
+// QueryDSL
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
+}
+//wrapper{
+//    task adminNpmInstall(type: NpmTask) {
+//        workingDir = file("src/main/front/")
+//        args = ['install']
 //    }
 //}
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
@@ -205,3 +217,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+
