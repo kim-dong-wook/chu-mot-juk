@@ -9,7 +9,7 @@ import './pagination.css';
 import 'swiper/css/navigation';
 const BookCarousel = () => {
   return (
-    <div>
+    <div className="p-20">
       <h1>제목</h1>
       <Swiper
         spaceBetween={10}
@@ -21,6 +21,7 @@ const BookCarousel = () => {
         pagination={true}
         modules={[Navigation, Pagination]}
         loop={true}
+        className="px-2"
       >
         <SwiperSlide className="border-2 border-black w-60 h-80 items-center flex justify-center hover:bg-sky-700 hover:scale-150 duration-300 origin-left hover:z-50">
           Slide 1
