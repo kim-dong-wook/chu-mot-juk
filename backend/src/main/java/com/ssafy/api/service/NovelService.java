@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.db.entity.Novel;
+import com.ssafy.db.entity.User;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface NovelService {
 
     Novel getNovelInfoByNovelNo(Long no);
 
-    List<Novel> getNovelsByNovelTag(NovelTagSearchReq tagsInfo);
+    List<Novel> getNovelsByTag(NovelTagSearchReq tagsInfo);
     //태그로 찾기
     //찜 목록에 추가
     //소설 정보 조회

@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @Api(value = "소설 API", tags = {"Novel"})
 @RestController
-@RequestMapping("/novel")
+@RequestMapping("/api/v1/novel")
 public class NovelController {
 
     @Autowired
@@ -81,7 +81,7 @@ public class NovelController {
         return ResponseEntity.status(200).body(shelf);
     }
 
-    @GetMapping("/search/tags")
+    @PostMapping("/search/tags")
     @ApiOperation(value = "태그로 소설 조회", notes = "태그를 입력받아 소설을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -91,7 +91,7 @@ public class NovelController {
     })
     public ResponseEntity<List<Novel>> getNovelsByTags
             (@RequestBody @ApiParam(value="태그들") NovelTagSearchReq tagsInfo) {
-        List<Novel> shelf = novelService.getNovelsByNovelTag(tagsInfo);
+        List<Novel> shelf = novelService.getNovelsByTag(tagsInfo);
         //태그를 받아 올 거임 근데 한 번 클릭하면 추가되게? 아니면 추가된 채로 검색을 누르면 변하게?
         return ResponseEntity.status(200).body(shelf);
     }

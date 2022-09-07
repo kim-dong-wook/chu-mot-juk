@@ -52,12 +52,12 @@ sourceCompatibility = '1.8'
 
 //여기 켜져있었음
 
-node {
-    download = true
-    version = '14.17.0'
-    // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/../frontend")
-}
+//node {
+//    download = true
+//    version = '14.17.0'
+//    // Set the work directory where node_modules should be located
+//    nodeModulesDir = file("${project.projectDir}/../frontend")
+//}
 
 configurations {
     providedRuntime
@@ -68,6 +68,10 @@ configurations {
 //}
 
 //여기 켜져있었음
+//
+//task webpack(type: NpmTask, dependsOn: 'npmInstall') {
+//    args = ['run','build']
+//}
 
 task webpack(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['run','build']
@@ -82,7 +86,7 @@ task webpack(type: NpmTask, dependsOn: 'npmInstall') {
 //여기켜져있었음
 
 // processResources is a Java task. Run the webpack bundling before this task using the 'build' task in the package.json
-processResources.dependsOn 'webpack'
+//processResources.dependsOn 'webpack'
 
 //set build time and inject value to application.properties
 def buildTime() {
@@ -110,31 +114,6 @@ processResources {
     }
 }
 
-//이클립스인 경우를 위한 QueryDSL 설정. IntelliJ는 불필요. [시작]
-//def querydslDir = 'src/main/generated'
-//querydsl {
-//    library = "com.querydsl:querydsl-apt"
-//    jpa = true
-//    querydslSourcesDir = querydslDir
-//}
-
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ['src/main/java', querydslDir]
-//        }
-//    }
-//}
-//
-//compileQuerydsl {
-//    options.annotationProcessorPath = configurations.querydsl
-//}
-//
-//configurations {
-//    querydsl.extendsFrom compileClasspath
-//}
-//[끝]
-
 // QueryDSL
 sourceSets {
     main {
@@ -143,12 +122,7 @@ sourceSets {
         }
     }
 }
-//wrapper{
-//    task adminNpmInstall(type: NpmTask) {
-//        workingDir = file("src/main/front/")
-//        args = ['install']
-//    }
-//}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
@@ -217,5 +191,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-

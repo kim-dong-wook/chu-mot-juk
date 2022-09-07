@@ -1,12 +1,9 @@
 package com.ssafy.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 
 /**
@@ -16,17 +13,20 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-public class Novel extends BaseEntity{
-    String novelTitle;
-    String novelWriter;
-    String novelIntro;
-    String novelRomanceGuide;
-    String novelUrl;
-    String novelLink;
-    int novelNewest;
-    boolean novelIsCompleted;
-    String novelThumbnail;
-    String novelIntroImage;
-    String novelPlatform;
+public class Novel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long novelNo;
 
+    private String novelTitle;
+    private String novelWriter;
+    private String novelIntro;
+    private String novelRomanceGuide;
+    private String novelUrl;
+    private String novelLink;
+    private int novelNewest;
+    private boolean novelIsCompleted;
+    private String novelThumbnail;
+    private String novelIntroImage;
+    private String novelPlatform;
 }
