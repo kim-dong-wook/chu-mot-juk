@@ -170,7 +170,7 @@
 /* custom */
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
-  width: 5.35rem !important;
+  width: 5.35rem !important; /* 하드코딩... */
   height: 328px !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
@@ -180,11 +180,25 @@
   /* display: none !important; */
   opacity: 0 !important;
   transition: opacity 0.25s !important;
+  color: #f3f3f3 !important;
 }
 
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next:hover {
-  background: rgb(0 0 0 / 0.3) !important;
+  background: rgb(0 0 0 / 0.5) !important;
+}
+
+.swiper-button-prev:after {
+  font-size: var(--swiper-navigation-size);
+  font-weight: 900;
+  /* font-variant: initial;
+  line-height: 1; */
+  transition: transform 75ms linear;
+  transform: scale(1);
+}
+
+.swiper-button-prev:hover:after {
+  transform: scale(1.3);
 }
 
 .swiper:hover .swiper-button-prev,
@@ -195,7 +209,7 @@
 /* custom */
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
-  width: 5.35rem !important;
+  width: 5.35rem !important; /* 하드코딩... */
   height: 328px !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
@@ -205,11 +219,24 @@
   /* display: none !important; */
   opacity: 0 !important;
   transition: opacity 0.25s !important;
+  color: #f3f3f3 !important;
 }
 
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev:hover {
-  background: rgb(0 0 0 / 0.3) !important;
+  background: rgb(0 0 0 / 0.5) !important;
+}
+.swiper-button-next:after {
+  font-size: var(--swiper-navigation-size);
+  font-weight: 900;
+  /* font-variant: initial;
+  line-height: 1; */
+  transition: transform 75ms linear;
+  transform: scale(1);
+}
+
+.swiper-button-next:hover:after {
+  transform: scale(1.3);
 }
 
 .swiper:hover .swiper-button-next,
@@ -224,6 +251,8 @@
   justify-content: flex-end;
   gap: 3px;
   top: -1rem;
+  opacity: 0;
+  transition: opacity 0.25s !important;
 }
 
 .swiper-pagination > * {
@@ -232,6 +261,11 @@
   /* background: white; */
   background: #686868 !important;
   opacity: 0.5;
+  transition-delay: 0.6s !important;
+}
+
+.swiper:hover .swiper-pagination {
+  opacity: 1;
 }
 
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
