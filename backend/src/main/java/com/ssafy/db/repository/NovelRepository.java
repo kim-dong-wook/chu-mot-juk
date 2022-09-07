@@ -12,7 +12,9 @@ import java.util.Optional;
  */
 @Repository
 public interface NovelRepository extends JpaRepository<Novel, Long> {
-    Optional<Novel> findNovelByNovelTitle(String novelTitle);
-    List<Novel> findNovelByNovelWriter(String novelWriter);
+    Optional<List<Novel>> findNovelsByNovelTitle(String novelTitle);
+    Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
+
+    Optional<Novel> findNovelByNovelNo(Long novelNo);
 
 }
