@@ -12,6 +12,8 @@
   flex-shrink: 0;
   position: relative;
   transition-property: transform;
+  /* custom */
+  overflow: hidden;
 }
 
 .swiper {
@@ -168,8 +170,8 @@
 /* custom */
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
-  width: 3rem !important;
-  height: 320px !important; /* 하드코딩... */
+  width: 5.35rem !important;
+  height: 328px !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
   left: -5.55% !important;
@@ -193,8 +195,8 @@
 /* custom */
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
-  width: 3rem !important;
-  height: 320px !important; /* 하드코딩... */
+  width: 5.35rem !important;
+  height: 328px !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
   right: -5.55% !important;
