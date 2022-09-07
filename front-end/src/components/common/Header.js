@@ -1,0 +1,31 @@
+import React from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import 'tailwindcss/tailwind.css';
+
+const Header = () => {
+  return (
+    <div>
+      <header className="bg-gray-400 flex px-[5%] h-16 items-center">
+        <Link className="w-10 mr-20" to="/">
+          로고
+        </Link>
+        <div className="w-full flex justify-between">
+          <div className=" space-x-4">
+            <Link to="/test">유형검사</Link>
+            <Link to="/vs">이상형월드컵</Link>
+            <Link to="/tagsearch">태그검색</Link>
+          </div>
+          <div className=" space-x-4">
+            <Link to="/register">회원가입</Link>
+            <Link to="/login">로그인</Link>
+          </div>
+        </div>
+      </header>
+      <main>
+        <Outlet></Outlet>
+      </main>
+    </div>
+  );
+};
+
+export default Header;
