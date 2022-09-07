@@ -15,7 +15,6 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     Optional<List<Novel>> findNovelsByNovelTitle(String novelTitle);
     Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
 
-    Optional<List<Novel>> findNovelsByTag(String tag);
-    Optional<Novel> findNovelByNo(Long novelNo);
+    Optional<Novel> findNovelByNovelNo(Long novelNo);
 
 }

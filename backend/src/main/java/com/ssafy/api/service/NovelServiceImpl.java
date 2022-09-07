@@ -43,7 +43,7 @@ public class NovelServiceImpl implements NovelService{
 
     @Override
     public Novel getNovelInfoByNovelNo(Long novelNo) {
-        Novel novel = novelRepository.findNovelByNo(novelNo).orElseThrow(() -> {
+        Novel novel = novelRepository.findNovelByNovelNo(novelNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
         return novel;}
