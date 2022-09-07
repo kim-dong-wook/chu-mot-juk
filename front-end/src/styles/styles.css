@@ -1,4 +1,4 @@
-/* *,
+*,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -127,7 +127,8 @@ svg {
 .navigation-indicators > * {
   width: 1rem;
   height: 2px;
-  background: white;
+  /* background: white; */
+  background: #686868;
   opacity: 0.5;
   transition-delay: 0.5s;
 }
@@ -146,4 +147,4 @@ svg {
   ~ .navigation-indicators
   > *:nth-child(1) {
   opacity: 0.5;
-} */
+}
