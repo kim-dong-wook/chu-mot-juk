@@ -9,7 +9,7 @@ import './pagination.css';
 import 'swiper/css/navigation';
 const BookCarousel = () => {
   return (
-    <div className="">
+    <div className="px-[5%]">
       <h1>제목</h1>
       <Swiper
         spaceBetween={10}

@@ -1,12 +1,7 @@
 import React from 'react';
-import 'tailwindcss/tailwind.css';
-import BookCarousel from '../components/Carousel/BookCarousel';
 
 const TestPage = () => {
-  return (
-    // <div className="border-2 border-black p-10">안녕</div>
-    <BookCarousel></BookCarousel>
-  );
+  return <div>유형검사 페이지입니다.</div>;
 };
 
 export default TestPage;
