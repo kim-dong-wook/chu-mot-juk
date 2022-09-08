@@ -13,11 +13,13 @@ import java.util.List;
 @Entity
 public class Tag{
     @Id
-    @Column(name = "tag_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagNo;
 
+    @Column(nullable = false)
     private int tagType;
+
+    @Column(nullable = false)
     private String tagName;
 
     @JsonIgnore
