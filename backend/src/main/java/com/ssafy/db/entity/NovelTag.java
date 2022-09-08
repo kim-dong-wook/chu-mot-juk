@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Entity
 public class NovelTag {
     @Id
+    @Column(name = "novel_tag_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no ;
-
+    private Long no;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="novel_no")
@@ -21,4 +21,20 @@ public class NovelTag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="tag_no")
     private Tag tag;
+
+    public void setNovel(Novel novel) {
+        if (this.novel != null) {
+            this.novel.getNovelTags().remove(this);
+        }
+        this.novel = novel;
+        novel.getNovelTags().add(this);
+    }
+
+    public void setTag (Tag tag) {
+        if (this.tag != null) {
+            this.tag.getNovelTags().remove(this);
+        }
+        this.tag = tag;
+        tag.getNovelTags().add(this);
+    }
 }

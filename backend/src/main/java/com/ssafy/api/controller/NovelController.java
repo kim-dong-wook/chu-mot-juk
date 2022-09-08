@@ -1,30 +1,14 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.NovelTagSearchReq;
-import com.ssafy.api.response.NovelRes;
 import com.ssafy.api.service.NovelService;
 import com.ssafy.db.entity.Novel;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.response.UserRes;
-import com.ssafy.common.auth.SsafyUserDetails;
-import com.ssafy.common.model.response.BaseResponseBody;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import retrofit2.http.Path;
-import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 소설 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -90,7 +74,7 @@ public class NovelController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<List<Novel>> getNovelsByTags
-            (@RequestBody @ApiParam(value="태그들") NovelTagSearchReq tagsInfo) {
+            (@RequestBody @ApiParam(value = "태그들") NovelTagSearchReq tagsInfo) {
         List<Novel> shelf = novelService.getNovelsByTag(tagsInfo);
         //태그를 받아 올 거임 근데 한 번 클릭하면 추가되게? 아니면 추가된 채로 검색을 누르면 변하게?
         return ResponseEntity.status(200).body(shelf);

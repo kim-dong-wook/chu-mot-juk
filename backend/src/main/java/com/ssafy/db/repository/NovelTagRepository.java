@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface NovelTagRepository extends JpaRepository<NovelTag, Long>  {
 
-    Optional<List<NovelTag>> findByTagNo(Long tagNo);
+    Optional<List<NovelTag>> findNovelTagByTagTagNo(Long tagNo);
 
-//    Optional<List<NovelTag>> findByNovelNo(Long novelNo);
+    Optional<List<NovelTag>> findNovelTagByNovelNovelNo(Long novelNo);
 }
