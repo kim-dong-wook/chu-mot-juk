@@ -22,28 +22,12 @@ public class Tag{
     @Column(nullable = false)
     private String tagName;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "tag")
     UserTag userTagList;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "tag")
-    private List<NovelTag> novelTags = new ArrayList<>();
+    @OneToOne(mappedBy = "tag")
+    UserTag novelTagList;
 
-    public void addNovelTag(NovelTag novelTag) {
-        this.novelTags.add(novelTag);
-        if(novelTag.getTag() != this) {
-            novelTag.setTag(this);
-        }
-    }
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "tag")
-    private List<UserTag> userTags = new ArrayList<>();
-
-    public void addUserTag(UserTag userTag) {
-        this.userTags.add(userTag);
-        if(userTag.getTag() != this) {
-            userTag.setTag(this);
-        }
-    }
 }

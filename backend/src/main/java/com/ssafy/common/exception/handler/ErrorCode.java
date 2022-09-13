@@ -21,6 +21,8 @@ public enum ErrorCode {
     //404 : NOT_FOUND_EXCEPTION : 리소스를 찾을 수 없음
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
 
+    NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 내용을 찾을 수 없습니다."),
+    TAG_NOT_FOUND(HttpStatus.NOT_FOUND, "태그를 찾을 수 없습니다."),
     NOVEL_NOT_FOUND(HttpStatus.NOT_FOUND, "웹소설을 찾을 수 없습니다."),
 
     WRITER_NOT_FOUND(HttpStatus.NOT_FOUND, "작가를 찾을 수 없습니다."),
@@ -32,6 +34,7 @@ public enum ErrorCode {
     //409 CONFLICT : 이미 존재하는 정보
     ID_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
 
+    LIST_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 추가되어있습니다."),
 
     //500 INTERNAL_SERVER_ERROR: 내부 서버 오류
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다.");

@@ -29,15 +29,18 @@ public class NovelServiceImpl implements NovelService {
     //이름으로 조회
     @Override
     public List<Novel> getNovelsByNovelTitle(String novelTitle) {
-        // 디비에 유저 정보 조회 (userId 를 통한 조회).
-        List<Novel> book = novelRepository.findNovelsByNovelTitle(novelTitle).get();
+        List<Novel> book = novelRepository.findNovelsByNovelTitle(novelTitle).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        });
 
         return book;
     }
 
     @Override
     public List<Novel> getNovelsByNovelWriter(String novelWriter) {
-        List<Novel> book = novelRepository.findNovelsByNovelWriter(novelWriter).get();
+        List<Novel> book = novelRepository.findNovelsByNovelWriter(novelWriter).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        });
         return book;
     }
 
@@ -60,7 +63,9 @@ public class NovelServiceImpl implements NovelService {
         for (Long a : tags.getTags()) {
             if (a != null) {
                 List<Novel> booklist = new ArrayList<>();
-                book = novelTagRepository.findNovelTagByTagTagNo(a).get();
+                book = novelTagRepository.findNovelTagByTagTagNo(a).orElseThrow(() -> {
+                    throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
+                });
                 if (shelf.isEmpty() == true) {
                     for (NovelTag n : book) {
                         if (!shelf.contains(n.getNovel()))
@@ -68,8 +73,8 @@ public class NovelServiceImpl implements NovelService {
                     }
                 } else {
                     for (NovelTag n : book) {
-                        if (shelf.contains(n.getNovel()))
-                        {booklist.add(n.getNovel());
+                        if (shelf.contains(n.getNovel())) {
+                            booklist.add(n.getNovel());
                         }
                     }
                     shelf = booklist;

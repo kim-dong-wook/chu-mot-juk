@@ -1,7 +1,10 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.NovelTagSearchReq;
+import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.service.NovelService;
+import com.ssafy.api.service.UserService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Novel;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class NovelController {
 
     @Autowired
     NovelService novelService;
+
+    @Autowired
+    UserService userService;
 
     //소설의 모든 리스트 불러오기
 
@@ -79,4 +85,24 @@ public class NovelController {
         //태그를 받아 올 거임 근데 한 번 클릭하면 추가되게? 아니면 추가된 채로 검색을 누르면 변하게?
         return ResponseEntity.status(200).body(shelf);
     }
+
+    @PostMapping
+    @ApiOperation(value = "특정 태그를 선호 태그 목록에 추가", notes = "선호하는 태그 목록에 특정 태그를 추가한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> addTag
+            (@RequestBody @ApiParam(value = "회원 정보 및 태그 정보", required = true) UserTagReq userTagInfo) {
+
+        boolean success = userService.addTags(userTagInfo);
+        if (success = true)
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        else
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+    }
+
+
 }

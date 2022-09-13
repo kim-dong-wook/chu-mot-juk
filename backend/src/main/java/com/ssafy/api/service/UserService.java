@@ -1,8 +1,10 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.UserTagReq;
 import com.ssafy.db.entity.Tag;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserTag;
 
 import java.util.List;
 
@@ -18,9 +20,14 @@ public interface UserService {
 
 	User getUserByUserNo(Long userNo);
 
+	boolean deleteTags(UserTagReq userTagReq);
+
 	boolean deleteUser(UserRegisterPostReq userRegisterInfo);
 
 	User modifyUser(UserRegisterPostReq userRegisterInfo);
 
 	List<Tag> getTagsByUserNo(Long userNo);
+
+
+	boolean addTags(UserTagReq userTagInfo);
 }

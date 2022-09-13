@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,9 @@ public class NovelTag {
     @JoinColumn(name="novel_no")
     private Novel novel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="tag_no")
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "tag_no")
     private Tag tag;
 
     public void setNovel(Novel novel) {
@@ -30,11 +32,4 @@ public class NovelTag {
         novel.getNovelTags().add(this);
     }
 
-    public void setTag (Tag tag) {
-        if (this.tag != null) {
-            this.tag.getNovelTags().remove(this);
-        }
-        this.tag = tag;
-        tag.getNovelTags().add(this);
-    }
 }

@@ -1,11 +1,10 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Novel;
 import com.ssafy.db.entity.Tag;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
@@ -164,4 +163,23 @@ public class UserController {
         //태그를 받아 올 거임 근데 한 번 클릭하면 추가되게? 아니면 추가된 채로 검색을 누르면 변하게?
         return ResponseEntity.status(200).body(tagList);
     }
+
+    @DeleteMapping("/userTag")
+    @ApiOperation(value = "유저가 좋아하는 태그 목록에서 태그 삭제", notes = "선호하는 태그 목록에서 특정 태그를 지운다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그를 찾을 수 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> deleteTags
+            (@RequestBody @ApiParam(value = "회원 정보 및 회원 태그 정보", required = true) UserTagReq userTagInfo) {
+        boolean success = userService.deleteTags(userTagInfo);
+        if (success = true)
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        else
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+    }
+
+
 }
