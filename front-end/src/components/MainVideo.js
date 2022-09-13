@@ -50,7 +50,7 @@ const MainVideo = () => {
       {/* 수정중 */}
       <div class="content">
         <section class="left">
-          <img class="ms-2" src={VideoImg} alt="" />
+          {<img class="ms-2" src={VideoImg} alt="" />}
           <div class="d-flex mt-2">
             {/* 부트스트랩아이콘 */}
             <i
