@@ -22,6 +22,9 @@ public class Tag{
     @Column(nullable = false)
     private String tagName;
 
+    @OneToOne(mappedBy = "tag")
+    UserTag userTagList;
+
     @JsonIgnore
     @OneToMany(mappedBy = "tag")
     private List<NovelTag> novelTags = new ArrayList<>();
