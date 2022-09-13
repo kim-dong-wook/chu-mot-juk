@@ -1,5 +1,7 @@
 package com.ssafy.api.service;
 
+import com.ssafy.db.entity.Tag;
+import com.ssafy.db.entity.UserTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,9 @@ import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -85,5 +90,16 @@ public class UserServiceImpl implements UserService {
 		user.setNickname(userRegisterInfo.getNickname());
 
 		return userRepository.save(user);
+	}
+
+	@Override
+	public List<Tag> getTagsByUserNo(Long userNo) {
+		List<UserTag> userTagList = userRepository.findUserTagByUserNo(userNo).get();
+		List<Tag> tagList = new ArrayList<>();
+		for (UserTag n : userTagList) {
+			if (!tagList.contains(n.getTag()))
+				tagList.add(n.getTag());
+		}
+		return tagList;
 	}
 }

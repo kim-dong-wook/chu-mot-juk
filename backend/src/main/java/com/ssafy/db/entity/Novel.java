@@ -60,4 +60,5 @@ public class Novel {
             novelTag.setNovel(this);
         }
     }
+
 }

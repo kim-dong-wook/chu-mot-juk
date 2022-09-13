@@ -32,4 +32,15 @@ public class Tag{
             novelTag.setTag(this);
         }
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tag")
+    private List<UserTag> userTags = new ArrayList<>();
+
+    public void addUserTag(UserTag userTag) {
+        this.userTags.add(userTag);
+        if(userTag.getTag() != this) {
+            userTag.setTag(this);
+        }
+    }
 }
