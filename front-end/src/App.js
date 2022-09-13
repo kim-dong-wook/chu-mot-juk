@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import RegisterPage from './pages/RegisterPage';
 import TagSearchPage from './pages/TagSearchPage';
+import TempPage from './pages/TempPage';
 import TestPage from './pages/TestPage';
 import VsPage from './pages/VsPage';
 
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/tagsearch" element={<TagSearchPage />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/vs" element={<VsPage />} />
+        <Route path="/temp" element={<TempPage />} />
       </Route>
     </Routes>
   );

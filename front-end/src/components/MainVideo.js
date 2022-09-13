@@ -83,8 +83,13 @@ const MainVideo = () => {
       {/* 수정중 */}
       <div class="content">
         <section class="left">
+<<<<<<< front-end/src/components/MainVideo.js
           <img className="" src={VideoImg} alt="" />
           <div class="iia">
+=======
+          {<img class="ms-2" src={VideoImg} alt="" />}
+          <div class="d-flex mt-2">
+>>>>>>> front-end/src/components/MainVideo.js
             {/* 부트스트랩아이콘 */}
 
             <button onClick={togglePlay}>
