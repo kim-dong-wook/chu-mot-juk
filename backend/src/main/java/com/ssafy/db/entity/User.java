@@ -36,18 +36,29 @@ public class User {
     @Column(nullable = false)
     Integer gender;
 
-    @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<UserTag> userTags = new ArrayList<>();
+    private List<LikeList> likeList = new ArrayList<>();
 
-    public void addUserTag(UserTag userTag) {
-        this.userTags.add(userTag);
-        if(userTag.getUser() != this) {
-            userTag.setUser(this);
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<UserTag> userTagList = new ArrayList<>();
+
+    public void addLikeList(LikeList likeList) {
+        this.likeList.add(likeList);
+        if(likeList.getUser() != this) {
+            likeList.setUser(this);
         }
     }
+
+    public void addUserTagList(UserTag userTagList) {
+        this.userTagList.add(userTagList);
+        if(userTagList.getUser() != this) {
+            userTagList.setUser(this);
+        }
+    }
+
 }

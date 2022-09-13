@@ -54,6 +54,10 @@ public class Novel {
     @OneToMany(mappedBy = "novel")
     private List<NovelTag> novelTags = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "novel")
+    private List<LikeList> likeList = new ArrayList<>();
+
     public void addNovelTag(NovelTag novelTag) {
         this.novelTags.add(novelTag);
         if(novelTag.getNovel() != this) {
@@ -61,4 +65,10 @@ public class Novel {
         }
     }
 
+    public void addLikeList(LikeList likeList) {
+        this.likeList.add(likeList);
+        if(likeList.getNovel() != this) {
+            likeList.setNovel(this);
+        }
+    }
 }
