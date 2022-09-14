@@ -1,11 +1,11 @@
 import React from 'react';
 import BookCarousel from '../components/Carousel/BookCarousel';
-import MainVideo from '../components/MainVideo';
+import VideoCarousel from '../components/Carousel/VideoCarousel';
 
 const MainPage = () => {
   return (
     <div>
-      <MainVideo></MainVideo>
+      <VideoCarousel></VideoCarousel>
       <BookCarousel></BookCarousel>
     </div>
   );

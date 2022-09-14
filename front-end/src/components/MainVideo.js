@@ -117,12 +117,25 @@ const MainVideo = () => {
 
             {/* "text-white ms-3 mt-3 text-decoration-none" */}
             <a href={{}} className="color-white">
-              <i class="bi bi-info-circle" style={{ padding: '0%' }}></i>
+              <i class="bi bi-info-circle"></i>
               상세 정보
             </a>
           </div>
         </section>
-        <section class="right"></section>
+        <section class="right">
+          <a
+            href={{}}
+            style={{ color: '#f3f3f3', padding: '10px' }}
+            className="color-white"
+          >
+            <i class="bi bi-info-circle"></i>
+            웹소설
+          </a>
+          <a href={{}} style={{ color: '#f3f3f3' }} className="color-white">
+            <i class="bi bi-info-circle"></i>
+            웹툰
+          </a>
+        </section>
       </div>
     </section>
   );

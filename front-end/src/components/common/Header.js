@@ -5,7 +5,7 @@ import 'tailwindcss/tailwind.css';
 const Header = () => {
   return (
     <div>
-      <header className="bg-gray-400 flex px-[5%] h-16 items-center">
+      <header className="hover:bg-gray-400 bg-transparent sticky top-0 z-50 flex px-[5%] h-16 items-center">
         <Link className="w-10 mr-20" to="/">
           로고
         </Link>
