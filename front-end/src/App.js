@@ -8,6 +8,7 @@ import TagSearchPage from './pages/TagSearchPage';
 import TempPage from './pages/TempPage';
 import TestPage from './pages/TestPage';
 import VsPage from './pages/VsPage';
+import VsResultPage from './pages/VsResultPage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/tagsearch" element={<TagSearchPage />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/vs" element={<VsPage />} />
+        <Route path="/vsresult" element={<VsResultPage />} />
         <Route path="/temp" element={<TempPage />} />
       </Route>
     </Routes>

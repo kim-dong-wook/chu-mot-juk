@@ -1,7 +1,18 @@
 import React from 'react';
+import VsStart from '../components/VS/VsStart';
+import { useRecoilState } from 'recoil';
+import { roundState } from '../stores/atom';
+import VsMain from '../components/VS/VsMain';
+import { useEffect } from 'react';
 
 const VsPage = () => {
-  return <div>이상형월드컵 페이지입니다.</div>;
+  const [round, setRound] = useRecoilState(roundState);
+
+  useEffect(() => {
+    setRound(0);
+  }, []);
+
+  return <div>{round === 0 ? <VsStart /> : <VsMain />}</div>;
 };
 
 export default VsPage;

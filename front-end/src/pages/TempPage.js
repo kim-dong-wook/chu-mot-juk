@@ -1,8 +1,7 @@
 import React from 'react';
-import VideoCarousel from '../components/Carousel/VideoCarousel';
 
 const TempPage = () => {
-  return <VideoCarousel />;
+  return <div>임시 페이지입니다.</div>;
 };
 
 export default TempPage;
