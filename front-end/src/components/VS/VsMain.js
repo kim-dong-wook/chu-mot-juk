@@ -123,7 +123,7 @@ const VsMain = () => {
         setCurrent(current + 1);
         setLeft(false);
       }
-    }, 2000);
+    }, 1500);
   };
 
   const onClickRight = (id) => {
@@ -142,7 +142,7 @@ const VsMain = () => {
         setCurrent(current + 1);
         setRight(false);
       }
-    }, 2000);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -150,6 +150,10 @@ const VsMain = () => {
     console.log(temp);
     setStartBooks(temp);
   }, []);
+
+  useEffect(() => {
+    console.log(startBooks);
+  }, [startBooks]);
 
   useEffect(() => {
     if (current === round / 2) {
@@ -164,8 +168,8 @@ const VsMain = () => {
   }, [current]);
 
   return (
-    <div className="w-screen h-screen relative">
-      <div className=" absolute w-full h-20 bg-slate-300 flex items-center justify-center z-10 opacity-70">
+    <div className="w-screen h-screen relative mt-[-4rem] ">
+      <div className=" absolute w-full h-16 bg-slate-300 flex items-center justify-center z-20 opacity-70">
         {round === 2 ? (
           <div>웹소설 이상형 월드컵 결승전</div>
         ) : (
@@ -176,26 +180,28 @@ const VsMain = () => {
       </div>
       <div className="absolute w-full h-full">
         <img
-          className={`absolute w-6/12 h-full border-2 border-black
+          className={`absolute w-6/12 h-full
           ${left ? 'translate-x-[50%] duration-300' : null}
           ${right ? 'translate-x-[-100%] duration-300' : null}
           `}
-          src=""
+          src={startBooks[2 * current] ? startBooks[2 * current].src : ''}
           alt=""
           onClick={() => onClickLeft(startBooks[2 * current].id)}
         ></img>
-        <div className="absolute w-24 inset-1/2 translate-x-[-50%] text-8xl">
+        <div className="absolute w-24 inset-1/2 translate-x-[-50%] text-8xl z-20">
           vs
         </div>
-        <div
-          className={`absolute w-6/12 h-full border-2 border-black translate-x-[100%]
+        <img
+          className={`absolute w-6/12 h-full translate-x-[100%]
           ${left ? 'translate-x-[200%] duration-300' : null}
           ${right ? 'translate-x-[49.9%] duration-300' : null}
           `}
+          src={
+            startBooks[2 * current + 1] ? startBooks[2 * current + 1].src : ''
+          }
+          alt=""
           onClick={() => onClickRight(startBooks[2 * current + 1].id)}
-        >
-          {`${JSON.stringify(startBooks[2 * current + 1])}`}
-        </div>
+        ></img>
       </div>
     </div>
   );

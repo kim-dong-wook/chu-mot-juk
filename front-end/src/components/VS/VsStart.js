@@ -27,36 +27,34 @@ const VsStart = () => {
   });
 
   return (
-    <div>
-      <div className="h-screen flex justify-center items-center bg-black opacity-75">
-        <div className="h-[30rem] w-[40rem] border-2 border-black flex justify-center items-center flex-col bg-white">
-          <div>로고 이미지</div>
-          <div>웹소설 이상형 월드컵</div>
-          <div className="bg-gray-300 w-full h-[10rem] space-y-4 p-4">
-            <div className="font-bold">총 라운드를 선택하세요.</div>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">라운드</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={books}
-                  label="books"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={2}>2강</MenuItem>
-                  <MenuItem value={4}>4강</MenuItem>
-                  <MenuItem value={8}>8강</MenuItem>
-                  <MenuItem value={16}>16강</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <div>총 16명의 후보 중 무작위 {books}명이 대결합니다.</div>
-          </div>
-          <Button color="secondary" onClick={onClick}>
-            시작하기
-          </Button>
+    <div className="h-screen flex justify-center items-center bg-black opacity-75 mt-[-4rem]">
+      <div className="h-[30rem] w-[40rem] border-2 border-black flex justify-center items-center flex-col bg-white">
+        <div>로고 이미지</div>
+        <div>웹소설 이상형 월드컵</div>
+        <div className="bg-gray-300 w-full h-[10rem] space-y-4 p-4">
+          <div className="font-bold">총 라운드를 선택하세요.</div>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">라운드</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={books}
+                label="books"
+                onChange={handleChange}
+              >
+                <MenuItem value={2}>2강</MenuItem>
+                <MenuItem value={4}>4강</MenuItem>
+                <MenuItem value={8}>8강</MenuItem>
+                <MenuItem value={16}>16강</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <div>총 16명의 후보 중 무작위 {books}명이 대결합니다.</div>
         </div>
+        <Button color="secondary" onClick={onClick}>
+          시작하기
+        </Button>
       </div>
     </div>
   );
