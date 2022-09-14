@@ -19,6 +19,11 @@ position: relative;
     right  section
 */
 
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .netflix-home-video video {
   width: 100%;
   position: relative;
@@ -38,14 +43,15 @@ position: relative;
 }
 
 .netflix-home-video .content .left {
-  margin-left: 80px;
+  margin-left: 50px;
 }
 .netflix-home-video .content .left img {
   width: 60%;
-  margin-top: 80%;
+  margin-top: 45%;
 }
 .netflix-home-video .content .right {
-  width: 50%;
+  margin-left: 10%;
+  margin-top: 50%;
 }
 
 .netflix-home-video .content .left .iia i,

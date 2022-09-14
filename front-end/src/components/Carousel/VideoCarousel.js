@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import MainVideo from '../MainVideo';
-import RightPath from '../../assets/images/right.png';
-import LeftPath from '../../assets/images/left.png';
+import RightPath from '../../assets/images/bt_right.png';
+import LeftPath from '../../assets/images/bt_left.png';
 const VideoCarousel = () => {
   const [prev, setPrev] = useState(4);
   const [active, setActive] = useState(0);
@@ -32,7 +32,8 @@ const VideoCarousel = () => {
       <img
         onClick={onPrev}
         src={left}
-        className="absolute w-20 h-20 inset-2/4 translate-x-[-484px] translate-y-[-50%] z-20 rounded-full cursor-pointer bg-white opacity-70 hover:opacity-100"
+        // bg-white
+        className="absolute w-20 h-20 inset-2/4 translate-x-[-484px] translate-y-[-50%] z-20 rounded-full cursor-pointer opacity-70 hover:opacity-100"
         alt=""
       ></img>
       {Ids.map((id) => (
@@ -56,7 +57,8 @@ const VideoCarousel = () => {
       <img
         onClick={onNext}
         src={right}
-        className="absolute w-20 h-20 inset-2/4 translate-x-[404px] translate-y-[-50%] z-20  rounded-full cursor-pointer bg-white opacity-70 hover:opacity-100"
+        // bg-white
+        className="absolute w-20 h-20 inset-2/4 translate-x-[404px] translate-y-[-50%] z-20  rounded-full cursor-pointer opacity-70 hover:opacity-100"
         alt=""
       ></img>
       <div className="absolute flex space-x-3 absolute bottom-0 p-4 inset-x-2/4 w-44 translate-x-[-50%]">
