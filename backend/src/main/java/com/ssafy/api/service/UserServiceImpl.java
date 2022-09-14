@@ -1,16 +1,12 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTagReq;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
-import com.ssafy.db.entity.Tag;
-import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserTag;
-import com.ssafy.db.repository.TagRepository;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
-import com.ssafy.db.repository.UserTagRepository;
+import com.ssafy.db.entity.*;
+import com.ssafy.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,6 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     TagRepository tagRepository;
+
+    @Autowired
+    LikeListRepository likeListRepository;
+
+    @Autowired
+    NovelRepository novelRepository;
 
     @Override
     @Transactional
@@ -154,6 +156,56 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(ErrorCode.LIST_ALREADY_EXISTS);
         } else
             userTagRepository.save(userTag);
+        return true;
+    }
+
+    @Override
+    public List<LikeList> getLikeListByUserNo(Long userNo) {
+        List<LikeList> likeList = likeListRepository.findLikeListByUserUserNo(userNo).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
+        });
+        return likeList;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteLikeList(LikeListReq likeListInfo) {
+        boolean flag;
+        User user = userRepository.findByUserNo(likeListInfo.getUserNo()).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        });
+
+        Long userNo = user.getUserNo();
+        try {
+            LikeList likeList = likeListRepository.findLikeListByUserUserNoAndNovelNovelNo(userNo, likeListInfo.getNovelNo()).orElseThrow(() -> {
+                throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
+            });
+            likeListRepository.delete(likeList);
+            flag = true;
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    @Override
+    @Transactional
+    public boolean addLikeList(LikeListReq likeListInfo) {
+        LikeList likeList = new LikeList();
+//        User user = userRepository.findByUserNo(likeListInfo.getUserNo()).orElseThrow(() -> {
+//            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+//        });
+//        Novel novel = novelRepository.findNovelByNovelNo(likeListInfo.getNovelNo()).orElseThrow(() -> {
+//            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+//        });
+
+        likeList.setUser(userRepository.findByUserNo(likeListInfo.getUserNo()).get());
+        likeList.setNovel(novelRepository.findNovelByNovelNo(likeListInfo.getNovelNo()).get());
+
+        if (likeListRepository.findLikeListByUserUserNoAndNovelNovelNo(likeListInfo.getUserNo(), likeListInfo.getNovelNo()).isPresent()) {
+            throw new CustomException(ErrorCode.LIST_ALREADY_EXISTS);
+        } else
+            likeListRepository.save(likeList);
         return true;
     }
 }

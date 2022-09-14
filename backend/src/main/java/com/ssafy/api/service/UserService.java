@@ -1,7 +1,9 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTagReq;
+import com.ssafy.db.entity.LikeList;
 import com.ssafy.db.entity.Tag;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserTag;
@@ -28,6 +30,11 @@ public interface UserService {
 
 	List<Tag> getTagsByUserNo(Long userNo);
 
-
 	boolean addTags(UserTagReq userTagInfo);
+
+	List<LikeList> getLikeListByUserNo(Long userNo);
+
+	boolean deleteLikeList(LikeListReq likeListInfo);
+
+	boolean addLikeList(LikeListReq likeListInfo);
 }

@@ -1,10 +1,12 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.LikeList;
 import com.ssafy.db.entity.Tag;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
@@ -181,5 +183,35 @@ public class UserController {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
     }
 
+    @GetMapping("/{userNo}/likelist")
+    @ApiOperation(value = "유저가 좋아요 한 목록 조회", notes = "유저 아이디를 입력 받아 좋아요 한 목록을 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "좋아하는 태그 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getLikeListByUserNo
+            (@PathVariable @ApiParam(value = "userNo") Long userNo) {
+        List<LikeList> likeList = userService.getLikeListByUserNo(userNo);
+        return ResponseEntity.status(200).body(likeList);
+    }
+
+    @DeleteMapping("/likelist")
+    @ApiOperation(value = "유저가 좋아요 한 목록에서 책 제외", notes = "좋아요 목록에서 특정 책을 지운다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그를 찾을 수 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> deleteLikeList
+            (@RequestBody @ApiParam(value = "회원 정보 및 소설 정보", required = true) LikeListReq likeListInfo) {
+        boolean success = userService.deleteLikeList(likeListInfo);
+        if (success = true)
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        else
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+    }
 
 }

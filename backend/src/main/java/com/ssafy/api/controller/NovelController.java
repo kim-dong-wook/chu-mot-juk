@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.service.NovelService;
@@ -104,5 +105,22 @@ public class NovelController {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
     }
 
+    @PostMapping("/likelist")
+    @ApiOperation(value = "특정 소설을 좋아요 목록에 추가", notes = "좋아요 목록에 특정 소설을 추가한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> addLikeList
+            (@RequestBody @ApiParam(value = "회원 정보 및 태그 정보", required = true) LikeListReq likeListInfo) {
+
+        boolean success = userService.addLikeList(likeListInfo);
+        if (success == true)
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        else
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+    }
 
 }
