@@ -188,7 +188,11 @@ const VsMain = () => {
           alt=""
           onClick={() => onClickLeft(startBooks[2 * current].id)}
         ></img>
-        <div className="absolute w-24 inset-1/2 translate-x-[-50%] text-8xl z-20">
+        <div
+          className={`absolute w-24 inset-1/2 translate-x-[-50%] text-8xl z-20 text-white
+          ${left ? 'hidden' : null}
+          ${right ? 'hidden' : null}`}
+        >
           vs
         </div>
         <img
