@@ -37,10 +37,15 @@ const VideoCarousel = () => {
   };
 
   const onIndicator = (id) => {
+    let copy = JSON.parse(JSON.stringify(videos));
+    copy[active].isPlaying = !copy[active].isPlaying;
+    copy[active].isMuted = true;
+    copy[id].isPlaying = !copy[id].isPlaying;
     console.log(id);
     setPrev(id - 1 === -1 ? Ids.length - 1 : id - 1);
     setActive(id);
     setNext(id + 1 === Ids.length ? 0 : id + 1);
+    setVideos(copy);
   };
 
   return (
