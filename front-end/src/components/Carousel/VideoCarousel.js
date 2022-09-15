@@ -37,15 +37,10 @@ const VideoCarousel = () => {
   };
 
   const onIndicator = (id) => {
-    let copy = JSON.parse(JSON.stringify(videos));
-    copy[active].isPlaying = !copy[active].isPlaying;
-    copy[active].isMuted = true;
-    copy[id].isPlaying = !copy[id].isPlaying;
     console.log(id);
     setPrev(id - 1 === -1 ? Ids.length - 1 : id - 1);
     setActive(id);
     setNext(id + 1 === Ids.length ? 0 : id + 1);
-    setVideos(copy);
   };
 
   return (
@@ -54,7 +49,7 @@ const VideoCarousel = () => {
         onClick={() => onPrev(active, next)}
         src={left}
         // bg-white
-        className="absolute w-20 h-20 inset-2/4 translate-x-[-484px] translate-y-[-50%] z-20 rounded-full cursor-pointer opacity-70 hover:opacity-100"
+        className="absolute w-20 h-20 inset-2/4 translate-x-[-650%] translate-y-[-50%] z-20 rounded-full cursor-pointer opacity-70 hover:opacity-100"
         alt=""
       ></img>
       {Ids.map((id) => (
@@ -79,7 +74,7 @@ const VideoCarousel = () => {
         onClick={onNext}
         src={right}
         // bg-white
-        className="absolute w-20 h-20 inset-2/4 translate-x-[404px] translate-y-[-50%] z-20  rounded-full cursor-pointer opacity-70 hover:opacity-100"
+        className="absolute w-20 h-20 inset-2/4 translate-x-[550%] translate-y-[-50%] z-20  rounded-full cursor-pointer opacity-70 hover:opacity-100"
         alt=""
       ></img>
 

@@ -7,6 +7,8 @@ const MainPage = () => {
     <div>
       <VideoCarousel></VideoCarousel>
       <BookCarousel></BookCarousel>
+      <BookCarousel></BookCarousel>
+      <BookCarousel></BookCarousel>
     </div>
   );
 };
