@@ -1,8 +1,4 @@
-<<<<<<< front-end/src/components/Carousel/VideoCarousel.js
-import React, { useState, useRef } from 'react';
-=======
 import React, { useEffect, useState } from 'react';
->>>>>>> front-end/src/components/Carousel/VideoCarousel.js
 import 'tailwindcss/tailwind.css';
 import MainVideo from '../MainVideo';
 import RightPath from '../../assets/images/bt_right.png';
@@ -47,12 +43,6 @@ const VideoCarousel = () => {
     setNext(id + 1 === Ids.length ? 0 : id + 1);
   };
 
-<<<<<<< front-end/src/components/Carousel/VideoCarousel.js
-  // const videoPx = useRef(960);
-
-=======
-  useEffect(() => {}, []);
->>>>>>> front-end/src/components/Carousel/VideoCarousel.js
   return (
     <div className="p-20 border-2 border-black relative w-[100%] h-[600px] overflow-y">
       <img

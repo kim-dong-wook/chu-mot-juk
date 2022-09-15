@@ -6,26 +6,8 @@ import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 const MainVideo = ({ id }) => {
   const [videos, setVideos] = useRecoilState(videosState);
-
-<<<<<<< front-end/src/components/MainVideo.js
-const MainVideo = ({ id }) => {
-  useEffect(() => {
-    console.log(id);
-  }, []);
-
-=======
->>>>>>> front-end/src/components/MainVideo.js
   const path = VideoPath;
   const videoElement = useRef(null);
-<<<<<<< front-end/src/components/MainVideo.js
-  const [playerState, setPlayerState] = useState({
-    isPlaying: true,
-    progress: 0,
-    speed: 1,
-    isMuted: true,
-  });
-=======
->>>>>>> front-end/src/components/MainVideo.js
 
   const togglePlay = () => {
     let copy = JSON.parse(JSON.stringify(videos));
@@ -51,44 +33,13 @@ const MainVideo = ({ id }) => {
     videos[id].isMuted
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
-<<<<<<< front-end/src/components/MainVideo.js
-  }, [playerState.isMuted, videoElement]);
+  });
 
   const toggleFullscreen = () => {
     if (videoElement.current) {
       videoElement.current.requestFullscreen();
     }
   };
-
-  // const myvideo = useRef(null);
-  // const handleVideo = () => {
-  //   if (myvideo.paused) {
-  //     myvideo.current.play();
-  //   } else {
-  //     myvideo.current.pause();
-  //   }
-  // };
-  // const handleAudio = () => {
-  //   if (myvideo.muted) {
-  //     myvideo.muted = false;
-  //   } else {
-  //     myvideo.muted = true;
-  //   }
-  // };
-
-  // const El = useRef(null);
-  // const onMouseOver = useCallback((e) => {
-  //   console.log(e.target.play());
-  // });
-  // const onMouseOut = useCallback((e) => {
-  //   console.log(e.target.pause());
-  // });
-
-  // const runBtn = useRef(null);
-  // const muteBtn = useRef(null);
-=======
-  });
->>>>>>> front-end/src/components/MainVideo.js
 
   return (
     // /* muted 설정을 해야 크롬에서 자동 재생이 된다 */
