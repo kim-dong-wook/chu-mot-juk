@@ -2,45 +2,56 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import VideoPath from '../assets/videos/mainVideo1.mp4';
 import VideoImg from '../assets/images/logo2.png';
 import './MainVideo.css';
+import { videosState } from '../stores/atom';
+import { useRecoilState } from 'recoil';
+const MainVideo = ({ id }) => {
+  const [videos, setVideos] = useRecoilState(videosState);
 
+<<<<<<< front-end/src/components/MainVideo.js
 const MainVideo = ({ id }) => {
   useEffect(() => {
     console.log(id);
   }, []);
 
+=======
+>>>>>>> front-end/src/components/MainVideo.js
   const path = VideoPath;
-
   const videoElement = useRef(null);
+<<<<<<< front-end/src/components/MainVideo.js
   const [playerState, setPlayerState] = useState({
     isPlaying: true,
     progress: 0,
     speed: 1,
     isMuted: true,
   });
+=======
+>>>>>>> front-end/src/components/MainVideo.js
 
   const togglePlay = () => {
-    setPlayerState({
-      ...playerState,
-      isPlaying: !playerState.isPlaying,
-    });
+    let copy = JSON.parse(JSON.stringify(videos));
+    copy[id].isPlaying = !copy[id].isPlaying;
+    setVideos(copy);
   };
 
   useEffect(() => {
-    playerState.isPlaying
+    videos[id].isPlaying
       ? videoElement.current.play()
       : videoElement.current.pause();
-  }, [playerState.isPlaying, videoElement]);
+  }, [videos, videoElement, id]);
+
+  useEffect(() => {}, []);
 
   const toggleMute = () => {
-    setPlayerState({
-      ...playerState,
-      isMuted: !playerState.isMuted,
-    });
+    let copy = JSON.parse(JSON.stringify(videos));
+    copy[id].isMuted = !copy[id].isMuted;
+    setVideos(copy);
   };
+
   useEffect(() => {
-    playerState.isMuted
+    videos[id].isMuted
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
+<<<<<<< front-end/src/components/MainVideo.js
   }, [playerState.isMuted, videoElement]);
 
   const toggleFullscreen = () => {
@@ -75,6 +86,9 @@ const MainVideo = ({ id }) => {
 
   // const runBtn = useRef(null);
   // const muteBtn = useRef(null);
+=======
+  });
+>>>>>>> front-end/src/components/MainVideo.js
 
   return (
     // /* muted 설정을 해야 크롬에서 자동 재생이 된다 */
@@ -85,8 +99,6 @@ const MainVideo = ({ id }) => {
         autoplay
         muted
         loop
-        // onMouseOver={onMouseOver}
-        // onMouseOut={onMouseOut}
       >
         <source src={path} type="video/mp4" />
       </video>
@@ -98,7 +110,7 @@ const MainVideo = ({ id }) => {
             {/* 부트스트랩아이콘 */}
 
             <button onClick={togglePlay}>
-              {playerState.isPlaying ? (
+              {videos[id].isPlaying ? (
                 <i
                   class="bi bi-pause-fill "
                   style={{ cursor: 'pointer', fontSize: '2rem' }}
@@ -112,7 +124,7 @@ const MainVideo = ({ id }) => {
             </button>
 
             <button onClick={toggleMute}>
-              {playerState.isMuted ? (
+              {videos[id].isMuted ? (
                 <i
                   class="bi bi-volume-mute "
                   style={{ cursor: 'pointer', fontSize: '2rem' }}

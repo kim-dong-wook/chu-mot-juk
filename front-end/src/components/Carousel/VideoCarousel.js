@@ -1,24 +1,43 @@
+<<<<<<< front-end/src/components/Carousel/VideoCarousel.js
 import React, { useState, useRef } from 'react';
+=======
+import React, { useEffect, useState } from 'react';
+>>>>>>> front-end/src/components/Carousel/VideoCarousel.js
 import 'tailwindcss/tailwind.css';
 import MainVideo from '../MainVideo';
 import RightPath from '../../assets/images/bt_right.png';
 import LeftPath from '../../assets/images/bt_left.png';
+import { videosState } from '../../stores/atom';
+import { useRecoilState } from 'recoil';
 const VideoCarousel = () => {
   const [prev, setPrev] = useState(4);
   const [active, setActive] = useState(0);
   const [next, setNext] = useState(1);
+  const [videos, setVideos] = useRecoilState(videosState);
   const Ids = [0, 1, 2, 3, 4, 5];
   const right = RightPath;
   const left = LeftPath;
+
   const onPrev = () => {
+    let copy = JSON.parse(JSON.stringify(videos));
+    copy[prev].isPlaying = !copy[prev].isPlaying;
+    copy[active].isPlaying = !copy[active].isPlaying;
+    copy[active].isMuted = true;
+
     setNext(active);
     setActive(prev);
     setPrev(prev - 1 === -1 ? Ids.length - 1 : prev - 1);
+    setVideos(copy);
   };
   const onNext = () => {
+    let copy = JSON.parse(JSON.stringify(videos));
+    copy[next].isPlaying = !copy[next].isPlaying;
+    copy[active].isPlaying = !copy[active].isPlaying;
+    copy[active].isMuted = true;
     setPrev(active);
     setActive(next);
     setNext(next + 1 === Ids.length ? 0 : next + 1);
+    setVideos(copy);
   };
 
   const onIndicator = (id) => {
@@ -28,12 +47,16 @@ const VideoCarousel = () => {
     setNext(id + 1 === Ids.length ? 0 : id + 1);
   };
 
+<<<<<<< front-end/src/components/Carousel/VideoCarousel.js
   // const videoPx = useRef(960);
 
+=======
+  useEffect(() => {}, []);
+>>>>>>> front-end/src/components/Carousel/VideoCarousel.js
   return (
     <div className="p-20 border-2 border-black relative w-[100%] h-[600px] overflow-y">
       <img
-        onClick={onPrev}
+        onClick={() => onPrev(active, next)}
         src={left}
         // bg-white
         className="absolute w-20 h-20 inset-2/4 translate-x-[-484px] translate-y-[-50%] z-20 rounded-full cursor-pointer opacity-70 hover:opacity-100"
