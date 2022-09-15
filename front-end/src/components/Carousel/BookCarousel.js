@@ -121,6 +121,8 @@ const BookCarousel = () => {
         <SwiperSlide className="w-60 h-[20.5rem] items-center flex justify-center hover:bg-sky-700 hover:scale-125 duration-300 origin-right hover:z-50">
           <img src="https://img.ridicdn.net/cover/425297966/xxlarge#1"></img>
         </SwiperSlide>
+        <div className="swiper-left-cover"></div>
+        <div className="swiper-right-cover"></div>
       </Swiper>
     </div>
   );

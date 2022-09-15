@@ -174,7 +174,7 @@
   scroll-snap-align: center center;
 }
 
-/* custom */
+/* custom  북캐러셀 왼쪽 넘기기*/
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
   width: 5rem !important; /* 하드코딩... */
@@ -213,7 +213,7 @@
   opacity: 1 !important;
 }
 
-/* custom */
+/* custom  북캐러셀 오른쪽 넘기기*/
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
   width: 5rem !important; /* 하드코딩... */
@@ -250,7 +250,39 @@
 .swiper-rtl .swiper-button-prev {
   opacity: 1 !important;
 }
-/* custom */
+
+/* custom 북캐러셀 왼쪽 오른쪽 가리기*/
+.swiper-left-cover {
+  width: 204px !important; /* 하드코딩... */
+  height: 14.5vw !important; /* 하드코딩... */
+  top: 0 !important;
+  left: -14% !important;
+  background: #edeef0 !important;
+  opacity: 1 !important;
+  position: absolute;
+  z-index: 9;
+  /* cursor: pointer; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.swiper-right-cover {
+  width: 204px !important; /* 하드코딩... */
+  height: 14.5vw !important; /* 하드코딩... */
+  top: 0 !important;
+  right: -14% !important;
+  background: #edeef0 !important;
+  opacity: 1 !important;
+  position: absolute;
+  z-index: 9;
+  /* cursor: pointer; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+/* custom 북캐러셀 페이지네이션 넷플릭스처럼 */
 
 .swiper-pagination {
   text-align: center;
@@ -281,7 +313,7 @@
   margin: 0 !important;
 }
 
-/* custom */
+/* custom 넷플릭스 느낌 더보기 */
 
 .rowTitle {
   /* color: #e5e5e5; */
