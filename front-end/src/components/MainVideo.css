@@ -50,12 +50,19 @@ body {
   margin-top: 45%;
 }
 .netflix-home-video .content .right {
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 50%;
 }
 
 .netflix-home-video .content .left .iia i,
 .netflix-home-video .content .left .iia a {
+  font-size: 20px;
+  color: #f3f3f3;
+  padding: 5px 10px;
+}
+
+.netflix-home-video .content .right i,
+.netflix-home-video .content .right a {
   font-size: 20px;
   color: #f3f3f3;
   padding: 5px 10px;
