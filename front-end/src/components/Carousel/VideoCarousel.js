@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import 'tailwindcss/tailwind.css';
 import MainVideo from '../MainVideo';
 import RightPath from '../../assets/images/bt_right.png';
@@ -27,8 +27,11 @@ const VideoCarousel = () => {
     setActive(id);
     setNext(id + 1 === Ids.length ? 0 : id + 1);
   };
+
+  // const videoPx = useRef(960);
+
   return (
-    <div className="p-20 border-2 border-black relative w-screen h-[600px] overflow-y">
+    <div className="p-20 border-2 border-black relative w-[100%] h-[600px] overflow-y">
       <img
         onClick={onPrev}
         src={left}
@@ -39,7 +42,7 @@ const VideoCarousel = () => {
       {Ids.map((id) => (
         <div
           id={id}
-          className={`absolute w-[888px] h-[500px] inset-2/4 translate-x-[-50%] translate-y-[-50%] ease-in-out duration-700 rounded-3xl overflow-hidden
+          className={`absolute w-[960px] h-[540px] inset-2/4 translate-x-[-50%] translate-y-[-50%] ease-in-out duration-700 rounded-3xl overflow-hidden
           ${
             prev === id
               ? 'translate-x-[-90%] bg-slate-500 scale-75 opacity-50'
@@ -50,7 +53,7 @@ const VideoCarousel = () => {
               : 'translate-x-[-50%] scale-50 opacity-0'
           }`}
         >
-          <MainVideo></MainVideo>
+          <MainVideo id={id}></MainVideo>
         </div>
       ))}
 
@@ -61,7 +64,11 @@ const VideoCarousel = () => {
         className="absolute w-20 h-20 inset-2/4 translate-x-[404px] translate-y-[-50%] z-20  rounded-full cursor-pointer opacity-70 hover:opacity-100"
         alt=""
       ></img>
-      <div className="absolute flex space-x-3 absolute bottom-0 p-4 inset-x-2/4 w-44 translate-x-[-50%]">
+
+      <div
+        className="absolute flex space-x-3 absolute bottom-0 p-4 inset-x-2/4 w-44 translate-x-[-50%]"
+        style={{ paddingBottom: '4px' }}
+      >
         {Ids.map((id) => (
           <div
             id={id}

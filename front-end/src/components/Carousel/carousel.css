@@ -14,6 +14,12 @@
   transition-property: transform;
   /* custom */
   overflow: hidden;
+  height: 14.5vw;
+  background-color: transparent;
+}
+.swiper-slide:hover .swiper-slide {
+  background-color: transparent;
+  height: 100%;
 }
 
 .swiper {
@@ -24,6 +30,7 @@
   list-style: none;
   padding: 0;
   z-index: 1;
+  width: 77.5vw;
 }
 .swiper-vertical > .swiper-wrapper {
   flex-direction: column;
@@ -170,11 +177,11 @@
 /* custom */
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
-  width: 5.35rem !important; /* 하드코딩... */
-  height: 328px !important; /* 하드코딩... */
+  width: 5rem !important; /* 하드코딩... */
+  height: 14.5vw !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
-  left: -5.55% !important;
+  left: -6% !important; /* 하드코딩... */
   padding: 1rem !important;
   background: rgb(0 0 0 / 0) !important;
   /* display: none !important; */
@@ -209,11 +216,11 @@
 /* custom */
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
-  width: 5.35rem !important; /* 하드코딩... */
-  height: 328px !important; /* 하드코딩... */
+  width: 5rem !important; /* 하드코딩... */
+  height: 14.5vw !important; /* 하드코딩... */
   margin-top: 0 !important;
   top: 0 !important;
-  right: -5.55% !important;
+  right: -6% !important; /* 하드코딩... */
   padding: 1rem !important;
   background: rgb(0 0 0 / 0) !important;
   /* display: none !important; */
@@ -251,7 +258,7 @@
   justify-content: flex-end;
   gap: 3px;
   top: -1rem;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.25s !important;
 }
 

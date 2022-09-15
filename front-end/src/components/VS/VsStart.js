@@ -22,9 +22,9 @@ const VsStart = () => {
     setRound(books);
   };
 
-  useEffect(() => {
-    setRound(0);
-  });
+  // useEffect(() => {
+  //   setRound(0);
+  // });
 
   return (
     <div>

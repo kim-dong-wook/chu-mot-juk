@@ -77,6 +77,7 @@ const BookCarousel = () => {
         modules={[Navigation, Pagination]}
         loop={true}
         speed={600}
+        // width={1100}
       >
         <SwiperSlide className="w-60 h-[20.5rem] items-center flex justify-center hover:bg-sky-700 hover:scale-125 duration-300 origin-left hover:z-50">
           <img src="https://img.ridicdn.net/cover/4621001638/xxlarge#1"></img>

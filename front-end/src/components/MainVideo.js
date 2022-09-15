@@ -3,15 +3,19 @@ import VideoPath from '../assets/videos/mainVideo1.mp4';
 import VideoImg from '../assets/images/logo2.png';
 import './MainVideo.css';
 
-const MainVideo = () => {
+const MainVideo = ({ id }) => {
+  useEffect(() => {
+    console.log(id);
+  }, []);
+
   const path = VideoPath;
 
   const videoElement = useRef(null);
   const [playerState, setPlayerState] = useState({
-    isPlaying: false,
+    isPlaying: true,
     progress: 0,
     speed: 1,
-    isMuted: false,
+    isMuted: true,
   });
 
   const togglePlay = () => {
@@ -38,6 +42,12 @@ const MainVideo = () => {
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
   }, [playerState.isMuted, videoElement]);
+
+  const toggleFullscreen = () => {
+    if (videoElement.current) {
+      videoElement.current.requestFullscreen();
+    }
+  };
 
   // const myvideo = useRef(null);
   // const handleVideo = () => {
@@ -114,10 +124,16 @@ const MainVideo = () => {
                 ></i>
               )}
             </button>
+            <button onClick={toggleFullscreen}>
+              <i
+                class="bi bi-fullscreen"
+                style={{ cursor: 'pointer', fontSize: '1.8rem' }}
+              ></i>
+            </button>
 
             {/* "text-white ms-3 mt-3 text-decoration-none" */}
-            <a href={{}} className="color-white">
-              <i class="bi bi-info-circle"></i>
+            <a href={{}} style={{ fontSize: '1.8rem' }} className="color-white">
+              <i class="bi bi-info-circle" style={{ fontSize: '1.8rem' }}></i>
               상세 정보
             </a>
           </div>
