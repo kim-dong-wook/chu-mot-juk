@@ -12,6 +12,7 @@ const VsMain = () => {
   const [left, setLeft] = useState();
   const [right, setRight] = useState(false);
   const navigate = useNavigate();
+
   let books = [
     {
       id: 1,
