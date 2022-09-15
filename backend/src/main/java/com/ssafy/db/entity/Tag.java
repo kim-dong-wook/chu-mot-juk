@@ -17,6 +17,9 @@ public class Tag{
     private Long tagNo;
 
     @Column(nullable = false)
+    private int tagGenre;
+
+    @Column(nullable = false)
     private int tagType;
 
     @Column(nullable = false)

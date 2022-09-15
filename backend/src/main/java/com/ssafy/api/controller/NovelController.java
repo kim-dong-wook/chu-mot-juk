@@ -87,7 +87,7 @@ public class NovelController {
         return ResponseEntity.status(200).body(shelf);
     }
 
-    @PostMapping
+    @PostMapping("/tags")
     @ApiOperation(value = "특정 태그를 선호 태그 목록에 추가", notes = "선호하는 태그 목록에 특정 태그를 추가한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -105,7 +105,7 @@ public class NovelController {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
     }
 
-    @PostMapping("/likelist")
+    @PostMapping("/novels")
     @ApiOperation(value = "특정 소설을 좋아요 목록에 추가", notes = "좋아요 목록에 특정 소설을 추가한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

@@ -10,8 +10,8 @@ import lombok.Setter;
 @ApiModel("UserTagRequest")
 public class UserTagReq {
 
-    @ApiModelProperty(name="유저 아이디", example="0")
-    String userId;
+    @ApiModelProperty(name="유저 번호", example="0")
+    Long userNo;
 
     @ApiModelProperty(name = "태그 번호", example = "0")
     Long tagNo;

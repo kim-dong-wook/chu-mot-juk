@@ -62,7 +62,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Map<String, Object>> getUserInfo(@ApiIgnore Authentication authentication) {
+    public ResponseEntity<User> getUserInfo(@ApiIgnore Authentication authentication) {
         /**
          * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
          * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -71,10 +71,7 @@ public class UserController {
         String userId = userDetails.getUsername();
         User user = userService.getUserByUserId(userId);
 
-        Map<String, Object> map = new HashMap();
-        map.put("user", user);
-
-        return ResponseEntity.status(200).body(map);
+        return ResponseEntity.status(200).body(user);
     }
 
     @GetMapping("/id/{id}")
@@ -85,13 +82,11 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Map<String, Object>> getUserInfoById(
+    public ResponseEntity<User> getUserInfoById(
             @PathVariable @ApiParam(value = "회원 아이디", required = true) String id) {
         User user = userService.getUserByUserId(id);
-        Map<String, Object> map = new HashMap();
-        map.put("user", user);
 
-        return ResponseEntity.status(200).body(map);
+        return ResponseEntity.status(200).body(user);
     }
 
     @GetMapping("/no/{userNo}")
@@ -102,19 +97,10 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Map<String, Object>> getUserByUserNo(
+    public ResponseEntity<User> getUserByUserNo(
             @PathVariable @ApiParam(value = "회원 번호", required = true) Long userNo) {
-        Map<String, Object> map = new HashMap();
-        try {
             User user = userService.getUserByUserNo(userNo);
-            map.put("user", user);
-
-            return ResponseEntity.status(200).body(map);
-        } catch (NoSuchElementException e) {
-            map.put("message", "Fail");
-            return ResponseEntity.status(404).body(map);
-        }
-
+            return ResponseEntity.status(200).body(user);
     }
 
     @PutMapping
@@ -166,7 +152,7 @@ public class UserController {
         return ResponseEntity.status(200).body(tagList);
     }
 
-    @DeleteMapping("/userTag")
+    @DeleteMapping("/tags")
     @ApiOperation(value = "유저가 좋아하는 태그 목록에서 태그 삭제", notes = "선호하는 태그 목록에서 특정 태그를 지운다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -183,7 +169,7 @@ public class UserController {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
     }
 
-    @GetMapping("/{userNo}/likelist")
+    @GetMapping("/{userNo}/novels")
     @ApiOperation(value = "유저가 좋아요 한 목록 조회", notes = "유저 아이디를 입력 받아 좋아요 한 목록을 가져온다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -197,7 +183,7 @@ public class UserController {
         return ResponseEntity.status(200).body(likeList);
     }
 
-    @DeleteMapping("/likelist")
+    @DeleteMapping("/novels")
     @ApiOperation(value = "유저가 좋아요 한 목록에서 책 제외", notes = "좋아요 목록에서 특정 책을 지운다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

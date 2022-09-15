@@ -11,6 +11,5 @@ import java.util.List;
 @Setter
 @ApiModel("NovelTagSearchRequest")
 public class NovelTagSearchReq {
-
     List<Long> tags;
 }

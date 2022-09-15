@@ -21,8 +21,8 @@ public class UserRepositorySupport {
     public boolean findByUserIdEquals(String id) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.id.eq(id)).fetchOne();
-        if (user == null) return true;
-        return false;
+        if (user == null) return false;
+        return true;
     }
 
     public Optional<User> findUserById(String id) {

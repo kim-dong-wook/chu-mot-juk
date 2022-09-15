@@ -31,6 +31,9 @@ public class Novel {
     @Column(nullable = false)
     private String novelIntro;
 
+    @Column(nullable = false)
+    private int novelGenre;
+
     private String novelRomanceGuide;
 
     @Column(nullable = false)
