@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 import logo from '../../assets/images/logo1.png';
 
 const Header = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll);
+  });
   return (
     <div>
-      <header className="hover:bg-gray-400 bg-transparent sticky top-0 z-50 flex px-[5%] h-16 items-center">
+      <header
+        className={`hover:bg-primary-1 bg-transparent sticky top-0 z-50 flex px-[5%] h-16 items-center bg-gradient-to-b from-primary-2 to-transparent
+      ${scrollPosition > 30 ? 'bg-primary-1 duration-500' : ''}`}
+      >
         <Link className="w-10 mr-20" to="/">
           <img src={logo} style={{ maxWidth: '300%' }}></img>
         </Link>

@@ -85,8 +85,8 @@ const VideoCarousel = () => {
         {Ids.map((id) => (
           <div
             id={id}
-            className={`h-3 w-3 bg-gray-300 rounded-full
-          ${active === id ? 'bg-gray-500' : ''}`}
+            className={`h-3 w-3 bg-primary-2 rounded-full
+          ${active === id ? 'bg-primary-3' : ''}`}
             onClick={() => onIndicator(id)}
           ></div>
         ))}

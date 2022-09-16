@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
 import { useNavigate } from 'react-router-dom';
-
+import './Book.css';
+import bookSide from '../../assets/images/sideBook1.png';
+import goldBorder from '../../assets/images/gold1.png';
 const VsMain = () => {
   const [round, setRound] = useRecoilState(roundState);
   const [current, setCurrent] = useState(0);
@@ -12,7 +14,8 @@ const VsMain = () => {
   const [left, setLeft] = useState();
   const [right, setRight] = useState(false);
   const navigate = useNavigate();
-
+  const sideBookPath = bookSide;
+  const goldBorderPath = goldBorder;
   let books = [
     {
       id: 1,
@@ -169,8 +172,8 @@ const VsMain = () => {
   }, [current]);
 
   return (
-    <div className="w-screen h-screen relative mt-[-4rem] ">
-      <div className=" absolute w-full h-16 bg-slate-300 flex items-center justify-center z-20 opacity-70">
+    <div className="h-screen mt-[-4rem] flex justify-center items-center flex-col">
+      <div className="border-2 border-black w-[30%] h-[10%] flex items-center justify-center text-2xl">
         {round === 2 ? (
           <div>웹소설 이상형 월드컵 결승전</div>
         ) : (
@@ -179,34 +182,73 @@ const VsMain = () => {
           </div>
         )}
       </div>
-      <div className="absolute w-full h-full">
+      <div className="w-[80%] h-[80%] flex justify-center items-center bg-contain bg-no-repeat  px-20 relative">
         <img
-          className={`absolute w-6/12 h-full
-          ${left ? 'translate-x-[50%] duration-300' : null}
-          ${right ? 'translate-x-[-100%] duration-300' : null}
-          `}
-          src={startBooks[2 * current] ? startBooks[2 * current].src : ''}
+          src={goldBorder}
           alt=""
-          onClick={() => onClickLeft(startBooks[2 * current].id)}
+          className="absolute h-[100%] w-[100%]"
         ></img>
         <div
-          className={`absolute w-24 inset-1/2 translate-x-[-50%] text-8xl z-20 text-white
-          ${left ? 'hidden' : null}
-          ${right ? 'hidden' : null}`}
+          className={`w-[30%] h-[80%] flex justify-center items-cente
+          ${left ? 'translate-x-[60%] duration-300 pointer-events-none' : null}
+          ${right ? 'translate-x-[-200%] duration-300' : null}`}
+        >
+          <div class="ud_book_box" className={`w-[100%] h-[100%]`}>
+            <div class="ud_book">
+              <img
+                className={`w-[100%] h-[100%]`}
+                src={startBooks[2 * current] ? startBooks[2 * current].src : ''}
+                alt=""
+                onClick={() => onClickLeft(startBooks[2 * current].id)}
+              ></img>
+              <div class="ud_ruckseite">
+                <img
+                  className={`w-[100%] h-[100%]`}
+                  src={sideBookPath}
+                  alt=""
+                  onClick={() => onClickLeft(startBooks[2 * current].id)}
+                ></img>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`text-8xl z-20 mx-20 ${left ? 'hidden' : null} ${
+            right ? 'hidden' : null
+          }`}
         >
           vs
         </div>
-        <img
-          className={`absolute w-6/12 h-full translate-x-[100%]
-          ${left ? 'translate-x-[200%] duration-300' : null}
-          ${right ? 'translate-x-[49.9%] duration-300' : null}
-          `}
-          src={
-            startBooks[2 * current + 1] ? startBooks[2 * current + 1].src : ''
+        <div
+          className={`w-[30%] h-[80%] flex justify-center items-cente
+          ${
+            right ? 'translate-x-[-60%] duration-300 pointer-events-none' : null
           }
-          alt=""
-          onClick={() => onClickRight(startBooks[2 * current + 1].id)}
-        ></img>
+          ${left ? 'translate-x-[200%] duration-300' : null}`}
+        >
+          <div class="ud_book_box" className={`w-[100%] h-[100%]`}>
+            <div class="ud_book">
+              <img
+                className={`w-[100%] h-[100%]`}
+                src={
+                  startBooks[2 * current + 1]
+                    ? startBooks[2 * current + 1].src
+                    : ''
+                }
+                alt=""
+                onClick={() => onClickRight(startBooks[2 * current + 1].id)}
+              ></img>
+              <div class="ud_ruckseite">
+                <img
+                  className={`w-[100%] h-[100%]`}
+                  src={sideBookPath}
+                  alt=""
+                  onClick={() => onClickRight(startBooks[2 * current + 1].id)}
+                ></img>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

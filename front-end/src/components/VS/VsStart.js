@@ -27,11 +27,11 @@ const VsStart = () => {
   // });
 
   return (
-    <div className="h-screen flex justify-center items-center bg-black opacity-75 mt-[-4rem]">
-      <div className="h-[30rem] w-[40rem] border-2 border-black flex justify-center items-center flex-col bg-white">
+    <div className="h-screen flex justify-center items-center bg-black opacity-75 mt-[-4rem] bg-gradient-to-b from-primary-1 to-white">
+      <div className="h-[30rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg">
         <div>로고 이미지</div>
         <div>웹소설 이상형 월드컵</div>
-        <div className="bg-gray-300 w-full h-[10rem] space-y-4 p-4">
+        <div className="bg-primary-1 w-10/12 h-[10rem] space-y-4 p-4 rounded-lg">
           <div className="font-bold">총 라운드를 선택하세요.</div>
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
