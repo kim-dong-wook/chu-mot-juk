@@ -253,11 +253,12 @@
 
 /* custom 북캐러셀 왼쪽 오른쪽 가리기*/
 .swiper-left-cover {
-  width: 204px !important; /* 하드코딩... */
-  height: 14.5vw !important; /* 하드코딩... */
-  top: 0 !important;
+  width: 202px !important; /* 하드코딩... */
+  height: 14.75vw !important; /* 하드코딩... */
+  top: -1% !important;
   left: -14% !important;
   background: #edeef0 !important;
+  /* background: red !important; */
   opacity: 1 !important;
   position: absolute;
   z-index: 9;
@@ -268,9 +269,9 @@
 }
 
 .swiper-right-cover {
-  width: 204px !important; /* 하드코딩... */
-  height: 14.5vw !important; /* 하드코딩... */
-  top: 0 !important;
+  width: 202px !important; /* 하드코딩... */
+  height: 14.75vw !important; /* 하드코딩... */
+  top: -1% !important;
   right: -14% !important;
   background: #edeef0 !important;
   opacity: 1 !important;
