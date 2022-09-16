@@ -124,6 +124,7 @@ sourceSets {
 }
 
 dependencies {
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-security")

@@ -123,4 +123,24 @@ public class NovelController {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
     }
 
+    @PostMapping("/novels/upload")
+    @ApiOperation(value = "소설을 db에 추가", notes = "소설을 db에 추가")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> addNovels
+            () {
+        try {
+            novelService.addNovels();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        } catch(Exception e)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(400, "fail"));
+        }
+    }
 }
+
+

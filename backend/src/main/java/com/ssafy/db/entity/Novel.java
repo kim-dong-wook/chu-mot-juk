@@ -28,12 +28,14 @@ public class Novel {
     @Column(nullable = false)
     private String novelWriter;
 
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 6000)
     private String novelIntro;
 
     @Column(nullable = false)
     private int novelGenre;
 
+    @Column(length = 6000)
     private String novelRomanceGuide;
 
     @Column(nullable = false)
