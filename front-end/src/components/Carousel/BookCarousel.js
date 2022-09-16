@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,16 +8,36 @@ import './pagination.css';
 
 import 'swiper/css/navigation';
 const BookCarousel = () => {
+  const More = useRef(null);
+  const [more, setMore] = useState(false);
+
+  const onMouseOver = useCallback(() => {
+    setMore(!more);
+  });
+
+  const onMouseOut = useCallback(() => {
+    setMore(!more);
+  });
+
   return (
     <div className="px-[5%] pt-10">
       <div className="rowTitle">
-        <div className="text-[1.4vw] font-bold">제목</div>
+        <div
+          el={More}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          className="text-[1.4vw] font-bold"
+        >
+          제목
+        </div>
 
         <div className="see-all-link" style={{ padding: '0.9vw 0px 0px .4vw' }}>
-          <a href={{}}>모두 보기</a> ❯
+          <a href={{}}>모두 보기</a>
         </div>
         <div
-          className="aro-row-chevron"
+          className={`aro-row-chevron z-30
+        ${more ? 'translate-x-[950%] duration-100' : ''}
+        `}
           style={{ padding: '0.9vw 0px 0px 0vw' }}
         >
           ❯

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/common/Header';
+import DetailPage from './pages/DetailPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import MorePage from './pages/MorePage';
 import RegisterPage from './pages/RegisterPage';
 import TagSearchPage from './pages/TagSearchPage';
 import TempPage from './pages/TempPage';
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/vs" element={<VsPage />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/vsresult" element={<VsResultPage />} />
+        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/more" element={<MorePage />} />
         <Route path="/temp" element={<TempPage />} />
       </Route>
     </Routes>
