@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <header
-        className={`hover:bg-primary-1 bg-transparent sticky top-0 z-50 flex px-[5%] h-16 items-center bg-gradient-to-b from-primary-2 to-transparent
+        className={`hover:bg-primary-1 hover:duration-300 duration-300 bg-transparent sticky top-0 z-50 flex px-[5%] h-16 items-center bg-gradient-to-b from-primary-2 to-transparent
       ${scrollPosition > 30 ? 'bg-primary-1 duration-500' : ''}`}
       >
         <Link className="w-10 mr-20" to="/">
@@ -23,7 +23,7 @@ const Header = () => {
         <div className="w-full flex justify-between">
           <div className="ml-[4vw] space-x-4">
             <Link to="/test">유형검사</Link>
-            <Link to="/vs">이상형월드컵</Link>
+            <Link to="/vsintro">이상형월드컵</Link>
             <Link to="/tagsearch">태그검색</Link>
           </div>
           <div className=" space-x-4">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/common/Header';
+import VsIntro from './components/VS/VsIntro';
 import DetailPage from './pages/DetailPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/tagsearch" element={<TagSearchPage />} />
         <Route path="/vs" element={<VsPage />} />
+        <Route path="/vsintro" element={<VsIntro />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/vsresult" element={<VsResultPage />} />
         <Route path="/detail" element={<DetailPage />} />

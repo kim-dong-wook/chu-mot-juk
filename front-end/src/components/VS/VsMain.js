@@ -4,8 +4,12 @@ import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
 import { useNavigate } from 'react-router-dom';
 import './Book.css';
+import './VS.css';
+import $ from 'jquery';
 import bookSide from '../../assets/images/sideBook1.png';
 import goldBorder from '../../assets/images/gold1.png';
+import intro from '../../assets/images/vs/VSimg1.jpg';
+import VSimg from '../../assets/images/vs/VSimg5.png';
 const VsMain = () => {
   const [round, setRound] = useRecoilState(roundState);
   const [current, setCurrent] = useState(0);
@@ -127,6 +131,12 @@ const VsMain = () => {
         setCurrent(current + 1);
         setLeft(false);
       }
+      $('#left').removeClass('bookFadeIn');
+      $('#left').width = $('#left').width();
+      $('#left').addClass('bookFadeIn');
+      $('#right').removeClass('bookFadeIn');
+      $('#right').width = $('#right').width();
+      $('#right').addClass('bookFadeIn');
     }, 1500);
   };
 
@@ -146,6 +156,12 @@ const VsMain = () => {
         setCurrent(current + 1);
         setRight(false);
       }
+      $('#left').removeClass('bookFadeIn');
+      $('#left').width = $('#left').width();
+      $('#left').addClass('bookFadeIn');
+      $('#right').removeClass('bookFadeIn');
+      $('#right').width = $('#right').width();
+      $('#right').addClass('bookFadeIn');
     }, 1500);
   };
 
@@ -172,7 +188,7 @@ const VsMain = () => {
   }, [current]);
 
   return (
-    <div className="h-screen mt-[-4rem] flex justify-center items-center flex-col">
+    <div className="h-screen mt-[-4rem] flex justify-center items-center flex-col bg-cover">
       <div className="border-2 border-black w-[30%] h-[10%] flex items-center justify-center text-2xl">
         {round === 2 ? (
           <div>웹소설 이상형 월드컵 결승전</div>
@@ -182,7 +198,7 @@ const VsMain = () => {
           </div>
         )}
       </div>
-      <div className="w-[80%] h-[80%] flex justify-center items-center bg-contain bg-no-repeat  px-20 relative">
+      <div className="w-[80%] h-[80%] flex justify-center items-center bg-contain bg-no-repeat px-20 relative ">
         <img
           src={goldBorder}
           alt=""
@@ -190,13 +206,21 @@ const VsMain = () => {
         ></img>
         <div
           className={`w-[30%] h-[80%] flex justify-center items-cente
-          ${left ? 'translate-x-[60%] duration-300 pointer-events-none' : null}
-          ${right ? 'translate-x-[-200%] duration-300' : null}`}
+          ${
+            left
+              ? 'translate-x-[80%] duration-700 pointer-events-none ease-in delay-200'
+              : null
+          }
+          ${right ? 'scale-0 duration-700 z-20' : null}`}
         >
-          <div class="ud_book_box" className={`w-[100%] h-[100%]`}>
+          <div
+            id="left"
+            class="ud_book_box"
+            className="w-[100%] h-[100%] bookFadeIn"
+          >
             <div class="ud_book">
               <img
-                className={`w-[100%] h-[100%]`}
+                className={`w-[100%] h-[100%] `}
                 src={startBooks[2 * current] ? startBooks[2 * current].src : ''}
                 alt=""
                 onClick={() => onClickLeft(startBooks[2 * current].id)}
@@ -213,20 +237,26 @@ const VsMain = () => {
           </div>
         </div>
         <div
-          className={`text-8xl z-20 mx-20 ${left ? 'hidden' : null} ${
-            right ? 'hidden' : null
-          }`}
+          className={`
+          ${left ? 'invisible' : null} ${right ? 'invisible' : null}
+          `}
         >
-          vs
+          <img src={VSimg} alt="" className="invert" />
         </div>
         <div
           className={`w-[30%] h-[80%] flex justify-center items-cente
           ${
-            right ? 'translate-x-[-60%] duration-300 pointer-events-none' : null
+            right
+              ? 'translate-x-[-80%] duration-700 pointer-events-none ease-in delay-200'
+              : null
           }
-          ${left ? 'translate-x-[200%] duration-300' : null}`}
+          ${left ? 'scale-0 duration-700 ' : null}`}
         >
-          <div class="ud_book_box" className={`w-[100%] h-[100%]`}>
+          <div
+            id="right"
+            class="ud_book_box"
+            className="w-[100%] h-[100%] bookFadeIn"
+          >
             <div class="ud_book">
               <img
                 className={`w-[100%] h-[100%]`}
