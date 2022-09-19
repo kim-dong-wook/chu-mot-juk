@@ -34,7 +34,7 @@ const VsStart = () => {
     >
       <div className="h-[30rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg space-y-8">
         <img src={intro2} alt="" className="w-[20%]" />
-        <div className="bg-primary-1 w-10/12 h-[10rem] space-y-4 p-4 rounded-lg">
+        <div className="bg-primary-1 w-10/12 h-[11rem] space-y-4 p-4 rounded-lg text-xl">
           <div className="font-bold">총 라운드를 선택하세요.</div>
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
