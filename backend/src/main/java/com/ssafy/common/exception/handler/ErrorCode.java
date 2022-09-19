@@ -27,6 +27,8 @@ public enum ErrorCode {
 
     WRITER_NOT_FOUND(HttpStatus.NOT_FOUND, "작가를 찾을 수 없습니다."),
 
+    PARSE_ERROR(HttpStatus.NOT_FOUND, "parse 과정에서 에러 발생"),
+
 
     //405 METHOD_NOT_ALLOWED: 허용되지 않은 Request Method 호출
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "허용되지 않은 메서드입니다."),
