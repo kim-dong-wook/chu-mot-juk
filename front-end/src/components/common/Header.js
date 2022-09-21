@@ -15,7 +15,7 @@ const Header = () => {
     <div>
       <header
         className={`bg-[#554540] hover:duration-300 duration-300 sticky top-0 z-50 flex px-[5%] h-16 items-center
-      ${scrollPosition > 30 ? 'bg-primary-1 duration-500' : ''}`}
+      ${scrollPosition > 30 ? 'bg-primary-4 duration-500' : ''}`}
       >
         <Link className="w-10 mr-20" to="/">
           <img src={logo} style={{ maxWidth: '300%' }}></img>

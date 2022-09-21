@@ -10,6 +10,7 @@ import bookSide from '../../assets/images/sideBook1.png';
 import goldBorder from '../../assets/images/gold1.png';
 import intro from '../../assets/images/vs/VSimg1.jpg';
 import VSimg from '../../assets/images/vs/VSimg5.png';
+
 const VsMain = () => {
   const [round, setRound] = useRecoilState(roundState);
   const [current, setCurrent] = useState(0);
@@ -23,83 +24,115 @@ const VsMain = () => {
   let books = [
     {
       id: 1,
-      name: '1',
+      title: '1',
+      character: '김독자',
       src: 'https://img.ridicdn.net/cover/4621001638/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 2,
-      name: '2',
+      title: '2',
+      character: '이독자',
       src: 'https://img.ridicdn.net/cover/1377099102/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 3,
-      name: '3',
+      title: '3',
+      character: '최독자',
       src: 'https://img.ridicdn.net/cover/3092017733/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 4,
-      name: '4',
+      title: '4',
+      character: '박독자',
       src: 'https://img.ridicdn.net/cover/1811203363/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 5,
-      name: '5',
+      title: '5',
+      character: '허독자',
       src: 'https://img.ridicdn.net/cover/2259009524/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 6,
-      name: '6',
+      title: '6',
+      character: '강독자',
       src: 'https://via.placeholder.com/485x670',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 7,
-      name: '7',
+      title: '7',
+      character: '송독자',
       src: 'https://via.placeholder.com/485x670',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 8,
-      name: '8',
+      title: '8',
+      character: '구독자',
       src: 'https://img.ridicdn.net/cover/425306513/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 9,
-      name: '9',
+      title: '9',
+      character: '심독자',
       src: 'https://img.ridicdn.net/cover/2008033538/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 10,
-      name: '10',
+      title: '10',
+      character: '배독자',
       src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 11,
-      name: '11',
+      title: '11',
+      character: '손독자',
       src: 'https://img.ridicdn.net/cover/3076030032/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 12,
-      name: '12',
+      title: '12',
+      character: '유독자',
       src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 13,
-      name: '13',
+      title: '13',
+      character: '서독자',
       src: 'https://img.ridicdn.net/cover/425297966/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 14,
-      name: '14',
+      title: '14',
+      character: '남독자',
       src: 'https://img.ridicdn.net/cover/425306513/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 15,
-      name: '15',
+      title: '15',
+      character: '봉독자',
       src: 'https://img.ridicdn.net/cover/2259009524/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
     {
       id: 16,
-      name: '16',
+      title: '16',
+      character: '추독자',
       src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
+      tags: ['사랑', '서양풍', '슬픔', '무협', '회귀물', '무서움', '동양'],
     },
   ];
 
