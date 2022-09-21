@@ -17,7 +17,7 @@ const VideoCarousel = () => {
   const onPrev = () => {
     let copy = JSON.parse(JSON.stringify(videos));
     copy[prev].isPlaying = !copy[prev].isPlaying;
-    copy[active].isPlaying = !copy[active].isPlaying;
+    copy[active].isPlaying = false;
     copy[active].isMuted = true;
 
     setNext(active);
@@ -28,7 +28,7 @@ const VideoCarousel = () => {
   const onNext = () => {
     let copy = JSON.parse(JSON.stringify(videos));
     copy[next].isPlaying = !copy[next].isPlaying;
-    copy[active].isPlaying = !copy[active].isPlaying;
+    copy[active].isPlaying = false;
     copy[active].isMuted = true;
     setPrev(active);
     setActive(next);
@@ -44,7 +44,7 @@ const VideoCarousel = () => {
   };
 
   return (
-    <div className="p-20 border-2 border-black relative w-[100%] h-[600px] overflow-y">
+    <div className="p-20 relative w-[80rem] h-[600px] overflow-y mx-auto">
       <img
         onClick={() => onPrev(active, next)}
         src={left}
@@ -58,9 +58,9 @@ const VideoCarousel = () => {
           className={`absolute w-[960px] h-[540px] inset-2/4 translate-x-[-50%] translate-y-[-50%] ease-in-out duration-700 rounded-3xl overflow-hidden
           ${
             prev === id
-              ? 'translate-x-[-90%] bg-slate-500 scale-75 opacity-50'
+              ? 'translate-x-[-79%] bg-slate-500 scale-75 opacity-50'
               : next === id
-              ? 'translate-x-[-10%] bg-slate-500 scale-75 opacity-50'
+              ? 'translate-x-[-21%] bg-slate-500 scale-75 opacity-50'
               : active === id
               ? 'translate-x-[-50%] bg-slate-300 z-10'
               : 'translate-x-[-50%] scale-50 opacity-0'

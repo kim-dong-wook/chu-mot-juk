@@ -5,12 +5,14 @@ import LeftPath from '../../assets/images/bt_left.png';
 import { books as dummy } from '../../stores/books';
 import $ from 'jquery';
 import BookList from './BookList';
+import { useNavigate } from 'react-router-dom';
 
 const BookCarousel = ({ name }) => {
   const [prev, setPrev] = useState(5);
   const [active, setActive] = useState(0);
   const [next, setNext] = useState(1);
 
+  const navigate = useNavigate();
   const Ids = [0, 1, 2, 3, 4, 5];
   const right = RightPath;
   const left = LeftPath;
@@ -58,6 +60,11 @@ const BookCarousel = ({ name }) => {
     $('#' + moreName).width = $('#' + moreName).width();
     $('#' + moreName).addClass('opacity-0');
   };
+
+  const onClickMore = () => {
+    navigate('/more');
+  };
+
   return (
     <div className="w-[90rem] mx-auto flex items-center justify-center overflow-hidden">
       <img
@@ -85,13 +92,15 @@ const BookCarousel = ({ name }) => {
               </div>
               <div
                 id={moreName}
-                className="text-lg opacity-0 duration-200 delay-200"
+                className="text-lg opacity-0 duration-200 delay-200 text-gray-500 cursor-pointer"
+                onClick={onClickMore}
               >
                 더보기
               </div>
               <div
                 id={arrowName}
-                className="text-sm duration-500 translate-x-[-3rem]"
+                onClick={onClickMore}
+                className="text-sm duration-500 translate-x-[-3rem] cursor-pointer"
               >
                 {'>'}
               </div>
