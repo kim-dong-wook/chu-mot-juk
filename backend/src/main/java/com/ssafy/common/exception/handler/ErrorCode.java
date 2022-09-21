@@ -21,6 +21,8 @@ public enum ErrorCode {
     //404 : NOT_FOUND_EXCEPTION : 리소스를 찾을 수 없음
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
 
+    WC_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 캐릭터를 찾을 수 없습니다."),
+
     NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 내용을 찾을 수 없습니다."),
     TAG_NOT_FOUND(HttpStatus.NOT_FOUND, "태그를 찾을 수 없습니다."),
     NOVEL_NOT_FOUND(HttpStatus.NOT_FOUND, "웹소설을 찾을 수 없습니다."),

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class WorldCup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long wcNo;
 
     @Column(nullable = false)
