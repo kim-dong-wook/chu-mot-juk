@@ -25,11 +25,11 @@ public class Tag{
     @Column(nullable = false)
     private String tagName;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne(mappedBy = "tag")
     UserTag userTagList;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne(mappedBy = "tag")
     UserTag novelTagList;
 

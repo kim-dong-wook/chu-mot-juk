@@ -19,17 +19,23 @@ public class NovelTag {
     @JoinColumn(name="novel_no")
     private Novel novel;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "tag_no")
     private Tag tag;
 
     public void setNovel(Novel novel) {
-        if (this.novel != null) {
-            this.novel.getNovelTags().remove(this);
-        }
+
         this.novel = novel;
-        novel.getNovelTags().add(this);
+        if(!novel.getNovelTags().contains(this)) {
+            novel.getNovelTags().add(this);
+        }
+
+//        if (this.novel != null) {
+//            this.novel.getNovelTags().remove(this);
+//        }
+//        this.novel = novel;
+//        novel.getNovelTags().add(this);
     }
 
 }

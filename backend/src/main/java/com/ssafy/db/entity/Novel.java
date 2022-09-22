@@ -28,7 +28,6 @@ public class Novel {
     @Column(nullable = false)
     private String novelWriter;
 
-
     @Column(nullable = false, length = 6000)
     private String novelIntro;
 
@@ -50,6 +49,7 @@ public class Novel {
     @Column(nullable = false)
     private String novelThumbnail;
 
+    @Column(nullable = false)
     private String novelIntroImage;
 
     @Column(nullable = false)

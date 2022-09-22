@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.UserTagReq;
+import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.api.service.NovelService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -39,9 +40,9 @@ public class NovelController {
             @ApiResponse(code = 404, message = "해당하는 소설 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Novel> getNovelInfo(@PathVariable("novelNo") Long novelNo) {
-        Novel novel = novelService.getNovelInfoByNovelNo(novelNo);
-        return ResponseEntity.status(200).body(novel);
+    public ResponseEntity<NovelInfoRes> getNovelInfo(@PathVariable("novelNo") Long novelNo) {
+        NovelInfoRes novelInfoRes = novelService.getNovelInfoByNovelNo(novelNo);
+        return ResponseEntity.status(200).body(novelInfoRes);
     }
 
     @GetMapping("/search/writer/{novelWriter}")
