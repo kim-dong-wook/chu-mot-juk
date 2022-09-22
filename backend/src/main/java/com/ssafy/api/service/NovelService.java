@@ -96,35 +96,23 @@ public class NovelService {
 
         // JSON 파일 읽기
         Reader reader = new FileReader("C:\\result_ridi_romance.json");
-        System.out.println("read");
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(reader);
-        System.out.println("parse");
         JSONArray jsonArr = (JSONArray) obj;
-        System.out.println("array");
         for (int i = 0; i < jsonArr.size(); i++) {
             JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-            System.out.println(i + "번째 get");
 
             String number = (String) jsonObj.get("thumbnail");
             String[] s = number.split("/");
-            System.out.println("s split");
             String epi = (String) jsonObj.get("recent_episode");
             String[] e = epi.split(" ");
-            System.out.println("e split");
 
             Novel novel = new Novel();
-            System.out.println("novel 객체 생성");
             novel.setNovelTitle((String) jsonObj.get("title"));
-            System.out.println("title");
             novel.setNovelWriter((String) jsonObj.get("author"));
-            System.out.println("author");
             novel.setNovelIntro((String) jsonObj.get("guide"));
-            System.out.println("guide");
             novel.setNovelRomanceGuide((String) jsonObj.get("romance_guide"));
-            System.out.println("romance_guide");
             novel.setNovelLink("https://ridibooks.com/books/" + s[4]);
-            System.out.println("link");
 
             if (e[1].length() == 3) {
                 novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 2)));
@@ -133,45 +121,31 @@ public class NovelService {
             else if (e[1].length() == 5)
                 novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 4)));
 
-            System.out.println("newest");
             String com = (String) jsonObj.get("is_completed");
             novel.setNovelIsCompleted(com.equals("완결") ? true : false);
-            System.out.println("completed?");
             novel.setNovelThumbnail((String) jsonObj.get("thumbnail"));
-            System.out.println("thumbnail");
             novel.setNovelIntroImage((String) jsonObj.get("introduce_img"));
-            System.out.println("img");
             novel.setNovelPlatform("리디북스");
-            System.out.println("platform");
             novel.setNovelGenre(0);
-            System.out.println("genre");
-
             novelRepository.save(novel);
-            System.out.println("novel save");
-
 
             JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
             for (int k = 0; k < jsonArray.size(); k++) {
                 NovelTag novelTag = new NovelTag();
                 Long num = Long.valueOf(i);
-                System.out.println("num :" + num);
                 novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
                     throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
                 }));
-                System.out.println("set Novel");
                 String tags = (String) jsonArray.get(k);
                 String newTag = tags.substring(1);
-                System.out.println("tags :" + newTag);
                 novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 0).orElseThrow(() -> {
                     throw new CustomException(ErrorCode.TAG_NOT_FOUND);
                 }));
-                System.out.println("set tag");
                 novelTagRepository.save(novelTag);
-                System.out.println("novelTag save");
             }
 
 
-            }
+        }
     }
 
 }

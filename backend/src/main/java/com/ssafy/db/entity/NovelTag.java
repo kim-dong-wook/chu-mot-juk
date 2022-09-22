@@ -15,8 +15,8 @@ public class NovelTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="novel_no")
+    @ManyToOne
+    @JoinColumn(name = "novel_no")
     private Novel novel;
 
     @JsonIgnore
@@ -25,11 +25,9 @@ public class NovelTag {
     private Tag tag;
 
     public void setNovel(Novel novel) {
-        if (this.novel != null) {
-            this.novel.getNovelTags().remove(this);
-        }
         this.novel = novel;
-        novel.getNovelTags().add(this);
+        if (!novel.getNovelTags().contains(this))
+            novel.getNovelTags().add(this);
     }
 
 }
