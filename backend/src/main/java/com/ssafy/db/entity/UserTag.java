@@ -16,15 +16,13 @@ import static javax.persistence.FetchType.LAZY;
 public class UserTag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long UserTagNo;
 
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "tag_no")
     private Tag tag;
 
-    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_no")
     private User user;

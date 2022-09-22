@@ -25,17 +25,9 @@ public class NovelTag {
     private Tag tag;
 
     public void setNovel(Novel novel) {
-
         this.novel = novel;
-        if(!novel.getNovelTags().contains(this)) {
+        if (!novel.getNovelTags().contains(this))
             novel.getNovelTags().add(this);
-        }
-
-//        if (this.novel != null) {
-//            this.novel.getNovelTags().remove(this);
-//        }
-//        this.novel = novel;
-//        novel.getNovelTags().add(this);
     }
 
 }
