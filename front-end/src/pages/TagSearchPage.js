@@ -1,7 +1,12 @@
 import React from 'react';
+import TagSearch from '../components/tagSearch/TagSearch';
 
 const TagSearchPage = () => {
-  return <div>태그 검색 페이지입니다.(전체 보기)</div>;
+  return (
+    <div>
+      <TagSearch></TagSearch>
+    </div>
+  );
 };
 
 export default TagSearchPage;

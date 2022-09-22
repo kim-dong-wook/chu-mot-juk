@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import MainVideo from '../MainVideo';
 import RightPath from '../../assets/images/bt_right.png';
@@ -79,7 +79,7 @@ const VideoCarousel = () => {
       ></img>
 
       <div
-        className="absolute flex space-x-3 absolute bottom-0 p-4 inset-x-2/4 w-44 translate-x-[-50%]"
+        className="flex space-x-3 absolute bottom-0 p-4 inset-x-2/4 w-44 translate-x-[-50%]"
         style={{ paddingBottom: '4px' }}
       >
         {Ids.map((id) => (
