@@ -1,11 +1,10 @@
 import React from 'react';
-import T from '../components/VS/T';
+import PersonalTest from '../components/personalTest/PersonalTest';
 
 const TestPage = () => {
   return (
     <div>
-      유형검사 페이지입니다.
-      <T></T>
+      <PersonalTest></PersonalTest>
     </div>
   );
 };

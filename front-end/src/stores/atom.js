@@ -5,6 +5,11 @@ const roundState = atom({
   default: 0, // default value (aka initial value)
 });
 
+const testPageState = atom({
+  key: 'testPageState', // unique ID (with respect to other atoms/selectors)
+  default: -1, // default value (aka initial value)
+});
+
 const videosState = atom({
   key: 'videosState', // unique ID (with respect to other atoms
   default: [
@@ -54,4 +59,4 @@ const videosState = atom({
   ], // default value
 });
 
-export { roundState, videosState };
+export { roundState, testPageState, videosState };

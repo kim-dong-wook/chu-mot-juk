@@ -50,7 +50,7 @@ const TagList = ({ category, height }) => {
   ];
   return (
     <div
-      className={`w-full border-2 border-black
+      className={`w-full
     `}
     >
       <div className="flex justify-between mb-4">
@@ -64,7 +64,7 @@ const TagList = ({ category, height }) => {
           <span
             id={index}
             target="_self"
-            className="inline-block items-center mr-0.5 text-m whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 hover:scale-105 hover:shadow m-2 cursor-pointer"
+            className="inline-block items-center text-m whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 hover:scale-105 hover:shadow m-2 cursor-pointer"
             onClick={onClickTag}
           >
             #{tag}

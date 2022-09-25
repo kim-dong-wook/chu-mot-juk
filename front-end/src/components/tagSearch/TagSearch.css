@@ -3,3 +3,9 @@
   background-color: rgb(208 119 123);
   font: white;
 }
+
+.bookName {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

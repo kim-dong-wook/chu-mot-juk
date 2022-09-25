@@ -6,9 +6,9 @@ const PageComponent = ({ books, page }) => {
   const arr = [0, 1, 2, 3];
   useEffect(() => {
     setOnePageBooks(books.slice((page - 1) * 20, page * 20));
-  }, []);
+  }, [books, page]);
   return (
-    <div className="w-full h-full border-2 border-black">
+    <div className="w-full h-[90%]">
       {arr.map((number) => {
         return (
           <BookListComponent
