@@ -52,17 +52,21 @@
 .testFadeIn {
   /* 애니메이션 이름 */
   animation-name: testFadeIn;
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-duration: leaner;
   animation-fill-mode: forwards;
   animation-delay: 2s;
 }
 
-:is(.one, .two, .three, .four, .answers) {
+:is(.one, .two, .three, .four, .answers-one, .answers-two, .answers-three, .answers-four) {
   animation: testFadeIn;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
   animation-duration: leaner;
   animation-fill-mode: forwards;
+}
+
+.out {
+  opacity: 0;
 }
 
 .one {
@@ -70,13 +74,29 @@
 }
 
 .two {
-  animation-delay: 3.5s;
+  animation-delay: 3s;
 }
 
 .three {
+  animation-delay: 4s;
+}
+
+.four {
   animation-delay: 5s;
 }
 
-.answers {
-  animation-delay: 6.5s;
+.answers-one {
+  animation-delay: 3s;
+}
+
+.answers-two {
+  animation-delay: 4s;
+}
+
+.answers-three {
+  animation-delay: 5s;
+}
+
+.answers-four {
+  animation-delay: 6s;
 }

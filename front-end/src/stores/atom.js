@@ -10,6 +10,16 @@ const testPageState = atom({
   default: -1, // default value (aka initial value)
 });
 
+const genreState = atom({
+  key: 'genreState', // unique ID (with respect to other atoms/
+  default: 'none',
+});
+
+const failState = atom({
+  key: 'failState', // unique ID (with respect to other atoms/
+  default: 'none',
+});
+
 const videosState = atom({
   key: 'videosState', // unique ID (with respect to other atoms
   default: [
@@ -59,4 +69,4 @@ const videosState = atom({
   ], // default value
 });
 
-export { roundState, testPageState, videosState };
+export { roundState, testPageState, videosState, genreState, failState };
