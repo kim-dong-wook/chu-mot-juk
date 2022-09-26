@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.NovelTagSearchReq;
+import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
@@ -193,24 +194,20 @@ public class NovelService {
         return novelInfoRes;
     }
 
-
-    //특정 age의 사람들이 좋아하는 소설을 list에 담아 전부 ++;
-    //그 다음 크기 순으로 return
     @Transactional
-    public List<NovelInfoRes> getNovelsByParticularAgeGroup(int ageGroup) {
-        List<User> users = userRepository.findUsersByAgeGroup(ageGroup).get();
+    public List<NovelInfoRes> getFamousNovels(List<User> users) {
         Map<Long, Integer> map = new HashMap<>();
         System.out.println(users.size());
 
         for (User u : users) {
-                List<LikeList> lList = likeListRepository.findLikeListsByUserUserNo(u.getUserNo()).get();
-                for (LikeList l : lList) {
-                    if (map.containsKey(l.getNovel().getNovelNo())) {
-                        map.put(l.getNovel().getNovelNo(), map.get(l.getNovel().getNovelNo()) + 1);
-                    }else {
-                        map.put(l.getNovel().getNovelNo(), 1);
-                    }
+            List<LikeList> lList = likeListRepository.findLikeListsByUserUserNo(u.getUserNo()).get();
+            for (LikeList l : lList) {
+                if (map.containsKey(l.getNovel().getNovelNo())) {
+                    map.put(l.getNovel().getNovelNo(), map.get(l.getNovel().getNovelNo()) + 1);
+                }else {
+                    map.put(l.getNovel().getNovelNo(), 1);
                 }
+            }
 
         }
         List<Long> keySetList = new ArrayList<>(map.keySet());
@@ -222,7 +219,7 @@ public class NovelService {
         int cnt = 0;
         for (Long key : keySetList) {
             System.out.println(key);
-            if (cnt > 5)
+            if (cnt > 20)
                 break;
             NovelInfoRes novelInfoRes = getNovelInfoByNovelNo(key);
             novelList.add(novelInfoRes);
@@ -230,7 +227,23 @@ public class NovelService {
         }
 
         return novelList;
+    }
 
+
+    //특정 age의 사람들이 좋아하는 소설을 list에 담아 전부 ++;
+    //그 다음 크기 순으로 return
+    @Transactional
+    public List<NovelInfoRes> getNovelsByParticularAgeGroup(int ageGroup) {
+        List<User> users = userRepository.findUsersByAgeGroup(ageGroup).get();
+        List<NovelInfoRes> bookList = getFamousNovels(users);
+        return bookList;
+    }
+
+    @Transactional
+    public List<NovelInfoRes> getNovelsByParticularAgeGroupAndGender(SuggestionReq suggestionReq) {
+        List<User> users = userRepository.findUsersByAgeGroupAndGender(suggestionReq.getAgeGroup(), suggestionReq.isGender()).get();
+        List<NovelInfoRes> bookList = getFamousNovels(users);
+        return bookList;
     }
 
 }

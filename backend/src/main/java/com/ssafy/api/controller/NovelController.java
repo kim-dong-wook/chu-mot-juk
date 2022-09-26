@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.NovelTagSearchReq;
+import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.api.service.NovelService;
@@ -143,8 +144,8 @@ public class NovelController {
         }
     }
 
-    @GetMapping("/novels/{ageGroup}")
-    @ApiOperation(value = "추천 5명", notes = "5명 추천")
+    @GetMapping("/suggestion/{ageGroup}")
+    @ApiOperation(value = "특정 연령대의 인기 소설 20개 추천", notes = "특정 연령대의 인기 소설 20개 추천한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "권한 없음"),
@@ -154,6 +155,20 @@ public class NovelController {
     public ResponseEntity<List> findUsersByAgeGroup
             (@PathVariable("ageGroup") Integer ageGroup) {
         List<NovelInfoRes> novelList = novelService.getNovelsByParticularAgeGroup(ageGroup);
+        return ResponseEntity.status(200).body(novelList);
+    }
+
+    @PostMapping("/suggestion")
+    @ApiOperation(value = "특정 연령대 & 성별의 인기 소설 20개 추천", notes = "특정 연령대 & 성별의 인기 소설 20개를 추천한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> findUsersByAgeGroupAndGender
+            (@RequestBody SuggestionReq suggestionReq) {
+        List<NovelInfoRes> novelList = novelService.getNovelsByParticularAgeGroupAndGender(suggestionReq);
         return ResponseEntity.status(200).body(novelList);
     }
 }

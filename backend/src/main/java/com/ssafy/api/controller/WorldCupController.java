@@ -21,14 +21,6 @@ public class WorldCupController {
     @Autowired
     WorldCupService worldCupService;
 
-//    @GetMapping
-//    @ApiOperation(value = "wc no로 캐릭터 조회", notes = "해당 no를 가진 wc 정보를 응답하고 결과를 저장한다.")
-//    public ResponseEntity<List> getWcs(
-//            ) {
-//        List<Wc> a = new ArrayList();
-//        return a;
-//    }
-
     @PostMapping("/result")
     @ApiOperation(value = "wc no로 캐릭터 조회", notes = "해당 no를 가진 wc 정보를 응답하고 결과를 저장한다.")
     public ResponseEntity<WorldCup> getInfoByNo(
