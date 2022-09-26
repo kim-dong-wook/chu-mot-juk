@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/common/Header';
+import TestIntro from './components/personalTest/TestIntro';
 import VsIntro from './components/VS/VsIntro';
 import Kakao from './pages/Kakao';
 import Kakao2 from './pages/Kakao2';
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/vs" element={<VsPage />} />
         <Route path="/vsintro" element={<VsIntro />} />
         <Route path="/test" element={<TestPage />} />
+        <Route path="/testintro" element={<TestIntro />} />
         <Route path="/vsresult" element={<VsResultPage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/more" element={<MorePage />} />

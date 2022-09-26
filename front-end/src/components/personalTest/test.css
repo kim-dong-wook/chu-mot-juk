@@ -1,0 +1,102 @@
+.right_book_page {
+  perspective: 1000px;
+  backface-visibility: visible;
+  transform-origin: 0% 0%;
+  transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform-style: preserve-3d;
+}
+
+.left_book_page {
+  perspective: 1000px;
+  backface-visibility: visible;
+  transform-origin: 100% 100%;
+  transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform-style: preserve-3d;
+}
+/* 
+.book_page:hover {
+  transform: rotateY(-180deg);
+} */
+
+.active {
+  transform: rotateY(0deg);
+  z-index: 20;
+}
+
+.after-active {
+  transform: rotateY(0deg);
+}
+
+.not-active {
+  transform: rotateY(-180deg);
+}
+.right-active {
+  transform: rotateY(-180deg);
+}
+
+@keyframes testFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.testFadeIn {
+  /* 애니메이션 이름 */
+  animation-name: testFadeIn;
+  animation-duration: 1s;
+  animation-duration: leaner;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+}
+
+:is(.one, .two, .three, .four, .answers-one, .answers-two, .answers-three, .answers-four) {
+  animation: testFadeIn;
+  animation-duration: 1s;
+  animation-duration: leaner;
+  animation-fill-mode: forwards;
+}
+
+.out {
+  opacity: 0;
+}
+
+.one {
+  animation-delay: 2s;
+}
+
+.two {
+  animation-delay: 3s;
+}
+
+.three {
+  animation-delay: 4s;
+}
+
+.four {
+  animation-delay: 5s;
+}
+
+.answers-one {
+  animation-delay: 3s;
+}
+
+.answers-two {
+  animation-delay: 4s;
+}
+
+.answers-three {
+  animation-delay: 5s;
+}
+
+.answers-four {
+  animation-delay: 6s;
+}

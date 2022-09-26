@@ -255,10 +255,12 @@ const TagSearch = () => {
           {hidden ? '전체 보기' : '숨기기'}
         </div>
       </div>
+      <div className="border-t-2  border-primary-4 mt-4"></div>
       <div className={`${hidden ? 'hidden' : ''} my-8 space-y-8`}>
         <TagList category="대분류"></TagList>
         <TagList category="중분류"></TagList>
         <TagList category="소분류"></TagList>
+        <div className="border-t-2  border-primary-4 pt-4"></div>
       </div>
       <SearchList books={books}></SearchList>
     </div>

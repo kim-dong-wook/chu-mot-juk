@@ -7,6 +7,21 @@ const roundState = atom({
   default: 0, // default value (aka initial value)
 });
 
+const testPageState = atom({
+  key: 'testPageState', // unique ID (with respect to other atoms/selectors)
+  default: -1, // default value (aka initial value)
+});
+
+const genreState = atom({
+  key: 'genreState', // unique ID (with respect to other atoms/
+  default: 'none',
+});
+
+const failState = atom({
+  key: 'failState', // unique ID (with respect to other atoms/
+  default: 'none',
+});
+
 const videosState = atom({
   key: 'videosState', // unique ID (with respect to other atoms
   default: [
@@ -55,6 +70,7 @@ const videosState = atom({
     },
   ], // default value
 });
+
 
 export const axiosBasic = axios.create({
   // baseURL: process.env.REACT_APP_BASE_URL,
@@ -134,4 +150,5 @@ export const fetchUserInfo = async ({ setuserData, access }) => {
     try {
       const PersonalInfoRes = await PersonalInfo(token);*/
 
-export { roundState, videosState };
+ 
+export { roundState, testPageState, videosState, genreState, failState };
