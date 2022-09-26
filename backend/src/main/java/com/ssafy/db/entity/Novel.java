@@ -50,7 +50,7 @@ public class Novel {
     @Column(nullable = false)
     private String novelThumbnail;
 
-    @Column(nullable = false)
+    @Column
     private String novelIntroImage;
 
     @Column(nullable = false)

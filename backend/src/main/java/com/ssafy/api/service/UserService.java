@@ -50,7 +50,7 @@ public class UserService {
         // 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
         user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
         user.setNickname(userRegisterInfo.getNickname());
-        user.setAge(userRegisterInfo.getAge());
+        user.setAgeGroup(userRegisterInfo.getAgeGroup());
         user.setGender(userRegisterInfo.getGender());
 
         return userRepository.save(user);
@@ -176,7 +176,7 @@ public class UserService {
         User user = userRepository.findByUserNo(userNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         });
-        List<LikeList> likeList = likeListRepository.findLikeListByUserUserNo(userNo).orElseThrow(() -> {
+        List<LikeList> likeList = likeListRepository.findLikeListsByUserUserNo(userNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
         });
         return likeList;

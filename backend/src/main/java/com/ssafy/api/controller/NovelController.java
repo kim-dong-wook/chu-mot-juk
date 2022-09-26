@@ -142,6 +142,20 @@ public class NovelController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(400, "fail"));
         }
     }
+
+    @GetMapping("/novels/{ageGroup}")
+    @ApiOperation(value = "추천 5명", notes = "5명 추천")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> findUsersByAgeGroup
+            (@PathVariable("ageGroup") Integer ageGroup) {
+        List<NovelInfoRes> novelList = novelService.getNovelsByParticularAgeGroup(ageGroup);
+        return ResponseEntity.status(200).body(novelList);
+    }
 }
 
 

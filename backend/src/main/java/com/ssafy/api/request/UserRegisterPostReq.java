@@ -1,5 +1,6 @@
 package com.ssafy.api.request;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class UserRegisterPostReq {
 	@ApiModelProperty(name = "유저 Nickname", example = "박문대")
 	String nickname;
 	@ApiModelProperty(name = "유저 Age", example = "10")
-	String age;
+	Integer ageGroup;
 	@ApiModelProperty(name = "유저 Gender (0 : 남자, 1: 여자)", example = "0")
-	Integer gender;
+	Boolean gender;
 }
