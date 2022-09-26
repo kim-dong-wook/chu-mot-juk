@@ -1,4 +1,6 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+import axios from 'axios';
 
 const roundState = atom({
   key: 'roundState', // unique ID (with respect to other atoms/selectors)
@@ -69,4 +71,84 @@ const videosState = atom({
   ], // default value
 });
 
+
+export const axiosBasic = axios.create({
+  // baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 5000,
+});
+
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist',
+  storage: localStorage,
+});
+
+export const loginState = atom({
+  key: 'loginState',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const profileNickNameState = atom({
+  key: 'profileNickNameState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const profileImageState = atom({
+  key: 'profileImageState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+export const accountEmailState = atom({
+  key: 'accountEmailState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const genderState = atom({
+  key: 'genderState',
+  default: true,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const ageRangeState = atom({
+  key: 'ageRangeState',
+  default: 20,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const fetchUserInfo = async ({ setuserData, access }) => {
+  try {
+    setuserData(null);
+    const response = await axiosBasic.get(`api/user`, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    setuserData(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//필요한 API만들기
+/*export const PersonalInfo = async (token) =>
+    await API.get('/mypage', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  export const newReview = async (data) =>
+    await axios.post('/item/review', data);
+  
+  //다른 파일에서 사용예시
+  /*const myPage = async () => {
+    try {
+      const PersonalInfoRes = await PersonalInfo(token);*/
+
+ 
 export { roundState, testPageState, videosState, genreState, failState };

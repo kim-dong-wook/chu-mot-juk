@@ -8,8 +8,8 @@ const Detail = () => {
     <>
       <div className="header-cover"></div>
       <div className="tx-container">
-        <main className="tx-main space-y-8 max-w-[96rem] lg:space-y-16 lg:px-4">
-          <section className="w-full max-w-[96rem]  border-2 border-red-600">
+        <main className="tx-main space-y-8 max-w-[80rem] lg:space-y-16 lg:px-4">
+          <section className="w-full max-w-[80rem]  border-2 border-red-600">
             <div className="grid grid-cols-12 gap-5 p-4 m-2">
               <main className="col-span-8 p-4 border-2 border-green-600">
                 {/* <div
