@@ -42,8 +42,7 @@ const TestIntro = () => {
           <img src={logo} alt="" />
         </div>
         <div
-          id="button"
-          className="bg-blue-300 rounded-3xl mt-14 p-2 hover:brightness-125"
+          className="bg-blue-300 rounded-3xl mt-14 p-2 hover:brightness-125 fadeIn duration-200"
           ref={button}
         >
           <img src={start} alt="" onClick={onClick} className="w-[24rem]"></img>

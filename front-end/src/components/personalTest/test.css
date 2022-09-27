@@ -110,35 +110,35 @@
 }
 
 .one {
-  animation-delay: 2s;
+  animation-delay: 1s;
 }
 
 .two {
-  animation-delay: 3s;
+  animation-delay: 2s;
 }
 
 .three {
-  animation-delay: 4s;
-}
-
-.four {
-  animation-delay: 5s;
-}
-
-.answers-one {
   animation-delay: 3s;
 }
 
-.answers-two {
+.four {
   animation-delay: 4s;
 }
 
+.answers-one {
+  animation-delay: 2s;
+}
+
+.answers-two {
+  animation-delay: 3s;
+}
+
 .answers-three {
-  animation-delay: 5s;
+  animation-delay: 4s;
 }
 
 .answers-four {
-  animation-delay: 6s;
+  animation-delay: 5s;
 }
 
 .testBookIntro {

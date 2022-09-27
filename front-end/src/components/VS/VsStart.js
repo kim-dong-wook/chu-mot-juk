@@ -21,14 +21,18 @@ const VsStart = () => {
   };
 
   const onClick = () => {
-    setRound(books);
+    box.current.classList.remove('animate__fadeInUpBig');
+    box.current.classList.add('animate__fadeOutDownBig');
+    let fn = setTimeout(() => {
+      setRound(books);
+    }, 900);
   };
 
   useEffect(() => {
     setRound(0);
     box.current.classList.add('animate__animated');
     box.current.classList.add('animate__fadeInUpBig');
-  });
+  }, []);
 
   return (
     <div

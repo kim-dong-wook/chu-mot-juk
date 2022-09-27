@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { roundState } from '../../stores/atom';
 import intro from '../../assets/images/vs/VSimg1.jpg';
 import intro2 from '../../assets/images/vs/VSimg3.png';
 import intro3 from '../../assets/images/vs/VSimg4.png';
 import './VS.css';
 const VsIntro = () => {
+  const [round, setRound] = useRecoilState(roundState);
   const navigate = useNavigate();
   const title = useRef(null);
   const logoImg = useRef(null);
@@ -18,6 +21,7 @@ const VsIntro = () => {
     }, 1000);
   };
   useEffect(() => {
+    setRound(0);
     logoImg.current.classList.add('animate__animated');
     logoImg.current.classList.add('animate__zoomInDown');
     button.current.classList.add('animate__animated');

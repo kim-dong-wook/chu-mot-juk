@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { testPageState, genreState } from '../../../stores/atom';
-import background from '../../../assets/images/test/TestImg1.jpg';
+import background from '../../../assets/images/test/leftPage.png';
 const LeftThree = () => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
