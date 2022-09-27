@@ -68,9 +68,15 @@ const videosState = atom({
       speed: 1,
       isMuted: true,
     },
+    {
+      id: 6,
+      isPlaying: false,
+      progress: 0,
+      speed: 1,
+      isMuted: true,
+    },
   ], // default value
 });
-
 
 export const axiosBasic = axios.create({
   // baseURL: process.env.REACT_APP_BASE_URL,
@@ -150,5 +156,4 @@ export const fetchUserInfo = async ({ setuserData, access }) => {
     try {
       const PersonalInfoRes = await PersonalInfo(token);*/
 
- 
 export { roundState, testPageState, videosState, genreState, failState };

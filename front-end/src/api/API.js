@@ -12,7 +12,7 @@ export const axiosBasic = axios.create({
 
 export const getBook = async (number) => {
   try {
-    const response = await axiosBasic.get('v1/novel/' + number);
+    const response = await axiosBasic.get('novel/' + number);
     return response;
   } catch (error) {
     console.log(error);
@@ -25,7 +25,7 @@ export const getBooksByTag = async (tags) => {
       tags,
     };
 
-    const response = await axiosBasic.post('v1/novel/search/tags', jsonData);
+    const response = await axiosBasic.post('novel/search/tags', jsonData);
     return response;
   } catch (error) {
     console.log(error);
@@ -39,7 +39,7 @@ export const example = async (tagNo, userNo) => {
       userNo,
     };
 
-    const response = await axiosBasic.post('v1/novel/search/tags', jsonData);
+    const response = await axiosBasic.post('novel/search/tags', jsonData);
     return response;
   } catch (error) {
     console.log(error);

@@ -11,7 +11,6 @@ import border from '../../assets/images/vs/VSimg10.jpg';
 import mainBack from '../../assets/images/vs/VSimg6.jpg';
 import VSimg from '../../assets/images/vs/VSimg5.png';
 import VStitle from '../../assets/images/vs/VSimg7.png';
-// import VStitle from '../../assets/images/vs/VSimg10.png';
 
 import './VS.scss';
 

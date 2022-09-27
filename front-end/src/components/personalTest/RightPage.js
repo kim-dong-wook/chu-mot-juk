@@ -54,63 +54,63 @@ const RightPage = () => {
   }, [testPage]);
   return (
     <div className="absolute w-full h-full">
-      <div className="w-1/2 h-full absolute right-0 overflow-hidden rounded-r-3xl">
+      <div className="w-1/2 h-full absolute right-0 overflow-hidden">
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={failPage1}
         >
           <RestartPage page={failPage1}></RestartPage>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page9}
         >
           <RightEight page={page9}></RightEight>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page8}
         >
           <RightSeven page={page8}></RightSeven>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page7}
         >
           <RightSix page={page7}></RightSix>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page6}
         >
           <RightFive page={page6}></RightFive>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page5}
         >
           <RightFour page={page5}></RightFour>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page4}
         >
           <RightThree page={page4}></RightThree>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page3}
         >
           <RightSecond page={page3}></RightSecond>
         </div>
         <div
-          className="w-full h-full border-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black bg-slate-400 right_book_page absolute right-0 z-30"
           ref={page2}
         >
           <RightFirst page={page2}></RightFirst>
         </div>
         <div
-          className="w-full h-full border-2 border-black right_book_page absolute right-0 z-30"
+          className="w-full h-full border-l-2 border-black right_book_page absolute right-0 z-30"
           onClick={() => onClick(page1)}
           ref={page1}
         >

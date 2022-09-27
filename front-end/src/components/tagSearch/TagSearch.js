@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import SearchList from './SearchList';
 import TagList from './TagList';
+import { getBook } from '../../api/API';
 
 const TagSearch = () => {
   const [hidden, setHidden] = useState(true);
   const onClickToggle = () => {
     setHidden(!hidden);
+  };
+
+  const cc = async () => {
+    const result = await getBook(1);
+    console.log(result);
   };
 
   const books = [
@@ -250,7 +256,9 @@ const TagSearch = () => {
         ></input>
       </form>
       <div className="w-full h-[3rem] flex justify-between items-end">
-        <div className="text-3xl">키워드로 검색하기</div>
+        <div className="text-3xl" onClick={cc}>
+          키워드로 검색하기
+        </div>
         <div className="text-xl" onClick={onClickToggle}>
           {hidden ? '전체 보기' : '숨기기'}
         </div>
