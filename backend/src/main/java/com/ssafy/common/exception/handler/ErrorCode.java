@@ -27,6 +27,8 @@ public enum ErrorCode {
     TAG_NOT_FOUND(HttpStatus.NOT_FOUND, "태그를 찾을 수 없습니다."),
     NOVEL_NOT_FOUND(HttpStatus.NOT_FOUND, "웹소설을 찾을 수 없습니다."),
 
+    PLATFORM_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 플랫폼을 찾을 수 없습니다."),
+
     WRITER_NOT_FOUND(HttpStatus.NOT_FOUND, "작가를 찾을 수 없습니다."),
 
     PARSE_ERROR(HttpStatus.NOT_FOUND, "parse 과정에서 에러 발생"),

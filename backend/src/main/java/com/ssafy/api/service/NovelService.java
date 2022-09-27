@@ -275,4 +275,12 @@ public class NovelService {
         return tags;
     }
 
+    public List<Novel> getNovelsByNovelPlatform(String novelPlatform) {
+        List<Novel> book = novelRepository.findNovelsByNovelPlatform(novelPlatform).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.PLATFORM_NOT_FOUND);
+        });
+
+        return book;
+    }
+
 }

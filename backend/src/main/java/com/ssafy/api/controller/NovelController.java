@@ -227,6 +227,19 @@ public class NovelController {
         List<Tag> tags = novelService.getRomanceTagsByTagType(tagType);
         return ResponseEntity.status(200).body(tags);
     }
+
+    @GetMapping("/platform/{novelPlatform}")
+    @ApiOperation(value = "플랫폼 별 소설 정보 조회", notes = "플랫폼 별 소설의 정보를 조회한다. ex) 네이버시리즈, 카카오페이지, 리디북스")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당하는 플랫폼 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<Novel>> getNovelByNovelPlatform(@PathVariable("novelPlatform") String novelPlatform) {
+        List<Novel> novels = novelService.getNovelsByNovelPlatform(novelPlatform);
+        return ResponseEntity.status(200).body(novels);
+    }
 }
 
 
