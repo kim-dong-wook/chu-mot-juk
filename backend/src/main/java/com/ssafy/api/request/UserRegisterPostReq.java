@@ -19,7 +19,7 @@ public class UserRegisterPostReq {
 	String password;
 	@ApiModelProperty(name = "유저 Nickname", example = "박문대")
 	String nickname;
-	@ApiModelProperty(name = "유저 Age", example = "10")
+	@ApiModelProperty(name = "유저 Age", example = "1")
 	Integer ageGroup;
 	@ApiModelProperty(name = "유저 Gender (0 : 남자, 1: 여자)", example = "0")
 	Boolean gender;

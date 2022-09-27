@@ -43,6 +43,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> register(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
 
+        System.out.println(registerInfo.getId());
         boolean success = userService.checkUserId(registerInfo.getId());
 
         if (success) {
