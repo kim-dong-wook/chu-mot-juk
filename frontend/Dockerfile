@@ -28,4 +28,5 @@ CMD ["ls"]
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80
+EXPOSE 443
 CMD ["nginx","-g","daemon off;"]
