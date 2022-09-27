@@ -12,7 +12,7 @@ RUN npm run build
 FROM nginx:stable-alpine as production-stage
 COPY ./nignx/nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY ../etc/letsencrypt /etc/letsencrypt
+COPY ./pem /etc/letsencrypt
 # FROM nginx:latest
 # nginx의 기본 설정을 삭제하고 앱에서 설정한 파일을 복사
 # RUN rm -rf /etc/nginx/conf.d
