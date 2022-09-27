@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     @Autowired
     UserService userService;
-
     @Autowired
     PasswordEncoder passwordEncoder;
 

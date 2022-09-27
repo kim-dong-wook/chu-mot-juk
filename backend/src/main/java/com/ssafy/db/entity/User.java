@@ -31,10 +31,10 @@ public class User {
     String nickname;
 
     @Column(nullable = false)
-    String age;
+    Integer ageGroup;
 
     @Column(nullable = false)
-    Integer gender;
+    Boolean gender;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
