@@ -47,10 +47,10 @@ public class Novel {
     @Column(nullable = false)
     private boolean novelIsCompleted;
 
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false)
     private String novelThumbnail;
 
-    @Column
+    @Column(nullable = false)
     private String novelIntroImage;
 
     @Column(nullable = false)

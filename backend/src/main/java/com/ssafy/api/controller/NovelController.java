@@ -8,7 +8,6 @@ import com.ssafy.api.service.NovelService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Novel;
-import com.ssafy.db.entity.Tag;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -74,19 +73,6 @@ public class NovelController {
         return ResponseEntity.status(200).body(shelf);
     }
 
-    @GetMapping("/search/platform/{novelPlatfrom}")
-    @ApiOperation(value = "플랫폼 별 소설 조회", notes = "플랫폼 별 소설을 조회한다. (네이버시리즈, 카카오페이지)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "권한 없음"),
-            @ApiResponse(code = 404, message = "해당 플랫폼 소설 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List> getNovelsByPlatform(@PathVariable("novelPlatfrom") String novelPlatfrom) {
-        List<Novel> shelf = novelService.getNovelsByNovelPlatform(novelPlatfrom);
-        return ResponseEntity.status(200).body(shelf);
-    }
-
     @PostMapping("/search/tags")
     @ApiOperation(value = "태그로 소설 조회", notes = "태그를 입력받아 소설을 조회한다.")
     @ApiResponses({
@@ -100,58 +86,6 @@ public class NovelController {
         List<Novel> shelf = novelService.getNovelsByTag(tagsInfo);
         //태그를 받아 올 거임 근데 한 번 클릭하면 추가되게? 아니면 추가된 채로 검색을 누르면 변하게?
         return ResponseEntity.status(200).body(shelf);
-    }
-
-    @GetMapping("/search/bigtag/{tagGenre}")
-    @ApiOperation(value = "대분류별 태그 조회", notes = "대분류 별 태그를 조회한다. (0 - 로맨스, 로판 / 1 - 판타지 / 2 - BL)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "권한 없음"),
-            @ApiResponse(code = 404, message = "해당 태그 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List> getTagsByGenre(@PathVariable("tagGenre") int tagGenre) {
-        List<Tag> tag = novelService.getTagsByTagGenre(tagGenre);
-        return ResponseEntity.status(200).body(tag);
-    }
-
-    @GetMapping("/search/romancetag/{tagType}")
-    @ApiOperation(value = "로맨스 분류별 태그 조회", notes = "로맨스, 로판 내의 분류별 태그를 조회한다. (1 - 장르 / 2 - 소재 / 3 - 남주 / 4 - 여주 / 5 - 관계 / 6 - 분위기, 기타)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "권한 없음"),
-            @ApiResponse(code = 404, message = "해당 태그 타입 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List> getRomanceTagsByType(@PathVariable("tagType") int tagType) {
-        List<Tag> tag = novelService.getRomanceTagsByTagType(tagType);
-        return ResponseEntity.status(200).body(tag);
-    }
-
-    @GetMapping("/search/fantasytag/{tagType}")
-    @ApiOperation(value = "판타지 분류별 태그 조회", notes = "판타지 내의 분류별 태그를 조회한다. (1 - 장르 / 2 - 스토리 / 3 - 직업, 소재 / 4 - 분위기, 기타)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "권한 없음"),
-            @ApiResponse(code = 404, message = "해당 태그 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List> getFantasyTagsByType(@PathVariable("tagType") int tagType) {
-        List<Tag> tag = novelService.getFantasyTagsByTagType(tagType);
-        return ResponseEntity.status(200).body(tag);
-    }
-
-    @GetMapping("/search/bltag/{tagType}")
-    @ApiOperation(value = "BL 분류별 태그 조회", notes = "BL 내의 분류별 태그를 조회한다. (1 - 장르 / 2 - 소재 / 3 - 공 / 4 - 수 / 5 - 관계 / 6 - 분위기/기타)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "권한 없음"),
-            @ApiResponse(code = 404, message = "해당 태그 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List> getBlTagsByType(@PathVariable("tagType") int tagType) {
-        List<Tag> tag = novelService.getBlTagsByTagType(tagType);
-        return ResponseEntity.status(200).body(tag);
     }
 
     @PostMapping("/tags")

@@ -27,7 +27,4 @@ public class WorldCup {
 
     @Column(nullable = false, length = 6000)
     String pic;
-
-    @Column(nullable = false)
-    Long novelNo;
 }

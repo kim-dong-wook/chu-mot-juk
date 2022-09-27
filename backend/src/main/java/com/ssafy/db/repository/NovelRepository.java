@@ -18,6 +18,5 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     @Query(value = "SELECT n FROM Novel n WHERE n.novelWriter LIKE %:novelWriter%")
     Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
     Optional<Novel> findNovelByNovelNo(Long novelNo);
-    Optional<List<Novel>> findNovelsByNovelPlatform(String novelPlatform);
 
 }
