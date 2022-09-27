@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(value = "소설 API", tags = {"Novel"})
 @RestController
-@RequestMapping("/api/v1/novel")
+@RequestMapping("/api/novel")
 public class NovelController {
 
     @Autowired

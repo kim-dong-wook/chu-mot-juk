@@ -36,9 +36,6 @@ public class User {
     @Column(nullable = false)
     Boolean gender;
 
-    @Column
-    String token;
-
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
