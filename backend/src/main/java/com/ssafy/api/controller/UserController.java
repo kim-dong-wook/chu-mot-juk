@@ -43,8 +43,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> register(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
 
-        boolean success = false;
-        success = userService.checkUserId(registerInfo.getId());
+        boolean success = userService.checkUserId(registerInfo.getId());
 
         if (success) {
             userService.createUser(registerInfo);
@@ -162,8 +161,8 @@ public class UserController {
     })
     public ResponseEntity<? extends BaseResponseBody> deleteTags
             (@RequestBody @ApiParam(value = "회원 정보 및 회원 태그 정보", required = true) UserTagReq userTagInfo) {
-        boolean success = userService.deleteTags(userTagInfo);
-        if (success = true)
+
+        if (userService.deleteTags(userTagInfo) == true)
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         else
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
@@ -193,8 +192,7 @@ public class UserController {
     })
     public ResponseEntity<? extends BaseResponseBody> deleteLikeList
             (@RequestBody @ApiParam(value = "회원 정보 및 소설 정보", required = true) LikeListReq likeListInfo) {
-        boolean success = userService.deleteLikeList(likeListInfo);
-        if (success = true)
+        if (userService.deleteLikeList(likeListInfo) == true)
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         else
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));

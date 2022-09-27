@@ -1,14 +1,15 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.NovelTagSearchReq;
+import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
+import com.ssafy.db.entity.LikeList;
 import com.ssafy.db.entity.Novel;
 import com.ssafy.db.entity.NovelTag;
-import com.ssafy.db.repository.NovelRepository;
-import com.ssafy.db.repository.NovelTagRepository;
-import com.ssafy.db.repository.TagRepository;
+import com.ssafy.db.entity.User;
+import com.ssafy.db.repository.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  *	소설 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
@@ -37,6 +37,12 @@ public class NovelService {
 
     @Autowired
     NovelTagRepository novelTagRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    LikeListRepository likeListRepository;
 
     //이름으로 조회
     public List<Novel> getNovelsByNovelTitle(String novelTitle) {
@@ -96,17 +102,21 @@ public class NovelService {
     public void addNovels() throws IOException, ParseException {
 
         // JSON 파일 읽기
-        Reader reader = new FileReader("C:\\result_ridi_bl.json");
+        Reader reader = new FileReader("C:\\result_ridi_romance.json");
+        System.out.println(1);
         JSONParser parser = new JSONParser();
+        System.out.println(2);
         Object obj = parser.parse(reader);
+        System.out.println(3);
         JSONArray jsonArr =(JSONArray) obj;
             for(int i=0; i<jsonArr.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-
+                System.out.println(4);
                 String number = (String) jsonObj.get("thumbnail");
                 String[] s = number.split("/");
                 String epi = (String) jsonObj.get("recent_episode");
                 String[] e = epi.split(" ");
+                System.out.println(5);
 
                 Novel novel = new Novel();
                 novel.setNovelTitle((String) jsonObj.get("title"));
@@ -114,6 +124,7 @@ public class NovelService {
                 novel.setNovelIntro((String) jsonObj.get("guide"));
                 novel.setNovelRomanceGuide((String) jsonObj.get("romance_guide"));
                 novel.setNovelLink("https://ridibooks.com/books/" + s[4]);
+                System.out.println(6);
 
                 if (e[1].length() == 3) {
                     novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 2)));
@@ -127,22 +138,28 @@ public class NovelService {
                 novel.setNovelThumbnail((String) jsonObj.get("thumbnail"));
                 novel.setNovelIntroImage((String) jsonObj.get("introduce_img"));
                 novel.setNovelPlatform("리디북스");
-                novel.setNovelGenre(2); // 장르 변경 해주기
+                novel.setNovelGenre(0); // 장르 변경 해주기
+                System.out.println(7);
                 novelRepository.save(novel);
-
+                System.out.println(8);
                 JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
                 for (int k = 0; k < jsonArray.size(); k++) {
                     NovelTag novelTag = new NovelTag();
                     Long num = Long.valueOf(i);
+                    System.out.println(9);
                     novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
                         throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
                     }));
+                    System.out.println(10);
                     String tags = (String) jsonArray.get(k);
                     String newTag = tags.substring(1);
-                    novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 2).orElseThrow(() -> {
+                    System.out.println(11);
+                    novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 0).orElseThrow(() -> {
                         throw new CustomException(ErrorCode.TAG_NOT_FOUND);
                     }));
+                    System.out.println(12);
                     novelTagRepository.save(novelTag);
+                    System.out.println(13);
                 }
 
 
@@ -175,6 +192,58 @@ public class NovelService {
         novelInfoRes.setTagNames(tagList);
 
         return novelInfoRes;
+    }
+
+    @Transactional
+    public List<NovelInfoRes> getFamousNovels(List<User> users) {
+        Map<Long, Integer> map = new HashMap<>();
+        System.out.println(users.size());
+
+        for (User u : users) {
+            List<LikeList> lList = likeListRepository.findLikeListsByUserUserNo(u.getUserNo()).get();
+            for (LikeList l : lList) {
+                if (map.containsKey(l.getNovel().getNovelNo())) {
+                    map.put(l.getNovel().getNovelNo(), map.get(l.getNovel().getNovelNo()) + 1);
+                }else {
+                    map.put(l.getNovel().getNovelNo(), 1);
+                }
+            }
+
+        }
+        List<Long> keySetList = new ArrayList<>(map.keySet());
+
+        // Value 값으로 내림차순 정렬
+        Collections.sort(keySetList, (o1, o2) -> (map.get(o2).compareTo(map.get(o1))));
+
+        List<NovelInfoRes> novelList = new ArrayList<>();
+        int cnt = 0;
+        for (Long key : keySetList) {
+            System.out.println(key);
+            if (cnt > 20)
+                break;
+            NovelInfoRes novelInfoRes = getNovelInfoByNovelNo(key);
+            novelList.add(novelInfoRes);
+            cnt++;
+        }
+
+        return novelList;
+    }
+
+
+    //특정 age의 사람들이 좋아하는 소설을 list에 담아 전부 ++;
+    //그 다음 크기 순으로 return
+    @Transactional
+    public List<NovelInfoRes> getNovelsByParticularAgeGroup(int ageGroup) {
+        List<User> users = userRepository.findUsersByAgeGroup(ageGroup).get();
+        List<NovelInfoRes> bookList = getFamousNovels(users);
+        return bookList;
+    }
+
+    @Transactional
+    public List<NovelInfoRes> getNovelsByParticularAgeGroupAndGender(SuggestionReq suggestionReq) {
+        List<User> users = userRepository.findUsersByAgeGroupAndGender(suggestionReq.getAgeGroup(), suggestionReq.isGender()).get();
+        List<NovelInfoRes> bookList = getFamousNovels(users);
+        return bookList;
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface LikeListRepository extends JpaRepository<LikeList, Long> {
 
-    Optional<List<LikeList>> findLikeListByUserUserNo(Long userNo);
+    Optional<List<LikeList>> findLikeListsByUserUserNo(Long userNo);
 
     Optional<LikeList> findLikeListByUserUserNoAndNovelNovelNo(Long userNo, Long novelNo);
 
