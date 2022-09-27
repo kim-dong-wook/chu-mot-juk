@@ -3,10 +3,7 @@ package com.ssafy.db.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -25,11 +22,11 @@ public class Tag{
     @Column(nullable = false)
     private String tagName;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "tag")
     UserTag userTagList;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "tag")
     UserTag novelTagList;
 
