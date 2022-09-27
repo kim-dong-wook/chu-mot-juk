@@ -10,7 +10,7 @@ COPY ./ /usr/src/app/
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/conf.d/nginx.conf /etc/nginx/conf.d/default.conf
 
 # FROM nginx:latest
 # nginx의 기본 설정을 삭제하고 앱에서 설정한 파일을 복사
