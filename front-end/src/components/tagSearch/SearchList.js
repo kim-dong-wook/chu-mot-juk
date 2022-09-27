@@ -40,9 +40,8 @@ const SearchList = ({ books }) => {
 
   return (
     <div className="w-full h-full mt-8">
-      <div>
-        <div className="text-xl mb-4">총 {size}건의 작품이 있습니다.</div>
-      </div>
+      <div className="text-xl mb-4">총 {size}건의 작품이 있습니다.</div>
+
       <PageComponent books={books} page={currentPage}></PageComponent>
       <div className="w-full h-20 flex justify-center items-center">
         <span

@@ -9,7 +9,7 @@ import close from '../../assets/images/CloseButton.png';
 import kakaoLogin from '../../assets/images/KaKaoLogin.png';
 import { KAKAO_AUTH_URL } from './KaKaoAuth';
 import { useRecoilState } from 'recoil';
-import { loginState } from '../../stores/atom';
+// import { loginState } from '../../stores/atom';
 
 const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -20,7 +20,7 @@ const Header = () => {
     window.addEventListener('scroll', updateScroll);
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -42,7 +42,8 @@ const Header = () => {
             <Link to="/register">회원가입</Link>
             <Link to="/mypage">로그인</Link>
 
-            {isLoggedIn === false && (
+            {/* isLoggedIn === false */}
+            {1 && (
               <>
                 <LoginButton
                   onClick={() => {
@@ -84,8 +85,8 @@ const Header = () => {
                 )}
               </>
             )}
-
-            {isLoggedIn === true && (
+            {/* isLoggedIn === true */}
+            {1 === true && (
               <>
                 <Blank />
                 <Link to={`/mypage`}>
