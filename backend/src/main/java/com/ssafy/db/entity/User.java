@@ -39,6 +39,9 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
+    @Column(length = 1000)
+    String socialToken;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<LikeList> likeList = new ArrayList<>();

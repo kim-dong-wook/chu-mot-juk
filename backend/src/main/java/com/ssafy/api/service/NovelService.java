@@ -6,6 +6,7 @@ import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
 import com.ssafy.db.entity.Novel;
 import com.ssafy.db.entity.NovelTag;
+import com.ssafy.db.entity.Tag;
 import com.ssafy.db.repository.NovelRepository;
 import com.ssafy.db.repository.NovelTagRepository;
 import com.ssafy.db.repository.TagRepository;
@@ -131,10 +132,11 @@ public class NovelService {
                 novelRepository.save(novel);
 
                 JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
+                System.out.println(12);
                 for (int k = 0; k < jsonArray.size(); k++) {
                     NovelTag novelTag = new NovelTag();
                     Long num = Long.valueOf(i);
-                    novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
+                    novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 8281).orElseThrow(() -> {
                         throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
                     }));
                     String tags = (String) jsonArray.get(k);
@@ -175,6 +177,41 @@ public class NovelService {
         novelInfoRes.setTagNames(tagList);
 
         return novelInfoRes;
+    }
+
+    public List<Novel> getNovelsByNovelPlatform(String novelPlatform) {
+        List<Novel> book = novelRepository.findNovelsByNovelPlatform(novelPlatform).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        });
+        return book;
+    }
+
+    public List<Tag> getTagsByTagGenre(int tagGenre) {
+        List<Tag> tag = tagRepository.findTagsByTagGenre(tagGenre).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+        return tag;
+    }
+
+    public List<Tag> getRomanceTagsByTagType(int tagType) {
+        List<Tag> tag = tagRepository.findRomanceTagsByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+        return tag;
+    }
+
+    public List<Tag> getFantasyTagsByTagType(int tagType) {
+        List<Tag> tag = tagRepository.findFantasyTagsByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+        return tag;
+    }
+
+    public List<Tag> getBlTagsByTagType(int tagType) {
+        List<Tag> tag = tagRepository.findBlTagsByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+        return tag;
     }
 
 }
