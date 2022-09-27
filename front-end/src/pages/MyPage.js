@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import kakaoLogin from '../assets/images/KaKaoLogin.png';
-import { genderState, loginState } from '../stores/atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { fetchUserInfo, axiosBasic } from '../stores/atom';
+// import { genderState, loginState } from '../stores/atom';
+// import { useRecoilState, useRecoilValue } from 'recoil';
+// import { fetchUserInfo, axiosBasic } from '../stores/atom';
 import { KAKAO_AUTH_URL } from '../components/common/KaKaoAuth';
 import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
@@ -46,60 +46,91 @@ const MyPage = () => {
   // }, [access]);
 
   // if (!userData && isLoggedIn) return null;
+  //  @@@@333번
+  //   var wallertAddress;
+  //   var totalReceived;
+  //   var key;
+  //   var txIDarrary = null;
+  //   var txID = null;
+  //   function api(code) {
+  //     var grant_type = 'authorization_code';
+  //     var client_id = '4797f1a9c3b9e85999d864532537f338';
+  //     var redirect_uri = 'http://localhost:3000/oauth/kakao/callback';
+  //     var code = code;
+  //     $.post(
+  //       'https://kauth.kakao.com/oauth/token',
+  //       {
+  //         grant_type: grant_type,
+  //         client_id: client_id,
+  //         redirect_uri: redirect_uri,
+  //         code: code,
+  //       },
+  //       function (data) {
+  //         // var access_token = data['access_token'];
+  //         // detectFunction(access_token);  });
 
-  var wallertAddress;
-  var totalReceived;
-  var key;
-  var txIDarrary = null;
-  var txID = null;
-  function api(code) {
-    var grant_type = 'authorization_code';
-    var client_id = '4797f1a9c3b9e85999d864532537f338';
-    var redirect_uri = 'http://localhost:3000/oauth/kakao/callback';
-    var code = code;
-    $.post(
-      'https://kauth.kakao.com/oauth/token',
-      {
-        grant_type: grant_type,
-        client_id: client_id,
-        redirect_uri: redirect_uri,
-        code: code,
-      },
-      function (data) {
-        // var access_token = data['access_token'];
-        // detectFunction(access_token);  });
+  //         var access_token = data['access_token'];
+  //         $('body').append(access_token + '<BR>');
+  //         $('body').append('access_token:success | Loading...<BR>');
+  //         tokenFunction(access_token);
+  //       },
+  //     );
+  //   }
 
-        var access_token = data['access_token'];
-        $('body').append(access_token + '<BR>');
-        $('body').append('access_token:success | Loading...<BR>');
-        tokenFunction(access_token);
-      },
-    );
-  }
+  //   var tokenRequest = new XMLHttpRequest();
+  //   function tokenFunction(access_token) {
+  //     var access_token = access_token;
+  //     tokenRequest.open(
+  //       'POST',
+  //       '../tokenFervlet?access_token=' + access_token,
+  //       true,
+  //     );
+  //     tokenRequest.onreadystatechange = tokenProcess;
+  //     tokenRequest.send(null);
+  //   }
 
-  var tokenRequest = new XMLHttpRequest();
-  function tokenFunction(access_token) {
-    var access_token = access_token;
-    tokenRequest.open(
-      'POST',
-      '../tokenFervlet?access_token=' + access_token,
-      true,
-    );
-    tokenRequest.onreadystatechange = tokenProcess;
-    tokenRequest.send(null);
-  }
+  //   function tokenProcess() {
+  //     if (tokenRequest.readyState == 4 && tokenRequest.status == 200) {
+  //       var result = tokenRequest.responseText;
+  //       if (result == 1) {
+  //         // "location.href"
+  //         alert('로그인 페이지로 이동');
+  //       } else {
+  //         alert('회원가입이동');
+  //       }
+  //     }
+  //   }
 
-  function tokenProcess() {
-    if (tokenRequest.readyState == 4 && tokenRequest.status == 200) {
-      var result = tokenRequest.responseText;
-      if (result == 1) {
-        // "location.href"
-        alert('로그인 페이지로 이동');
-      } else {
-        alert('회원가입이동');
-      }
+  const [user_id, setUserId] = useState();
+  const [ageRange, setAgeRange] = useState();
+  const [email, setEmail] = useState();
+  const [gender, setGender] = useState();
+
+  const [nickName, setNickName] = useState();
+  const [profileImage, setProfileImage] = useState();
+
+  const getProfile = async () => {
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 획득
+      let data = await window.Kakao.API.request({
+        url: '/v2/user/me',
+      });
+
+      // 사용자 정보 변수에 저장
+      setUserId(data.id);
+      setAgeRange(data.kakao_account.age_range);
+      setEmail(data.kakao_account.email);
+      setGender(data.kakao_account.gender);
+      setNickName(data.properties.nickname);
+      setProfileImage(data.properties.profile_image);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <>
@@ -109,6 +140,21 @@ const MyPage = () => {
           <img alt="" src={kakaoLogin} />
         </LoginButton2>
       </a>
+
+      <h2>{user_id}</h2>
+      <h2>{nickName}</h2>
+      <h2>
+        {ageRange ? ageRange : ''}|{email}|{gender}
+      </h2>
+
+      <img src={profileImage}></img>
+
+      <h2>로그아웃</h2>
+
+      <a href="https://kauth.kakao.com/oauth/logout?client_id=50ca5e8cf40713abcab868ed9ed3047d&logout_redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fhome">
+        로그아웃
+      </a>
+
       {/* {isLoggedIn === true ? (
         <>
           <p>{userData.nickname}</p>

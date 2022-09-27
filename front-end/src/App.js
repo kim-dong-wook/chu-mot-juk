@@ -4,11 +4,7 @@ import Header from './components/common/Header';
 import TestIntro from './components/personalTest/TestIntro';
 import VsIntro from './components/VS/VsIntro';
 import Kakao from './pages/Kakao';
-import Kakao2 from './pages/Kakao2';
-
 import MyPage from './pages/MyPage';
-import MyPage2 from './pages/MyPage2';
-import MyPage3 from './pages/MyPage3';
 import DetailPage from './pages/DetailPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -49,8 +45,6 @@ const App = () => {
       <Route element={<Header></Header>}>
         <Route path="/oauth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/2" element={<MyPage2 />} />
-        <Route path="/3" element={<MyPage3 />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

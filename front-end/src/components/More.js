@@ -7,7 +7,6 @@ const More = () => {
   // Name
   return (
     <>
-      <div className="header-cover"></div>
       <div className="tx-container">
         <main className="tx-main space-y-8 max-w-[80rem] lg:space-y-16 lg:px-4">
           <div className="sticky top-16 z-10 bg-white ">
