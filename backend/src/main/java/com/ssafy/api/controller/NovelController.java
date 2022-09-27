@@ -9,6 +9,7 @@ import com.ssafy.api.service.NovelService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Novel;
+import com.ssafy.db.entity.Tag;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -170,6 +171,61 @@ public class NovelController {
             (@RequestBody SuggestionReq suggestionReq) {
         List<NovelInfoRes> novelList = novelService.getNovelsByParticularAgeGroupAndGender(suggestionReq);
         return ResponseEntity.status(200).body(novelList);
+    }
+
+    @GetMapping("/search/bigtag/{tagGenre}")
+    @ApiOperation(value = "대분류로 태그 조회", notes = "대분류에 따른 태그를 조회한다 (0 - 로맨스, 로판 / 1 - 판타지 / 2 - BL)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getTagsByTagGenre(@PathVariable("tagGenre") int tagGenre) {
+        List<Tag> tags = novelService.getTagsByTagGenre(tagGenre);
+        return ResponseEntity.status(200).body(tags);
+    }
+
+    @GetMapping("/search/fantasytag/{tagType}")
+    @ApiOperation(value = "판타지 내 분류에 따른 태그 조회",
+            notes = "판타지 내 분류에 따른 태그를 조회한다 (1 - 장르 / 2 - 스토리 / 3 - 직업, 소재 / 4 - 분위기, 기타)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getFantasyTagsByTagType(@PathVariable("tagType") int tagType) {
+        List<Tag> tags = novelService.getFantasyTagsByTagType(tagType);
+        return ResponseEntity.status(200).body(tags);
+    }
+
+    @GetMapping("/search/bltag/{tagType}")
+    @ApiOperation(value = "BL 내 분류에 따른 태그 조회",
+            notes = "BL 내 분류에 따른 태그를 조회한다 (1 - 장르 / 2 - 소재 / 3 - 공 / 4 - 수 / 5 - 관계 / 6 - 분위기, 기타)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getBlTagsByTagType(@PathVariable("tagType") int tagType) {
+        List<Tag> tags = novelService.getBlTagsByTagType(tagType);
+        return ResponseEntity.status(200).body(tags);
+    }
+
+    @GetMapping("/search/romancetag/{tagType}")
+    @ApiOperation(value = "로맨스, 로판 내 분류에 따른 태그 조회",
+            notes = "로맨스, 로판 내 분류에 따른 태그를 조회한다 (1 - 장르 / 2 - 소재 / 3 - 남주 / 4 - 여주 / 5 - 관계 / 6 - 분위기, 기타)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getRomanceTagsByTagType(@PathVariable("tagType") int tagType) {
+        List<Tag> tags = novelService.getRomanceTagsByTagType(tagType);
+        return ResponseEntity.status(200).body(tags);
     }
 }
 

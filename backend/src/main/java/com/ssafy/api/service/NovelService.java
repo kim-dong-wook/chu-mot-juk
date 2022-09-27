@@ -5,10 +5,7 @@ import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
-import com.ssafy.db.entity.LikeList;
-import com.ssafy.db.entity.Novel;
-import com.ssafy.db.entity.NovelTag;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -244,6 +241,38 @@ public class NovelService {
         List<User> users = userRepository.findUsersByAgeGroupAndGender(suggestionReq.getAgeGroup(), suggestionReq.isGender()).get();
         List<NovelInfoRes> bookList = getFamousNovels(users);
         return bookList;
+    }
+
+    public List<Tag> getTagsByTagGenre(int tagGenre) {
+        List<Tag> tags = tagRepository.findTagByTagGenre(tagGenre).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tags;
+    }
+
+    public List<Tag> getRomanceTagsByTagType(int tagType) {
+        List<Tag> tags = tagRepository.findRomanceTagByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tags;
+    }
+
+    public List<Tag> getFantasyTagsByTagType(int tagType) {
+        List<Tag> tags = tagRepository.findFantasyTagByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tags;
+    }
+
+    public List<Tag> getBlTagsByTagType(int tagType) {
+        List<Tag> tags = tagRepository.findBlTagByTagType(tagType).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tags;
     }
 
 }
