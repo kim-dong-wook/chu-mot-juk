@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("worldCupService")
 @Transactional(readOnly = true)
 public class WorldCupService {
@@ -36,5 +38,12 @@ public class WorldCupService {
         wcResult.setUserNo(wcReq.getUserNo());
 
         return wcResultRepository.save(wcResult);
+    }
+
+    @Transactional
+    public List<WorldCup> getAllWcInfo(){
+        return worldCupRepository.getWorldCups().orElseThrow(() -> {
+            throw new CustomException(ErrorCode.WC_NOT_FOUND);
+        });
     }
 }
