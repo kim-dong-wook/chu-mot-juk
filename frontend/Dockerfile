@@ -9,8 +9,8 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine as production-stage
-COPY ./nignx/nginx.conf /etc/nginx/conf.d/default.conf
+#FROM nginx:stable-alpine as production-stage
+#COPY ./nignx/nginx.conf /etc/nginx/conf.d/default.conf
 
 
 # FROM nginx:latest
@@ -19,7 +19,7 @@ COPY ./nignx/nginx.conf /etc/nginx/conf.d/default.conf
 # COPY conf /etc/nginx
 
 # 위에서 생성한 앱의 빌드산출물을 nginx의 샘플 앱이 사용하던 폴더로 이동
-COPY /usr/src/app/build /usr/share/nginx/html
+COPY /var/jenkins_home/workspace/frontend/frontend/build /usr/share/nginx/html
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80
