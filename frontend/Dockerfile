@@ -22,10 +22,7 @@ COPY ./pem /pem
 #COPY /var/jenkins_home/workspace/frontend/frontend/build /usr/share/nginx/html
 COPY ./build /usr/share/nginx/html
 
-CMD ["ls"]
-CMD ["cd","build"]
-CMD ["ls"]
 
 # 80포트 오픈하고 nginx 실행
-EXPOSE 80 443
+EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
