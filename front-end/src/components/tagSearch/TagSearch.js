@@ -256,54 +256,52 @@ const TagSearch = () => {
           value=""
         ></input>
       </form>
-     {/* <div className="w-full h-[3rem] flex justify-between items-end">
- 
-        <div className="text-3xl">키워드로 검색하기</div>*/}
 
-        {/* <div className="flex   items-center w-[70%] relative ">
-          <input
-            type="radio"
-            id="option0"
-            name="tabs"
-            className="appearance-none"
-          />
-          <label
-            for="option0"
-            className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
-          >
-            로맨스
-          </label>
+      {/*  레디오버튼 혹시 남김 
+      <div className="flex   items-center w-[70%] relative ">
+        <input
+          type="radio"
+          id="option0"
+          name="tabs"
+          className="appearance-none"
+        />
+        <label
+          for="option0"
+          className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
+        >
+          로맨스
+        </label>
 
-          <input
-            type="radio"
-            id="option1"
-            name="tabs"
-            className="appearance-none"
-          />
-          <label
-            for="option1"
-            className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
-          >
-            판타지
-          </label>
+        <input
+          type="radio"
+          id="option1"
+          name="tabs"
+          className="appearance-none"
+        />
+        <label
+          for="option1"
+          className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
+        >
+          판타지
+        </label>
 
-          <input
-            type="radio"
-            id="option2"
-            name="tabs"
-            className="appearance-none"
-          />
-          <label
-            for="option2"
-            className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
-          >
-            BL
-          </label>
+        <input
+          type="radio"
+          id="option2"
+          name="tabs"
+          className="appearance-none"
+        />
+        <label
+          for="option2"
+          className="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
+        >
+          BL
+        </label>
 
-          <div className=" bg-primary-2 w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full p-0 h-full absolute transform transition-transform tabAnim"></div>
-        </div> */}
+        <div className=" bg-primary-2 w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full p-0 h-full absolute transform transition-transform tabAnim"></div>
+      </div> */}
 
- 
+      <div className="w-full h-[3rem] flex justify-between items-end">
         <div className="flex items-end">
           <div className="text-3xl mr-6" onClick={cc}>
             키워드로 검색하기
@@ -317,9 +315,10 @@ const TagSearch = () => {
             </div>
             <div className={`${genreSeleted === 'BL' ? '' : ''}`}>BL</div>
           </div>
- 
-        <div className="text-xl" onClick={onClickToggle}>
-          {hidden ? '전체 보기' : '숨기기'}
+
+          <div className="text-xl" onClick={onClickToggle}>
+            {hidden ? '전체 보기' : '숨기기'}
+          </div>
         </div>
       </div>
       <div className="border-t-2  border-primary-4 mt-4"></div>
