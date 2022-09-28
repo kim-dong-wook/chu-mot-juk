@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import VideoPath from '../assets/videos/mainVideo1.mp4';
+import Video1 from '../assets/videos/mainVideo1.mp4';
+import Video2 from '../assets/videos/mainVideo2.mp4';
+import Video3 from '../assets/videos/mainVideo3.mp4';
+import Video4 from '../assets/videos/mainVideo4.mp4';
+import Video5 from '../assets/videos/mainVideo5.mp4';
+import Video6 from '../assets/videos/mainVideo6.mp4';
+import Video7 from '../assets/videos/mainVideo7.mp4';
 import VideoImg from '../assets/images/logo2.png';
 import './MainVideo.css';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 const MainVideo = ({ id }) => {
   const [videos, setVideos] = useRecoilState(videosState);
-  const path = VideoPath;
   const videoElement = useRef(null);
 
   const togglePlay = () => {
@@ -51,15 +56,32 @@ const MainVideo = ({ id }) => {
         muted
         loop
       >
-        <source src={path} type="video/mp4" />
+        <source
+          src={
+            id === 0
+              ? Video1
+              : id === 1
+              ? Video2
+              : id === 2
+              ? Video3
+              : id === 3
+              ? Video4
+              : id === 4
+              ? Video5
+              : id === 5
+              ? Video6
+              : id === 6
+              ? Video7
+              : ''
+          }
+          type="video/mp4"
+        />
       </video>
       {/* 수정중 */}
-      <div class="content">
-        <section class="left">
-          <img className="" src={VideoImg} alt="" />
-          <div class="iia">
+      <div className="pl-10 pr-8 content mt-[465px] items-end">
+        <section>
+          <div className="text-white space-x-4">
             {/* 부트스트랩아이콘 */}
-
             <button onClick={togglePlay}>
               {videos[id].isPlaying ? (
                 <i
@@ -93,24 +115,14 @@ const MainVideo = ({ id }) => {
                 style={{ cursor: 'pointer', fontSize: '1.8rem' }}
               ></i>
             </button>
-
-            {/* "text-white ms-3 mt-3 text-decoration-none" */}
-            <a href={{}} style={{ fontSize: '1.8rem' }} className="color-white">
-              <i class="bi bi-info-circle" style={{ fontSize: '1.8rem' }}></i>
-              상세 정보
-            </a>
           </div>
         </section>
-        <section class="right">
-          <a
-            href={{}}
-            style={{ color: '#f3f3f3', padding: '10px' }}
-            className="color-white"
-          >
+        <section className="text-white text-lg space-x-4">
+          <a href={{}}>
             <i class="bi bi-info-circle"></i>
             웹소설
           </a>
-          <a href={{}} style={{ color: '#f3f3f3' }} className="color-white">
+          <a href={{}}>
             <i class="bi bi-info-circle"></i>
             웹툰
           </a>

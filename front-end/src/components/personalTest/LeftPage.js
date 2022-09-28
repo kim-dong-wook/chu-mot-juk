@@ -68,66 +68,66 @@ const LeftPage = () => {
 
   return (
     <div className="absolute w-full h-full">
-      <div className="w-1/2 h-full absolute rounded-l-3xl">
+      <div className="w-1/2 h-full absolute">
         <div
           ref={failPage1}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <FailPageOne></FailPageOne>
         </div>
         <div
           ref={page8}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftEight></LeftEight>
         </div>
         <div
           ref={page7}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftSeven></LeftSeven>
         </div>
         <div
           ref={page6}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftSix></LeftSix>
         </div>
         <div
           ref={page5}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftFive></LeftFive>
         </div>
         <div
           ref={page4}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftFour></LeftFour>
         </div>
         <div
           ref={page3}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
         `}
         >
           <LeftThree></LeftThree>
         </div>
         <div
           ref={page2}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
          `}
         >
           <LeftSecond></LeftSecond>
         </div>
         <div
           ref={page1}
-          className={`w-full h-full border-2 border-black bg-white left_book_page absolute right-0 not-active
+          className={`w-full h-full left_book_page absolute right-0 not-active
           `}
         >
           <LeftFirst></LeftFirst>

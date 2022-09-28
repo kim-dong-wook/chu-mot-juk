@@ -49,6 +49,46 @@
   }
 }
 
+@keyframes testBookIntro {
+  0% {
+    opacity: 0;
+    transform: translateX(-344px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-344px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes testOutro {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translatey(-1000px);
+  }
+}
+
+@keyframes introFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.introFadeIn {
+  animation-name: introFadeIn;
+  animation-duration: 1s;
+  animation-duration: leaner;
+  animation-fill-mode: forwards;
+}
+
 .testFadeIn {
   /* 애니메이션 이름 */
   animation-name: testFadeIn;
@@ -70,33 +110,47 @@
 }
 
 .one {
-  animation-delay: 2s;
+  animation-delay: 1s;
 }
 
 .two {
-  animation-delay: 3s;
+  animation-delay: 2s;
 }
 
 .three {
-  animation-delay: 4s;
-}
-
-.four {
-  animation-delay: 5s;
-}
-
-.answers-one {
   animation-delay: 3s;
 }
 
-.answers-two {
+.four {
   animation-delay: 4s;
 }
 
+.answers-one {
+  animation-delay: 2s;
+}
+
+.answers-two {
+  animation-delay: 3s;
+}
+
 .answers-three {
-  animation-delay: 5s;
+  animation-delay: 4s;
 }
 
 .answers-four {
-  animation-delay: 6s;
+  animation-delay: 5s;
+}
+
+.testBookIntro {
+  animation-name: testBookIntro;
+  animation-duration: 3s;
+  animation-duration: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.testOutro {
+  animation-name: testOutro;
+  animation-duration: 2s;
+  animation-duration: ease-out;
+  animation-fill-mode: forwards;
 }

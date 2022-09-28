@@ -1,5 +1,5 @@
 import React from 'react';
-import cover from '../../../assets/images/test/Testimg3.jpg';
+import cover from '../../../assets/images/test/Testimg3.png';
 const BookCover = () => {
   return (
     <div

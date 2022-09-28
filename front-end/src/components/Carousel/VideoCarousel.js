@@ -6,11 +6,11 @@ import LeftPath from '../../assets/images/bt_left.png';
 import { videosState } from '../../stores/atom';
 import { useRecoilState } from 'recoil';
 const VideoCarousel = () => {
-  const [prev, setPrev] = useState(4);
+  const [prev, setPrev] = useState(6);
   const [active, setActive] = useState(0);
   const [next, setNext] = useState(1);
   const [videos, setVideos] = useRecoilState(videosState);
-  const Ids = [0, 1, 2, 3, 4, 5];
+  const Ids = [0, 1, 2, 3, 4, 5, 6];
   const right = RightPath;
   const left = LeftPath;
 

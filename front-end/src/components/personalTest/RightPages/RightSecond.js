@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { testPageState, genreState, failState } from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
-import background from '../../../assets/images/test/TestImg1.jpg';
+import background from '../../../assets/images/test/rightPage.png';
 
 const RightSecond = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
@@ -33,7 +33,7 @@ const RightSecond = ({ page }) => {
   if (genre === '로맨스') {
     return (
       <div
-        className="w-full h-full right_book_page bg-cover"
+        className="w-full h-full right_book_page bg-cover pl-6"
         style={{ backgroundImage: `url(${background})` }}
       >
         <div
@@ -60,7 +60,7 @@ const RightSecond = ({ page }) => {
   } else if (genre === '판타지') {
     return (
       <div
-        className="w-full h-full right_book_page bg-cover"
+        className="w-full h-full right_book_page bg-cover pl-6"
         style={{ backgroundImage: `url(${background})` }}
       >
         <div

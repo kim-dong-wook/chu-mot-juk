@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { testPageState } from '../../../stores/atom';
-import background from '../../../assets/images/test/TestImg1.jpg';
+import background from '../../../assets/images/test/leftPage.png';
 const LeftFirst = () => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const page = useRef(null);

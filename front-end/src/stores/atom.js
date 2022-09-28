@@ -68,6 +68,13 @@ const videosState = atom({
       speed: 1,
       isMuted: true,
     },
+    {
+      id: 6,
+      isPlaying: false,
+      progress: 0,
+      speed: 1,
+      isMuted: true,
+    },
   ], // default value
 });
 

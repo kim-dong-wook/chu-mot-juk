@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import SearchList from './SearchList';
 import TagList from './TagList';
+import { getBook } from '../../api/API';
 
 const TagSearch = () => {
   const [hidden, setHidden] = useState(true);
+  const [genreSeleted, setGenreSeleted] = useState('로맨스');
   const onClickToggle = () => {
     setHidden(!hidden);
+  };
+
+  const cc = async () => {
+    const result = await getBook(1);
+    console.log(result);
   };
 
   const books = [
@@ -249,8 +256,9 @@ const TagSearch = () => {
           value=""
         ></input>
       </form>
-      <div className="w-full h-[3rem] flex justify-between items-end">
-        <div className="text-3xl">키워드로 검색하기</div>
+     {/* <div className="w-full h-[3rem] flex justify-between items-end">
+ 
+        <div className="text-3xl">키워드로 검색하기</div>*/}
 
         {/* <div className="flex   items-center w-[70%] relative ">
           <input
@@ -295,6 +303,21 @@ const TagSearch = () => {
           <div className=" bg-primary-2 w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full p-0 h-full absolute transform transition-transform tabAnim"></div>
         </div> */}
 
+ 
+        <div className="flex items-end">
+          <div className="text-3xl mr-6" onClick={cc}>
+            키워드로 검색하기
+          </div>
+          <div className="flex space-x-4 text-xl items-end">
+            <div className={`${genreSeleted === '로맨스' ? 'text-2xl' : ''}`}>
+              로맨스/로판
+            </div>
+            <div className={`${genreSeleted === '판타지' ? '' : ''}`}>
+              판타지
+            </div>
+            <div className={`${genreSeleted === 'BL' ? '' : ''}`}>BL</div>
+          </div>
+ 
         <div className="text-xl" onClick={onClickToggle}>
           {hidden ? '전체 보기' : '숨기기'}
         </div>

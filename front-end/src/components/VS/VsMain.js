@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
@@ -11,7 +11,6 @@ import border from '../../assets/images/vs/VSimg10.jpg';
 import mainBack from '../../assets/images/vs/VSimg6.jpg';
 import VSimg from '../../assets/images/vs/VSimg5.png';
 import VStitle from '../../assets/images/vs/VSimg7.png';
-// import VStitle from '../../assets/images/vs/VSimg10.png';
 
 import './VS.scss';
 
@@ -20,9 +19,12 @@ const VsMain = () => {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState([]);
   const [startBooks, setStartBooks] = useState([]);
-  const [left, setLeft] = useState();
-  const [right, setRight] = useState(false);
+  // const [left, setLeft] = useState();
+  // const [right, setRight] = useState(false);
   const navigate = useNavigate();
+  const left = useRef(null);
+  const right = useRef(null);
+  const box = useRef(null);
   const sideBookPath = bookSide;
   const borderPath = border;
   const background = mainBack;
@@ -377,12 +379,36 @@ const VsMain = () => {
     temp.slice(0, round);
   };
 
-  const onClickLeft = (id) => {
-    setLeft(true);
+  const onClick = (id, side) => {
     const book = startBooks.filter((book) => book.id === id)[0];
     setSelected(selected.concat(book));
+    right.current.classList.remove('animate__zoomIn');
+    left.current.classList.remove('animate__zoomIn');
+
+    if (side === 'left') {
+      right.current.classList.add('animate__zoomOutRight');
+      left.current.classList.add('pointer-events-none');
+      left.current.classList.add('animate__bounce');
+    } else if (side === 'right') {
+      left.current.classList.add('animate__zoomOutLeft');
+      right.current.classList.add('pointer-events-none');
+      right.current.classList.add('animate__bounce');
+    }
 
     let fn = setTimeout(() => {
+      left.current.classList.remove('animate__bounce');
+      right.current.classList.remove('animate__bounce');
+      if (side === 'left') {
+        left.current.classList.remove('pointer-events-none');
+        right.current.classList.remove('animate__zoomOutRight');
+      } else if (side === 'right') {
+        right.current.classList.remove('pointer-events-none');
+
+        left.current.classList.remove('animate__zoomOutLeft');
+      }
+      right.current.classList.add('animate__zoomIn');
+      left.current.classList.add('animate__zoomIn');
+
       if (current + 1 === 1 && round === 2) {
         navigate('/vsresult', {
           state: {
@@ -391,39 +417,7 @@ const VsMain = () => {
         });
       } else {
         setCurrent(current + 1);
-        setLeft(false);
       }
-      $('#left').removeClass('bookFadeIn');
-      $('#left').width = $('#left').width();
-      $('#left').addClass('bookFadeIn');
-      $('#right').removeClass('bookFadeIn');
-      $('#right').width = $('#right').width();
-      $('#right').addClass('bookFadeIn');
-    }, 1500);
-  };
-
-  const onClickRight = (id) => {
-    setRight(true);
-    const book = startBooks.filter((book) => book.id === id)[0];
-    setSelected(selected.concat(book));
-
-    let fn = setTimeout(() => {
-      if (current + 1 === 1 && round === 2) {
-        navigate('/vsresult', {
-          state: {
-            book,
-          },
-        });
-      } else {
-        setCurrent(current + 1);
-        setRight(false);
-      }
-      $('#left').removeClass('bookFadeIn');
-      $('#left').width = $('#left').width();
-      $('#left').addClass('bookFadeIn');
-      $('#right').removeClass('bookFadeIn');
-      $('#right').width = $('#right').width();
-      $('#right').addClass('bookFadeIn');
     }, 1500);
   };
 
@@ -431,6 +425,15 @@ const VsMain = () => {
     mixBooks(books);
     console.log(temp);
     setStartBooks(temp);
+
+    box.current.classList.add('animate__animated');
+    box.current.classList.add('animate__fadeInUp');
+
+    left.current.classList.add('animate__animated');
+    left.current.classList.add('animate__zoomIn');
+
+    right.current.classList.add('animate__animated');
+    right.current.classList.add('animate__zoomIn');
   }, []);
 
   useEffect(() => {
@@ -463,7 +466,10 @@ const VsMain = () => {
       <span className="ball"></span>
       <span className="ball"></span>
 
-      <div className="w-[80%] h-[95%] flex flex-col justify-center items-center px-20 relative ">
+      <div
+        className="w-[80%] h-[95%] flex flex-col justify-center items-center px-20 relative "
+        ref={box}
+      >
         <img
           src={border}
           alt=""
@@ -481,19 +487,10 @@ const VsMain = () => {
         </div>
         <div className="w-full h-full flex relative justify-center items-center">
           <div
-            className={`w-[32%] h-[80%] flex justify-center items-cente
-          ${
-            left
-              ? 'translate-x-[78%] duration-700 pointer-events-none ease-in delay-200'
-              : null
-          }
-          ${right ? 'scale-0 duration-700 z-20' : null}`}
+            className="w-[32%] h-[80%] flex justify-center items-center"
+            ref={left}
           >
-            <div
-              id="left"
-              class="ud_book_box"
-              className="w-[100%] h-[100%] bookFadeIn"
-            >
+            <div class="ud_book_box" className="w-[100%] h-[100%]">
               <div class="ud_book">
                 <img
                   className={`w-[100%] h-[100%] `}
@@ -501,40 +498,27 @@ const VsMain = () => {
                     startBooks[2 * current] ? startBooks[2 * current].src : ''
                   }
                   alt=""
-                  onClick={() => onClickLeft(startBooks[2 * current].id)}
+                  onClick={() => onClick(startBooks[2 * current].id, 'left')}
                 ></img>
                 <div class="ud_ruckseite">
                   <img
                     className={`w-[100%] h-[100%]`}
                     src={sideBookPath}
                     alt=""
-                    onClick={() => onClickLeft(startBooks[2 * current].id)}
+                    onClick={() => onClick(startBooks[2 * current].id, 'left')}
                   ></img>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            className={`
-          ${left ? 'invisible' : null} ${right ? 'invisible' : null}
-          `}
-          >
+          <div>
             <img src={VSimg} alt="" className="" />
           </div>
           <div
-            className={`w-[32%] h-[80%] flex justify-center items-cente
-          ${
-            right
-              ? 'translate-x-[-78%] duration-700 pointer-events-none ease-in delay-200'
-              : null
-          }
-          ${left ? 'scale-0 duration-700 ' : null}`}
+            className="w-[32%] h-[80%] flex justify-center items-center"
+            ref={right}
           >
-            <div
-              id="right"
-              class="ud_book_box"
-              className="w-[100%] h-[100%] bookFadeIn"
-            >
+            <div class="ud_book_box" className="w-[100%] h-[100%]">
               <div class="ud_book">
                 <img
                   className={`w-[100%] h-[100%]`}
@@ -544,14 +528,18 @@ const VsMain = () => {
                       : ''
                   }
                   alt=""
-                  onClick={() => onClickRight(startBooks[2 * current + 1].id)}
+                  onClick={() =>
+                    onClick(startBooks[2 * current + 1].id, 'right')
+                  }
                 ></img>
                 <div class="ud_ruckseite">
                   <img
                     className={`w-[100%] h-[100%]`}
                     src={sideBookPath}
                     alt=""
-                    onClick={() => onClickRight(startBooks[2 * current + 1].id)}
+                    onClick={() =>
+                      onClick(startBooks[2 * current + 1].id, 'right')
+                    }
                   ></img>
                 </div>
               </div>
