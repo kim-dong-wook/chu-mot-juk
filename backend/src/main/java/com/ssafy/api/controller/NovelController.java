@@ -5,6 +5,7 @@ import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.request.UserTagReq;
 import com.ssafy.api.response.NovelInfoRes;
+import com.ssafy.api.response.NovelRes;
 import com.ssafy.api.service.NovelService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -12,6 +13,9 @@ import com.ssafy.db.entity.Novel;
 import com.ssafy.db.entity.Tag;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -241,7 +245,7 @@ public class NovelController {
         return ResponseEntity.status(200).body(novels);
     }
 
-    @GetMapping("/list/{novelGenre}")
+    @GetMapping("/list/")
     @ApiOperation(value = "장르 별 소설 정보 조회", notes = "장르 별 모든 소설의 정보을 조회한다. ex) 로맨스&로판, 판타지, bl")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -249,9 +253,8 @@ public class NovelController {
             @ApiResponse(code = 404, message = "해당하는 소설 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<List> getNovelByNovelGenre(@PathVariable("novelGenre") Integer novelGenre) {
-        List<NovelInfoRes> novels = novelService.getNovelsByNovelGenre(novelGenre);
-
+    public ResponseEntity<Page> getNovelByNovelGenre(@RequestParam("novelGenre") Integer novelGenre, Pageable pageable) {
+        Page<NovelRes> novels = novelService.getNovelsByNovelGenre(novelGenre, pageable);
         return ResponseEntity.status(200).body(novels);
     }
 }

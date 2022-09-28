@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.SuggestionReq;
 import com.ssafy.api.response.NovelInfoRes;
+import com.ssafy.api.response.NovelRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
 import com.ssafy.db.entity.*;
@@ -12,6 +13,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  *	소설 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
@@ -262,17 +268,33 @@ public class NovelService {
         return book;
     }
 
-    public List<NovelInfoRes> getNovelsByNovelGenre(Integer novelGenre){
-        List<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre).orElseThrow(() -> {
+    public NovelRes getNovelsByNovelNo(Novel novel) {
+        NovelRes novelRes = new NovelRes();
+
+        novelRes.setNovelNo(novel.getNovelNo());
+        novelRes.setNovelTitle(novel.getNovelTitle());
+        novelRes.setNovelThumbnail(novel.getNovelThumbnail());
+
+        List<String> tagList = new ArrayList<>();
+        for (NovelTag nt : novel.getNovelTags()){
+            tagList.add(nt.getTag().getTagName());
+        }
+        novelRes.setTagNames(tagList);
+
+        return novelRes;
+    }
+
+    public Page<NovelRes> getNovelsByNovelGenre(Integer novelGenre, Pageable pageable){
+        Page<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre, pageable).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
-        if (novels.isEmpty())
-            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
-        List<NovelInfoRes> novelInfoResList = new ArrayList<>();
+
+        List<NovelRes> novelResList = new ArrayList<>();
+
         for (Novel n : novels) {
-            novelInfoResList.add(getNovelInfoByNovelNo(n.getNovelNo()));
+            novelResList.add(getNovelsByNovelNo(n));
         }
-        return novelInfoResList;
+        return new PageImpl<>(novelResList);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.ssafy.db.repository;
 
 import com.ssafy.db.entity.Novel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,6 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
     Optional<Novel> findNovelByNovelNo(Long novelNo);
     Optional<List<Novel>> findNovelsByNovelPlatform(String novelPlatform);
-    Optional<List<Novel>> findNovelsByNovelGenre(Integer novelGenre);
+    Optional<Page<Novel>> findNovelsByNovelGenre(Integer novelGenre, Pageable pageable);
 
 }
