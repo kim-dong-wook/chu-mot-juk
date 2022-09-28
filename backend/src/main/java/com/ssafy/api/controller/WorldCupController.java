@@ -29,7 +29,7 @@ public class WorldCupController {
     }
 
     @PostMapping("/result")
-    @ApiOperation(value = "wc no로 캐릭터 조회", notes = "해당 no를 가진 wc 정보를 응답하고 결과를 저장한다.")
+    @ApiOperation(value = "wc 결과 저장", notes = "해당 no를 가진 wc 정보를 응답하고 결과를 저장한다.")
     public ResponseEntity<? extends BaseResponseBody> getInfoByNo(
             @RequestBody @ApiParam(value = "wcReq", required = true) WcReq wcReq) {
         worldCupService.createWcResult(wcReq);
