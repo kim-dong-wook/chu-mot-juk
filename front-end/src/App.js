@@ -6,10 +6,10 @@ import VsIntro from './components/VS/VsIntro';
 import Kakao from './pages/Kakao';
 import MyPage from './pages/MyPage';
 import DetailPage from './pages/DetailPage';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/LogoutPage';
 import MainPage from './pages/MainPage';
 import MorePage from './pages/MorePage';
-import RegisterPage from './pages/RegisterPage';
+import MyBoxPage from './pages/MyBoxPage';
 import TagSearchPage from './pages/TagSearchPage';
 import TempPage from './pages/TempPage';
 import TestPage from './pages/TestPage';
@@ -47,7 +47,7 @@ const App = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/mybox" element={<MyBoxPage />} />
         <Route path="/tagsearch" element={<TagSearchPage />} />
         <Route path="/vs" element={<VsPage />} />
         <Route path="/vsintro" element={<VsIntro />} />

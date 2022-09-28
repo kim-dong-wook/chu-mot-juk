@@ -37,21 +37,28 @@ const Header = () => {
             <Link to="/test">유형검사</Link>
             <Link to="/vsintro">이상형월드컵</Link>
             <Link to="/tagsearch">태그검색</Link>
+            <Link to="/detail">detail</Link>
+            <Link to="/temp">temp</Link>
           </div>
-          <div className=" space-x-4 text-primary-1 text-xl">
-            <Link to="/register">회원가입</Link>
+
+          <div className=" space-x-8 text-primary-1 text-xl">
+            <Link to="/logout">로그아웃</Link>
+            <Link to="/mybox">보관함</Link>
             <Link to="/mypage">로그인</Link>
 
             {/* isLoggedIn === false */}
             {1 && (
               <>
-                <LoginButton
+                <button
+                  style={{ borderStyle: 'solid' }}
+                  className="bg-[#fff] border-black border 
+                  w-[90px] h-[] cursor-pointer rounded-full "
                   onClick={() => {
                     setModalOpen(true);
                   }}
                 >
                   <Text>로그인</Text>
-                </LoginButton>
+                </button>
                 {modalOpen && (
                   <Container>
                     <Background />
@@ -107,20 +114,6 @@ const Header = () => {
 };
 
 export default Header;
-
-const LoginButton = styled.button`
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  background-color: ${(props) => (props.color ? 'rgba(0, 0, 0, 0)' : 'white')};
-  border: 1px solid;
-  border-color: ${(props) => props.color || 'black'};
-  border-radius: 40px;
-  width: 105px;
-  height: 40px;
-  /* margin-right: 1.5rem; */
-  cursor: pointer;
-`;
 
 const Text = styled.div`
   color: ${(props) => props.color || 'black'};

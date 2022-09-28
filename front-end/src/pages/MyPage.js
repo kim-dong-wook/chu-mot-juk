@@ -147,14 +147,14 @@ const MyPage = () => {
         {ageRange ? ageRange : ''}|{email}|{gender}
       </h2>
 
-      <img src={profileImage}></img>
-
-      <h2>로그아웃</h2>
-
+      <img alt="" src={profileImage}></img>
       <a href="https://kauth.kakao.com/oauth/logout?client_id=50ca5e8cf40713abcab868ed9ed3047d&logout_redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fhome">
-        로그아웃
+        로그아웃1
       </a>
 
+      <a className="ml-[100px]" href="http://localhost:3000/logout">
+        로그아웃2
+      </a>
       {/* {isLoggedIn === true ? (
         <>
           <p>{userData.nickname}</p>
