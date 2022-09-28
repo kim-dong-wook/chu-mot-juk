@@ -139,7 +139,7 @@ function KaKao() {
       window.Kakao.Auth.setAccessToken(res.data.access_token);
       console.log(code);
       console.log(res.data.access_token);
-      // navigate('/mypage');
+      navigate('/mypage');
     } catch (err) {
       console.log(err);
     }

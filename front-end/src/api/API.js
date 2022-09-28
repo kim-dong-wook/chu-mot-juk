@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://j7a207.p.ssafy.io:8000/api';
+const URL = 'https://j7a207.p.ssafy.io:8000/api';
 
 export const axiosBasic = axios.create({
   baseURL: URL,

@@ -1,0 +1,42 @@
+.tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+  border-top: 1px solid #efc1b8;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.th {
+  letter-spacing: -0.03em;
+  text-align: right;
+  background: #f2f4f5;
+  font-weight: 700;
+  color: #808991;
+  width: 130px;
+  padding: 10px 14px;
+  line-height: 28px;
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.td {
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  text-align: left;
+  color: #808991;
+  position: relative;
+  padding: 10px 14px;
+  line-height: 1.5em;
+  font-size: 13px;
+}
+
+/* 버튼 앱솔루트 
+
+display: block;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -16px;
+    font-size: 13px;
+    */

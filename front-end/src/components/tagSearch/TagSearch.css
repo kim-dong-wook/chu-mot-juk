@@ -9,3 +9,19 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.tabAnim {
+  z-index: -9;
+}
+
+#option0:checked ~ div {
+  --tw-translate-x: 0%;
+}
+
+#option1:checked ~ div {
+  --tw-translate-x: 100%;
+}
+
+#option2:checked ~ div {
+  --tw-translate-x: 200%;
+}
