@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.WcReq;
+import com.ssafy.api.response.WcRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
 import com.ssafy.db.entity.WcResult;
@@ -46,4 +47,5 @@ public class WorldCupService {
             throw new CustomException(ErrorCode.WC_NOT_FOUND);
         });
     }
+
 }

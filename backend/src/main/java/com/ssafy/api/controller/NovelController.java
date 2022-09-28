@@ -240,6 +240,20 @@ public class NovelController {
         List<Novel> novels = novelService.getNovelsByNovelPlatform(novelPlatform);
         return ResponseEntity.status(200).body(novels);
     }
+
+    @GetMapping("/list/{novelGenre}")
+    @ApiOperation(value = "장르 별 소설 정보 조회", notes = "장르 별 모든 소설의 정보을 조회한다. ex) 로맨스&로판, 판타지, bl")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당하는 소설 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getNovelByNovelGenre(@PathVariable("novelGenre") Integer novelGenre) {
+        List<NovelInfoRes> novels = novelService.getNovelsByNovelGenre(novelGenre);
+
+        return ResponseEntity.status(200).body(novels);
+    }
 }
 
 

@@ -57,14 +57,6 @@ public class NovelService {
         return book;
     }
 
-//    public Novel getNovelInfoByNovelNo(Long novelNo) {
-//        Novel novel = novelRepository.findNovelByNovelNo(novelNo).orElseThrow(() -> {
-//            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
-//        });
-//        return novel;
-//    }
-
-
     public List<Novel> getNovelsByTag(NovelTagSearchReq tags) {
         List<Novel> shelf = new ArrayList<>();
         //여기 클린코딩 해야 되니까 이렇게 말고 다르게 하는 법 생각해보자
@@ -92,7 +84,10 @@ public class NovelService {
                 }
             }
         }
-        return shelf;
+        if (shelf.isEmpty())
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        else
+            return shelf;
     }
 
     @Transactional
@@ -100,20 +95,16 @@ public class NovelService {
 
         // JSON 파일 읽기
         Reader reader = new FileReader("C:\\result_ridi_romance.json");
-        System.out.println(1);
         JSONParser parser = new JSONParser();
-        System.out.println(2);
         Object obj = parser.parse(reader);
-        System.out.println(3);
         JSONArray jsonArr =(JSONArray) obj;
+
             for(int i=0; i<jsonArr.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-                System.out.println(4);
                 String number = (String) jsonObj.get("thumbnail");
                 String[] s = number.split("/");
                 String epi = (String) jsonObj.get("recent_episode");
                 String[] e = epi.split(" ");
-                System.out.println(5);
 
                 Novel novel = new Novel();
                 novel.setNovelTitle((String) jsonObj.get("title"));
@@ -121,7 +112,6 @@ public class NovelService {
                 novel.setNovelIntro((String) jsonObj.get("guide"));
                 novel.setNovelRomanceGuide((String) jsonObj.get("romance_guide"));
                 novel.setNovelLink("https://ridibooks.com/books/" + s[4]);
-                System.out.println(6);
 
                 if (e[1].length() == 3) {
                     novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 2)));
@@ -136,30 +126,22 @@ public class NovelService {
                 novel.setNovelIntroImage((String) jsonObj.get("introduce_img"));
                 novel.setNovelPlatform("리디북스");
                 novel.setNovelGenre(0); // 장르 변경 해주기
-                System.out.println(7);
                 novelRepository.save(novel);
-                System.out.println(8);
+
                 JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
                 for (int k = 0; k < jsonArray.size(); k++) {
                     NovelTag novelTag = new NovelTag();
                     Long num = Long.valueOf(i);
-                    System.out.println(9);
                     novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
                         throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
                     }));
-                    System.out.println(10);
                     String tags = (String) jsonArray.get(k);
                     String newTag = tags.substring(1);
-                    System.out.println(11);
                     novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 0).orElseThrow(() -> {
                         throw new CustomException(ErrorCode.TAG_NOT_FOUND);
                     }));
-                    System.out.println(12);
                     novelTagRepository.save(novelTag);
-                    System.out.println(13);
                 }
-
-
             }
     }//add novels
 
@@ -247,7 +229,6 @@ public class NovelService {
         List<Tag> tags = tagRepository.findTagByTagGenre(tagGenre).orElseThrow(() -> {
             throw new CustomException(ErrorCode.TAG_NOT_FOUND);
         });
-
         return tags;
     }
 
@@ -255,7 +236,6 @@ public class NovelService {
         List<Tag> tags = tagRepository.findRomanceTagByTagType(tagType).orElseThrow(() -> {
             throw new CustomException(ErrorCode.TAG_NOT_FOUND);
         });
-
         return tags;
     }
 
@@ -279,8 +259,20 @@ public class NovelService {
         List<Novel> book = novelRepository.findNovelsByNovelPlatform(novelPlatform).orElseThrow(() -> {
             throw new CustomException(ErrorCode.PLATFORM_NOT_FOUND);
         });
-
         return book;
+    }
+
+    public List<NovelInfoRes> getNovelsByNovelGenre(Integer novelGenre){
+        List<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        });
+        if (novels.isEmpty())
+            throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        List<NovelInfoRes> novelInfoResList = new ArrayList<>();
+        for (Novel n : novels) {
+            novelInfoResList.add(getNovelInfoByNovelNo(n.getNovelNo()));
+        }
+        return novelInfoResList;
     }
 
 }
