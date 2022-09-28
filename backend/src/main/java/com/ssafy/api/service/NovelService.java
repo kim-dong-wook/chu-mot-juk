@@ -284,8 +284,8 @@ public class NovelService {
         return novelRes;
     }
 
-    public Page<NovelRes> getNovelsByNovelGenre(Integer novelGenre, Pageable pageable){
-        Page<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre, pageable).orElseThrow(() -> {
+    public List<NovelRes> getNovelsByNovelGenre(Integer novelGenre){
+        List<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
 
@@ -294,7 +294,7 @@ public class NovelService {
         for (Novel n : novels) {
             novelResList.add(getNovelsByNovelNo(n));
         }
-        return new PageImpl<>(novelResList);
+        return novelResList;
     }
 
 }
