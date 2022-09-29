@@ -7,9 +7,8 @@ const More = () => {
   // Name
   return (
     <>
-      <div className="header-cover"></div>
       <div className="tx-container">
-        <main className="tx-main space-y-8 max-w-[96rem] lg:space-y-16 lg:px-4">
+        <main className="tx-main space-y-8 max-w-[80rem] lg:space-y-16 lg:px-4">
           <div className="sticky top-16 z-10 bg-white ">
             <form>
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
@@ -136,7 +135,7 @@ const More = () => {
             </ul>
           </div>
 
-          <div className="lg:max-w-6xl">
+          <div className="lg:max-w-[80rem]">
             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
               <a
                 target="_self"

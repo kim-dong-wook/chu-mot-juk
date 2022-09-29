@@ -10,11 +10,11 @@ const VsPage = () => {
   useEffect(() => {
     setRound(0);
   }, []);
-  return (
-    <div>
-      <div>{round === 0 ? <VsStart /> : <VsMain />}</div>
-    </div>
-  );
+  if (round === 0) {
+    return <VsStart />;
+  } else {
+    return <VsMain />;
+  }
 };
 
 export default VsPage;

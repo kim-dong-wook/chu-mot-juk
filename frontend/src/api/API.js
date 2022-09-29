@@ -1,100 +1,90 @@
 import axios from 'axios';
 
-const URL = 'https://api.themoviedb.org/3';
-const API_KEY = 'c02f0edc5789e39aa1c491cf515d8e22';
-
-const endpoints = {
-  originals: '/discover/tv',
-  trending: '/trending/all/week',
-  now_playing: '/movie/now_playing',
-  popular: '/movie/popular',
-  top_rated: '/movie/top_rated',
-  upcoming: '/movie/upcoming',
-};
+const URL = 'https://j7a207.p.ssafy.io/api';
 
 export const axiosBasic = axios.create({
   baseURL: URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 5000,
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+  timeout: 10000,
 });
 
-export const getOriginals = async () => {
+export const getBook = async (number) => {
   try {
-    const response = await axiosBasic.get(endpoints.originals, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-
-    return response.data.results;
+    const response = await axiosBasic.get('novel/' + number);
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getTrending = async () => {
+export const getBooksByGenre = async (number) => {
   try {
-    const response = await axiosBasic.get(endpoints.trending, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    return response.data.results;
+    const response = await axiosBasic.get('novel/list/' + number);
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getNowPlaying = async () => {
+export const getBooksByTags = async (tags) => {
   try {
-    const response = await axiosBasic.get(endpoints.now_playing, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    return response.data.results;
+    let jsonData = {
+      tags,
+    };
+
+    const response = await axiosBasic.post('novel/search/tags', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getGenreTag = async (genre, tagType) => {
+  try {
+    let response = null;
+    if (genre === '로맨스') {
+      response = await axiosBasic.get('novel/search/romancetag/' + tagType);
+    } else if (genre === '판타지') {
+      response = await axiosBasic.get('novel/search/fantasytag/' + tagType);
+    } else if (genre === 'BL') {
+      response = await axiosBasic.get('novel/search/bltag/' + tagType);
+    } else {
+      response = null;
+    }
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getPopular = async () => {
+export const getBooksByName = async (name) => {
   try {
-    const response = await axiosBasic.get(endpoints.popular, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    return response.data.results;
+    const response = await axiosBasic.get('novel/search/title/' + name);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getBooksByPlatform = async (name) => {
+  try {
+    const response = await axiosBasic.get('novel/platform/' + name);
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getTopRated = async () => {
+export const getWCInfo = async () => {
   try {
-    const response = await axiosBasic.get(endpoints.top_rated, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    return response.data.results;
+    const response = await axiosBasic.post('wc/');
+    return response;
   } catch (error) {
     console.log(error);
-  }
-};
-
-export const getUpcoming = async () => {
-  try {
-    const response = await axiosBasic.get(endpoints.upcoming, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    return response.data.results;
-  } catch (error) {
-    console.log(error);
+    return null;
   }
 };

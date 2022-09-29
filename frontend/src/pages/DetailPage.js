@@ -5,7 +5,7 @@ const DetailPage = () => {
     <div>
       <Detail></Detail>
 
-      <div className="mt-[300px]">상세보기</div>
+      <div className="mt-[500px]">상세보기</div>
     </div>
   );
 };

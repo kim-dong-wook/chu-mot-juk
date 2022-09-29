@@ -1,7 +1,8 @@
 import React from 'react';
+import Temp from '../components/Carousel/test/Temp';
 
 const TempPage = () => {
-  return <div>임시 페이지입니다.</div>;
+  return <Temp></Temp>;
 };
 
 export default TempPage;

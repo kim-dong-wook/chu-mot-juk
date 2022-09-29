@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
+
 import intro from '../../assets/images/vs/VSimg1.jpg';
 import intro2 from '../../assets/images/vs/VSimg3.png';
 import intro3 from '../../assets/images/vs/VSimg4.png';
@@ -14,27 +15,37 @@ import Select from '@mui/material/Select';
 const VsStart = () => {
   const [round, setRound] = useRecoilState(roundState);
   const [books, setBooks] = useState(round);
+  const box = useRef(null);
 
   const handleChange = (e) => {
     setBooks(e.target.value);
   };
 
   const onClick = () => {
-    setRound(books);
+    box.current.classList.remove('animate__fadeInUpBig');
+    box.current.classList.add('animate__fadeOutDownBig');
+    let fn = setTimeout(() => {
+      setRound(books);
+    }, 900);
   };
 
-  // useEffect(() => {
-  //   setRound(0);
-  // });
+  useEffect(() => {
+    setRound(0);
+    box.current.classList.add('animate__animated');
+    box.current.classList.add('animate__fadeInUpBig');
+  }, []);
 
   return (
     <div
-      className="h-screen flex justify-center items-center mt-[-4rem] bg-cover"
+      className="h-screen flex justify-center items-center mt-[-4rem] bg-cover overflow-hidden"
       style={{ backgroundImage: `url(${intro})` }}
     >
-      <div className="h-[30rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg space-y-8">
+      <div
+        className="h-[30rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg space-y-8"
+        ref={box}
+      >
         <img src={intro2} alt="" className="w-[20%]" />
-        <div className="bg-primary-1 w-10/12 h-[10rem] space-y-4 p-4 rounded-lg">
+        <div className="bg-primary-1 w-10/12 h-[11rem] space-y-4 p-4 rounded-lg text-xl">
           <div className="font-bold">총 라운드를 선택하세요.</div>
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>

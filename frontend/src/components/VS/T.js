@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
 import { useNavigate } from 'react-router-dom';
-import './t.scss';
+// import './t.scss';
 
 const T = () => {
   const A = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/193203/1111.jpg';
