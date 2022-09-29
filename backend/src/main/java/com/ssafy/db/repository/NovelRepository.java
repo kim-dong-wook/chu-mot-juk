@@ -15,10 +15,8 @@ import java.util.Optional;
  */
 @Repository
 public interface NovelRepository extends JpaRepository<Novel, Long> {
-    @Query(value = "SELECT n FROM Novel n WHERE n.novelTitle LIKE %:novelTitle%")
-    Optional<List<Novel>> findNovelsByNovelTitle(String novelTitle);
-    @Query(value = "SELECT n FROM Novel n WHERE n.novelWriter LIKE %:novelWriter%")
-    Optional<List<Novel>> findNovelsByNovelWriter(String novelWriter);
+    Optional<List<Novel>> findNovelsByNovelTitleContains(String novelTitle);
+    Optional<List<Novel>> findNovelsByNovelWriterContains(String novelWriter);
     Optional<Novel> findNovelByNovelNo(Long novelNo);
     Optional<List<Novel>> findNovelsByNovelPlatform(String novelPlatform);
     @Query(value = "SELECT distinct n FROM Novel n JOIN FETCH n.novelTags WHERE n.novelGenre = :novelGenre")

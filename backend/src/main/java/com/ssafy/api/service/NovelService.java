@@ -49,7 +49,7 @@ public class NovelService {
 
     //이름으로 조회
     public List<Novel> getNovelsByNovelTitle(String novelTitle) {
-        List<Novel> book = novelRepository.findNovelsByNovelTitle(novelTitle).orElseThrow(() -> {
+        List<Novel> book = novelRepository.findNovelsByNovelTitleContains(novelTitle).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
 
@@ -57,7 +57,7 @@ public class NovelService {
     }
 
     public List<Novel> getNovelsByNovelWriter(String novelWriter) {
-        List<Novel> book = novelRepository.findNovelsByNovelWriter(novelWriter).orElseThrow(() -> {
+        List<Novel> book = novelRepository.findNovelsByNovelWriterContains(novelWriter).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
         return book;
