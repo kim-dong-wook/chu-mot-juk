@@ -1,14 +1,3 @@
-FROM node:alpine
-
-# 작업 폴더를 만들고 npm 설치
-WORKDIR /usr/src/app
-COPY ./package* /usr/src/app/
-RUN npm install
-
-# 소스를 작업폴더로 복사하고 빌드
-COPY . .
-RUN npm run build
-
 FROM nginx:stable-alpine as production-stage
 COPY ./nignx/nginx.conf /etc/nginx/conf.d/default.conf
 
