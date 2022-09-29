@@ -53,4 +53,7 @@ public class NovelInfoRes {
     @ApiModelProperty(name = "소설 태그이름 리스트", example = "어쩌고버스")
     List<String> TagNames;
 
+    @ApiModelProperty(name = "소설 댓글 키워드 리스트", example = "최고, 분위기")
+    List<String> comments;
+
 }

@@ -13,10 +13,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +20,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
-import java.util.function.Function;
 
 /**
- *	소설 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
+ * 소설 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
 @Service("novelService")
 @Transactional(readOnly = true)
@@ -46,6 +41,9 @@ public class NovelService {
 
     @Autowired
     LikeListRepository likeListRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     //이름으로 조회
     public List<Novel> getNovelsByNovelTitle(String novelTitle) {
@@ -103,58 +101,62 @@ public class NovelService {
         Reader reader = new FileReader("C:\\result_ridi_romance.json");
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(reader);
-        JSONArray jsonArr =(JSONArray) obj;
+        JSONArray jsonArr = (JSONArray) obj;
 
-            for(int i=0; i<jsonArr.size(); i++) {
-                JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-                String number = (String) jsonObj.get("thumbnail");
-                String[] s = number.split("/");
-                String epi = (String) jsonObj.get("recent_episode");
-                String[] e = epi.split(" ");
+        for (int i = 0; i < jsonArr.size(); i++) {
+            JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+            String number = (String) jsonObj.get("thumbnail");
+            String[] s = number.split("/");
+            String epi = (String) jsonObj.get("recent_episode");
+            String[] e = epi.split(" ");
 
-                Novel novel = new Novel();
-                novel.setNovelTitle((String) jsonObj.get("title"));
-                novel.setNovelWriter((String) jsonObj.get("author"));
-                novel.setNovelIntro((String) jsonObj.get("guide"));
-                novel.setNovelRomanceGuide((String) jsonObj.get("romance_guide"));
-                novel.setNovelLink("https://ridibooks.com/books/" + s[4]);
+            Novel novel = new Novel();
+            novel.setNovelTitle((String) jsonObj.get("title"));
+            novel.setNovelWriter((String) jsonObj.get("author"));
+            novel.setNovelIntro((String) jsonObj.get("guide"));
+            novel.setNovelRomanceGuide((String) jsonObj.get("romance_guide"));
+            novel.setNovelLink("https://ridibooks.com/books/" + s[4]);
 
-                if (e[1].length() == 3) {
-                    novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 2)));
-                } else if (e[1].length() == 4)
-                    novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 3)));
-                else if (e[1].length() == 5)
-                    novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 4)));
+            if (e[1].length() == 3) {
+                novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 2)));
+            } else if (e[1].length() == 4)
+                novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 3)));
+            else if (e[1].length() == 5)
+                novel.setNovelNewest(Integer.parseInt(e[1].substring(0, 4)));
 
-                String com = (String) jsonObj.get("is_completed");
-                novel.setNovelIsCompleted(com.equals("완결") ? true : false);
-                novel.setNovelThumbnail((String) jsonObj.get("thumbnail"));
-                novel.setNovelIntroImage((String) jsonObj.get("introduce_img"));
-                novel.setNovelPlatform("리디북스");
-                novel.setNovelGenre(0); // 장르 변경 해주기
-                novelRepository.save(novel);
+            String com = (String) jsonObj.get("is_completed");
+            novel.setNovelIsCompleted(com.equals("완결") ? true : false);
+            novel.setNovelThumbnail((String) jsonObj.get("thumbnail"));
+            novel.setNovelIntroImage((String) jsonObj.get("introduce_img"));
+            novel.setNovelPlatform("리디북스");
+            novel.setNovelGenre(0); // 장르 변경 해주기
+            novelRepository.save(novel);
 
-                JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
-                for (int k = 0; k < jsonArray.size(); k++) {
-                    NovelTag novelTag = new NovelTag();
-                    Long num = Long.valueOf(i);
-                    novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
-                        throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
-                    }));
-                    String tags = (String) jsonArray.get(k);
-                    String newTag = tags.substring(1);
-                    novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 0).orElseThrow(() -> {
-                        throw new CustomException(ErrorCode.TAG_NOT_FOUND);
-                    }));
-                    novelTagRepository.save(novelTag);
-                }
+            JSONArray jsonArray = (JSONArray) jsonObj.get("keywords");
+            for (int k = 0; k < jsonArray.size(); k++) {
+                NovelTag novelTag = new NovelTag();
+                Long num = Long.valueOf(i);
+                novelTag.setNovel(novelRepository.findNovelByNovelNo(num + 1).orElseThrow(() -> {
+                    throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+                }));
+                String tags = (String) jsonArray.get(k);
+                String newTag = tags.substring(1);
+                novelTag.setTag(tagRepository.findTagByTagNameAndTagGenre(newTag, 0).orElseThrow(() -> {
+                    throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+                }));
+                novelTagRepository.save(novelTag);
             }
+        }
     }//add novels
 
     public NovelInfoRes getNovelInfoByNovelNo(Long novelNo) {
         NovelInfoRes novelInfoRes = new NovelInfoRes();
         Novel novel = novelRepository.findNovelByNovelNo(novelNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
+        });
+
+        String comment = commentRepository.findKeywordByNovelNo(novelNo).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.COMMENT_NOT_FOUND);
         });
 
         novelInfoRes.setNovelNo(novel.getNovelNo());
@@ -171,10 +173,14 @@ public class NovelService {
         novelInfoRes.setNovelRomanceGuide(novel.getNovelRomanceGuide());
 
         List<String> tagList = new ArrayList<>();
-        for (NovelTag nt : novel.getNovelTags()){
+        for (NovelTag nt : novel.getNovelTags()) {
             tagList.add(nt.getTag().getTagName());
         }
         novelInfoRes.setTagNames(tagList);
+
+        String[] str = comment.split(",");
+        List<String> commentList = Arrays.asList(str);
+        novelInfoRes.setComments(commentList);
 
         return novelInfoRes;
     }
@@ -189,7 +195,7 @@ public class NovelService {
             for (LikeList l : lList) {
                 if (map.containsKey(l.getNovel().getNovelNo())) {
                     map.put(l.getNovel().getNovelNo(), map.get(l.getNovel().getNovelNo()) + 1);
-                }else {
+                } else {
                     map.put(l.getNovel().getNovelNo(), 1);
                 }
             }
@@ -276,7 +282,7 @@ public class NovelService {
         novelRes.setNovelThumbnail(novel.getNovelThumbnail());
 
         List<String> tagList = new ArrayList<>();
-        for (NovelTag nt : novel.getNovelTags()){
+        for (NovelTag nt : novel.getNovelTags()) {
             tagList.add(nt.getTag().getTagName());
         }
         novelRes.setTagNames(tagList);
@@ -284,7 +290,7 @@ public class NovelService {
         return novelRes;
     }
 
-    public List<NovelRes> getNovelsByNovelGenre(Integer novelGenre){
+    public List<NovelRes> getNovelsByNovelGenre(Integer novelGenre) {
         List<Novel> novels = novelRepository.findNovelsByNovelGenre(novelGenre).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
