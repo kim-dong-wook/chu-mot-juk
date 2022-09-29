@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query(value = "select c.keyword from Comment c where c.novelNo = :novelNo")
+    @Query(value = "select distinct c.keyword from Comment c where c.novelNo = :novelNo")
     Optional<String> findKeywordByNovelNo(Long novelNo);
 }
