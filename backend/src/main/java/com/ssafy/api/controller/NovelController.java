@@ -1,9 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.LikeListReq;
-import com.ssafy.api.request.NovelTagSearchReq;
-import com.ssafy.api.request.SuggestionReq;
-import com.ssafy.api.request.UserTagReq;
+import com.ssafy.api.request.*;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.api.response.NovelRes;
 import com.ssafy.api.service.NovelService;
@@ -256,6 +253,20 @@ public class NovelController {
     public ResponseEntity<List> getNovelByNovelGenre(@PathVariable("novelGenre") Integer novelGenre) {
         List<NovelRes> novels = novelService.getNovelsByNovelGenre(novelGenre);
         return ResponseEntity.status(200).body(novels);
+    }
+
+    @PostMapping("/recommendation")
+    @ApiOperation(value = "유형검사 책 추천", notes = "태그장르(로맨스, 로판 / 판타지)와 유형검사 태그들을 입력받아 소설을 추천한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당 태그의 소설 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List> getRecommendedNovelByTags
+            (@RequestBody @ApiParam(value = "태그들") SurveyReq surveyReq) {
+        List<Novel> novel = novelService.getRecommendedNovelByTags(surveyReq);
+        return ResponseEntity.status(200).body(novel);
     }
 }
 

@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.NovelTagSearchReq;
 import com.ssafy.api.request.SuggestionReq;
+import com.ssafy.api.request.SurveyReq;
 import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.api.response.NovelRes;
 import com.ssafy.common.exception.handler.CustomException;
@@ -301,6 +302,82 @@ public class NovelService {
             novelResList.add(getNovelsByNovelNo(n));
         }
         return novelResList;
+    }
+
+    public List<Novel> getRecommendedNovelByTags(SurveyReq surveyReq) {
+
+        List<Novel> novels;
+        List<Long> tags = new ArrayList<>();
+
+        surveyReq.getTags().get(0);
+        surveyReq.getTags().remove(0); // 중요한 분류 태그는 제거한다.
+        Set<Long> set = new HashSet<>(surveyReq.getTags());
+        List<Long> list = new ArrayList<>(set);
+
+        for(int i = 0; i < 2; i++) { // 섞어서 태그 뽑는 과정
+            Collections.shuffle(list);
+            tags.add(list.get(0));
+        }
+
+        NovelTagSearchReq novelTagSearchReq = new NovelTagSearchReq();
+        novelTagSearchReq.setTags(tags);
+        novels = getNovelsByTag2(novelTagSearchReq);
+
+        if(novels.isEmpty()) {
+            tags.remove(tags.size() - 1);
+        } else {
+            return novels;
+        }
+
+        novelTagSearchReq.setTags(tags);
+        novels = getNovelsByTag2(novelTagSearchReq);
+
+        return novels;
+    }
+
+//        public List<Novel> getRecommendedNovelByTags(SurveyReq surveyReq) {
+//        List<Novel> novels = new ArrayList<>();
+//        List<Long> tags = surveyReq.getTags();
+//        if (/*surveyReq.getNovelGenre() == 0*/ true) { // 로맨스, 로판 선택한 경우
+//            Collections.shuffle(tags);
+//            NovelTagSearchReq novelTagSearchReq = new NovelTagSearchReq();
+//            novelTagSearchReq.setTags(tags.subList(0,3));
+//            return getNovelsByTag(novelTagSearchReq);
+////        } else if (surveyReq.getNovelGenre() == 1) { // 판타지 선택한 경우
+////            Collections.sort(tags);
+////            NovelTagSearchReq nTags = (NovelTagSearchReq) tags.subList(0,2);
+////            return getNovelsByTag(nTags);
+//        } else {
+//            throw new CustomException(ErrorCode.GENRE_NOT_FOUND);
+//        }
+//    }
+
+    public List<Novel> getNovelsByTag2(NovelTagSearchReq tags) {
+        List<Novel> shelf = new ArrayList<>();
+        List<NovelTag> book;
+
+        for (Long a : tags.getTags()) {
+            if (a != null) {
+                List<Novel> booklist = new ArrayList<>();
+                book = novelTagRepository.findNovelTagByTagTagNo(a).orElseThrow(() -> {
+                    throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
+                });
+                if (shelf.isEmpty() == true) {
+                    for (NovelTag n : book) {
+                        if (!shelf.contains(n.getNovel()))
+                            shelf.add(n.getNovel());
+                    }
+                } else {
+                    for (NovelTag n : book) {
+                        if (shelf.contains(n.getNovel())) {
+                            booklist.add(n.getNovel());
+                        }
+                    }
+                    shelf = booklist;
+                }
+            }
+        }
+        return shelf;
     }
 
 }
