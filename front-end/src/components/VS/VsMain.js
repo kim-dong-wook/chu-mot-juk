@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
 import { useNavigate } from 'react-router-dom';
+import { getWCInfo } from '../../api/API';
+
 import './Book.css';
 import './VS.css';
 import $ from 'jquery';
@@ -15,6 +17,7 @@ import VStitle from '../../assets/images/vs/VSimg7.png';
 import './VS.scss';
 
 const VsMain = () => {
+  const [data, setData] = useState([]);
   const [round, setRound] = useRecoilState(roundState);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState([]);
@@ -28,344 +31,6 @@ const VsMain = () => {
   const sideBookPath = bookSide;
   const borderPath = border;
   const background = mainBack;
-  let books = [
-    {
-      id: 1,
-      title: '1',
-      character: '김독자',
-      src: 'https://img.ridicdn.net/cover/4621001638/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 2,
-      title: '2',
-      character: '이독자',
-      src: 'https://img.ridicdn.net/cover/1377099102/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 3,
-      title: '3',
-      character: '최독자',
-      src: 'https://img.ridicdn.net/cover/3092017733/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 4,
-      title: '4',
-      character: '박독자',
-      src: 'https://img.ridicdn.net/cover/1811203363/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 5,
-      title: '5',
-      character: '허독자',
-      src: 'https://img.ridicdn.net/cover/2259009524/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 6,
-      title: '6',
-      character: '강독자',
-      src: 'https://via.placeholder.com/485x670',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 7,
-      title: '7',
-      character: '송독자',
-      src: 'https://via.placeholder.com/485x670',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 8,
-      title: '8',
-      character: '구독자',
-      src: 'https://img.ridicdn.net/cover/425306513/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 9,
-      title: '9',
-      character: '심독자',
-      src: 'https://img.ridicdn.net/cover/2008033538/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 10,
-      title: '10',
-      character: '배독자',
-      src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 11,
-      title: '11',
-      character: '손독자',
-      src: 'https://img.ridicdn.net/cover/3076030032/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 12,
-      title: '12',
-      character: '유독자',
-      src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 13,
-      title: '13',
-      character: '서독자',
-      src: 'https://img.ridicdn.net/cover/425297966/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 14,
-      title: '14',
-      character: '남독자',
-      src: 'https://img.ridicdn.net/cover/425306513/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 15,
-      title: '15',
-      character: '봉독자',
-      src: 'https://img.ridicdn.net/cover/2259009524/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-    {
-      id: 16,
-      title: '16',
-      character: '추독자',
-      src: 'https://img.ridicdn.net/cover/2065072847/xxlarge#1',
-      tags: [
-        '사랑사랑사랑아',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-        '서양풍',
-        '슬픔',
-        '무협',
-        '회귀물',
-        '무서움',
-        '동양',
-      ],
-    },
-  ];
 
   let temp = [];
 
@@ -379,8 +44,8 @@ const VsMain = () => {
     temp.slice(0, round);
   };
 
-  const onClick = (id, side) => {
-    const book = startBooks.filter((book) => book.id === id)[0];
+  const onClick = (wcNo, side) => {
+    const book = startBooks.filter((book) => book.wcNo === wcNo)[0];
     setSelected(selected.concat(book));
     right.current.classList.remove('animate__zoomIn');
     left.current.classList.remove('animate__zoomIn');
@@ -410,6 +75,7 @@ const VsMain = () => {
       left.current.classList.add('animate__zoomIn');
 
       if (current + 1 === 1 && round === 2) {
+        console.log(book);
         navigate('/vsresult', {
           state: {
             book,
@@ -422,7 +88,13 @@ const VsMain = () => {
   };
 
   useEffect(() => {
-    mixBooks(books);
+    const fetchData = async () => {
+      const result = await getWCInfo();
+      setData(result.data);
+      mixBooks(result.data);
+    };
+    fetchData();
+
     console.log(temp);
     setStartBooks(temp);
 
@@ -487,7 +159,7 @@ const VsMain = () => {
         </div>
         <div className="w-full h-full flex relative justify-center items-center">
           <div
-            className="w-[32%] h-[80%] flex justify-center items-center"
+            className="w-[35%] h-[65%] flex justify-center items-center"
             ref={left}
           >
             <div class="ud_book_box" className="w-[100%] h-[100%]">
@@ -495,17 +167,19 @@ const VsMain = () => {
                 <img
                   className={`w-[100%] h-[100%] `}
                   src={
-                    startBooks[2 * current] ? startBooks[2 * current].src : ''
+                    startBooks[2 * current] ? startBooks[2 * current].pic : ''
                   }
                   alt=""
-                  onClick={() => onClick(startBooks[2 * current].id, 'left')}
+                  onClick={() => onClick(startBooks[2 * current].wcNo, 'left')}
                 ></img>
                 <div class="ud_ruckseite">
                   <img
                     className={`w-[100%] h-[100%]`}
                     src={sideBookPath}
                     alt=""
-                    onClick={() => onClick(startBooks[2 * current].id, 'left')}
+                    onClick={() =>
+                      onClick(startBooks[2 * current].wcNo, 'left')
+                    }
                   ></img>
                 </div>
               </div>
@@ -515,7 +189,7 @@ const VsMain = () => {
             <img src={VSimg} alt="" className="" />
           </div>
           <div
-            className="w-[32%] h-[80%] flex justify-center items-center"
+            className="w-[35%] h-[65%] flex justify-center items-center"
             ref={right}
           >
             <div class="ud_book_box" className="w-[100%] h-[100%]">
@@ -524,12 +198,12 @@ const VsMain = () => {
                   className={`w-[100%] h-[100%]`}
                   src={
                     startBooks[2 * current + 1]
-                      ? startBooks[2 * current + 1].src
+                      ? startBooks[2 * current + 1].pic
                       : ''
                   }
                   alt=""
                   onClick={() =>
-                    onClick(startBooks[2 * current + 1].id, 'right')
+                    onClick(startBooks[2 * current + 1].wcNo, 'right')
                   }
                 ></img>
                 <div class="ud_ruckseite">
@@ -538,7 +212,7 @@ const VsMain = () => {
                     src={sideBookPath}
                     alt=""
                     onClick={() =>
-                      onClick(startBooks[2 * current + 1].id, 'right')
+                      onClick(startBooks[2 * current + 1].wcNo, 'right')
                     }
                   ></img>
                 </div>

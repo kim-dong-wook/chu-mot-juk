@@ -10,11 +10,16 @@ const BookList = ({ number, books }) => {
   return (
     <div className="w-full h-full flex justify-between overflow-visible books">
       {books.slice(5 * number, 5 * (number + 1)).map((book) => (
-        <div className="bookc w-[18%] h-full">
-          <div className="book">
+        <div key={book.novelNo} className="bookc w-[18%] h-full">
+          <div className="book" key={book.novelNo}>
             {' '}
-            <img src={book.src} alt="" onClick={onClickDetail}></img>
-          </div>{' '}
+            <img
+              key={book.novelNo}
+              src={book.novelThumbnail}
+              alt=""
+              onClick={onClickDetail}
+            ></img>
+          </div>
         </div>
       ))}
     </div>

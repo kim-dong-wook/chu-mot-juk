@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import RightPath from '../../assets/images/bt_right.png';
 import LeftPath from '../../assets/images/bt_left.png';
-import { books as dummy } from '../../stores/books';
+// import { books as dummy } from '../../stores/books';
+import { getBooksByPlatform } from '../../api/API';
 import $ from 'jquery';
 import BookList from './BookList';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const BookCarousel = ({ name }) => {
-  const [prev, setPrev] = useState(5);
+  const [prev, setPrev] = useState(7);
   const [active, setActive] = useState(0);
   const [next, setNext] = useState(1);
+  const [books, setBooks] = useState([]);
+  const [Ids, setIds] = useState([]);
 
   const navigate = useNavigate();
-  const Ids = [0, 1, 2, 3, 4, 5];
+  // const Ids = [0, 1, 2, 3, 4, 5, 6, 7];
   const right = RightPath;
   const left = LeftPath;
   const moreName = name + 'more';
@@ -65,6 +69,24 @@ const BookCarousel = ({ name }) => {
     navigate('/more');
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getBooksByPlatform(name);
+      if (name === '카카오페이지') {
+        setBooks(
+          [...result.data.slice(0, 15)].concat(result.data.slice(0, 15)),
+        );
+        setPrev(5);
+        setIds([0, 1, 2, 3, 4, 5]);
+      } else {
+        setBooks(
+          [...result.data.slice(0, 20)].concat(result.data.slice(0, 20)),
+        );
+        setIds([0, 1, 2, 3, 4, 5, 6, 7]);
+      }
+    };
+    fetchData();
+  }, [name]);
   return (
     <div className="w-[90rem] mx-auto flex items-center justify-center overflow-hidden">
       <img
@@ -82,11 +104,11 @@ const BookCarousel = ({ name }) => {
               onMouseOut={onMouseOut}
             >
               <div className="text-2xl mr-4">
-                {name === 'kakao'
+                {name === '카카오페이지'
                   ? '카카오페이지 인기작'
-                  : name === 'naver'
+                  : name === '네이버시리즈'
                   ? '네이버시리즈 인기작'
-                  : name === 'ridi'
+                  : name === '리디북스'
                   ? '리디북스 인기작'
                   : ''}
               </div>
@@ -148,7 +170,7 @@ const BookCarousel = ({ name }) => {
           }
           `}
             >
-              <BookList number={id} books={dummy}></BookList>
+              <BookList number={id} books={books}></BookList>
             </div>
           ))}
         </div>

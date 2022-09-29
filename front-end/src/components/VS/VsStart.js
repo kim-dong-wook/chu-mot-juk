@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundState } from '../../stores/atom';
+
 import intro from '../../assets/images/vs/VSimg1.jpg';
 import intro2 from '../../assets/images/vs/VSimg3.png';
 import intro3 from '../../assets/images/vs/VSimg4.png';

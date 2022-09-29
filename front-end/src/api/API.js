@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const URL = 'http://j7a207.p.ssafy.io:8000/api';
+const URL = 'https://j7a207.p.ssafy.io/api';
 
 export const axiosBasic = axios.create({
   baseURL: URL,
   // headers: {
   //   'Content-Type': 'application/json',
   // },
-  timeout: 5000,
+  timeout: 10000,
 });
 
 export const getBook = async (number) => {
@@ -19,7 +19,16 @@ export const getBook = async (number) => {
   }
 };
 
-export const getBooksByTag = async (tags) => {
+export const getBooksByGenre = async (number) => {
+  try {
+    const response = await axiosBasic.get('novel/list/' + number);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBooksByTags = async (tags) => {
   try {
     let jsonData = {
       tags,
@@ -29,19 +38,53 @@ export const getBooksByTag = async (tags) => {
     return response;
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 
-export const example = async (tagNo, userNo) => {
+export const getGenreTag = async (genre, tagType) => {
   try {
-    let jsonData = {
-      tagNo,
-      userNo,
-    };
-
-    const response = await axiosBasic.post('novel/search/tags', jsonData);
+    let response = null;
+    if (genre === '로맨스') {
+      response = await axiosBasic.get('novel/search/romancetag/' + tagType);
+    } else if (genre === '판타지') {
+      response = await axiosBasic.get('novel/search/fantasytag/' + tagType);
+    } else if (genre === 'BL') {
+      response = await axiosBasic.get('novel/search/bltag/' + tagType);
+    } else {
+      response = null;
+    }
     return response;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getBooksByName = async (name) => {
+  try {
+    const response = await axiosBasic.get('novel/search/title/' + name);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getBooksByPlatform = async (name) => {
+  try {
+    const response = await axiosBasic.get('novel/platform/' + name);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getWCInfo = async () => {
+  try {
+    const response = await axiosBasic.post('wc/');
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };

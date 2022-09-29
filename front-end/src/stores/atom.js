@@ -87,6 +87,16 @@ export const axiosBasic = axios.create({
   timeout: 5000,
 });
 
+const searchBookState = atom({
+  key: 'searchBookState',
+  default: null,
+});
+
+const tagsState = atom({
+  key: 'tagsState',
+  default: [],
+});
+
 // const { persistAtom } = recoilPersist({
 //   key: 'recoil-persist',
 //   storage: localStorage,
@@ -156,4 +166,12 @@ export const axiosBasic = axios.create({
     try {
       const PersonalInfoRes = await PersonalInfo(token);*/
 
-export { roundState, testPageState, videosState, genreState, failState };
+export {
+  roundState,
+  testPageState,
+  videosState,
+  genreState,
+  failState,
+  searchBookState,
+  tagsState,
+};

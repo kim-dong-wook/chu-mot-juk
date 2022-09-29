@@ -6,9 +6,9 @@ const MainPage = () => {
   return (
     <div>
       <VideoCarousel></VideoCarousel>
-      <BookCarousel name={'kakao'}></BookCarousel>
-      <BookCarousel name={'naver'}></BookCarousel>
-      <BookCarousel name={'ridi'}></BookCarousel>
+      <BookCarousel name={'카카오페이지'}></BookCarousel>
+      <BookCarousel name={'네이버시리즈'}></BookCarousel>
+      <BookCarousel name={'리디북스'}></BookCarousel>
 
       <div className="mt-[200px]">밑에 공간</div>
     </div>

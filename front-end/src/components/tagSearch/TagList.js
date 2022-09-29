@@ -1,53 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { tagsState } from '../../stores/atom';
+import { getGenreTag } from '../../api/API';
+import $ from 'jquery';
 
 import './TagSearch.css';
-const TagList = ({ category, height }) => {
+const TagList = ({ genre, category, tagType }) => {
+  const [selected, setSelected] = useRecoilState(tagsState);
   const [hidden, setHidden] = useState(false);
+  const [tags, setTags] = useState([]);
   const onClickToggle = () => {
     setHidden(!hidden);
   };
 
-  const onClickTag = (e) => {
-    console.log(e);
+  const onClickTag = (e, tag) => {
     if (!e.target.classList.contains('toggled')) {
       e.target.classList.add('toggled');
       e.target.classList.remove('text-primary-4');
       e.target.classList.add('text-white');
+      setSelected([...selected].concat(tag.tagNo));
     } else {
       e.target.classList.remove('toggled');
       e.target.classList.remove('text-white');
       e.target.classList.add('text-primary-4');
+      setSelected(selected.filter((no) => no !== tag.tagNo));
     }
   };
-  const tags = [
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-  ];
+  useEffect(() => {
+    setHidden(false);
+    const fetchData = async () => {
+      const result = await getGenreTag(genre, tagType);
+      setTags(result.data);
+    };
+    fetchData();
+  }, [genre]);
+
+  if (!tags) {
+    return null;
+  }
+
   return (
     <div
       className={`w-full
@@ -60,14 +51,14 @@ const TagList = ({ category, height }) => {
         </div>
       </div>
       <div className={`${hidden ? 'hidden' : ''} inline`}>
-        {tags.map((tag, index) => (
+        {tags.map((tag) => (
           <span
-            id={index}
+            key={tag.tagNo}
             target="_self"
             className="inline-block items-center text-m whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 hover:scale-105 hover:shadow m-2 cursor-pointer"
-            onClick={onClickTag}
+            onClick={(event) => onClickTag(event, tag)}
           >
-            #{tag}
+            #{tag.tagName}
           </span>
         ))}
       </div>
