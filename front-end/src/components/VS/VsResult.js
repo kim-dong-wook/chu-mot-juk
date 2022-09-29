@@ -34,16 +34,16 @@ const VsResult = ({ winner }) => {
           // style={{ backgroundImage: `url(${book.src})` }}
           // style={{ backgroundImage: `url(${testPath})` }}
         >
-          {/* <img src={winner.pic} alt="" className="w-full"></img> */}
+          <img src={winner.pic} alt="" className="w-full"></img>
         </div>
         <div className="w-[50%] h-[100%] border-l-4 border-black text-white relative">
           <img src={border} alt="" className="absolute w-full"></img>
           <div className="mt-40 mx-20 flex flex-col justify-center items-center">
             <div className="text-4xl">사용자님이 고른 최애는 ...</div>
-            {/* <div className="mt-20 text-5xl">{winner.novelName}</div>
-            <div className="mt-20 text-5xl">{winner.chName}</div> */}
+            <div className="mt-20 text-5xl">{winner.novelName}</div>
+            <div className="mt-20 text-5xl">{winner.chName}</div>
             <div className="mt-32 text-2xl inline h-[12rem]">
-              {book.tagNames.map((tag) => (
+              {book.tagNames.slice(0, 14).map((tag) => (
                 <span className="mr-8 inline-block">#{tag}</span>
               ))}
             </div>

@@ -45,8 +45,8 @@ const VsMain = () => {
   };
 
   const onClick = (wcNo, side) => {
-    const book = startBooks.filter((book) => book.wcNo === wcNo)[0];
-    setSelected(selected.concat(book));
+    const winner = startBooks.filter((book) => book.wcNo === wcNo)[0];
+    setSelected(selected.concat(winner));
     right.current.classList.remove('animate__zoomIn');
     left.current.classList.remove('animate__zoomIn');
 
@@ -75,10 +75,10 @@ const VsMain = () => {
       left.current.classList.add('animate__zoomIn');
 
       if (current + 1 === 1 && round === 2) {
-        console.log(book);
+        console.log(winner);
         navigate('/vsresult', {
           state: {
-            book,
+            winner,
           },
         });
       } else {
