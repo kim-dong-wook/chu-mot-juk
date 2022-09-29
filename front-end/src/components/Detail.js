@@ -32,14 +32,14 @@ const Detail = () => {
     // console.log(result3.data);
     // let result4 = await fixSignIn(20, true, '2', 'www', '1234');
     // console.log(result4.data);
-    let result5 = await deleteSignIn(10, false, '2', 'www', '1234');
-    console.log(result5.data);
+    // let result5 = await deleteSignIn(10, false, '2', 'www', '1234');
+    // console.log(result5.data);
     // let result6 = await userLikeBook(10, 0, '2', 'jmj', '1234');
     // console.log(result6.data);
     // let result7 = await userLikeTag(10, 0, '2', 'jmj', '1234');
     // console.log(result7.data);
-    // let result8 = await searchUserById('2');
-    // console.log(result8.data);
+    let result8 = await searchUserById('2');
+    console.log(result8.data);
     // let result9 = await searchMe();
     // console.log(result9.data);
     // let result10 = await searchUserByUserNo(3);
