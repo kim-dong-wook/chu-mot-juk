@@ -1,5 +1,4 @@
-/* 이미지 크기 관련 */
-.dd {
+/* 이미지 크기 관련 .dd {
   width: inherit;
   height: inherit;
 }
@@ -21,9 +20,9 @@
   background-repeat: no-repeat;
 }
 
-/* ----- hover ----- */
+ ----- hover ----- 
 
 .dd:hover::before {
   transform: translateY(9px);
   opacity: 1;
-}
+} */

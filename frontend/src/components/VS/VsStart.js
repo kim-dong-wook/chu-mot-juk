@@ -75,3 +75,4 @@ const VsStart = () => {
 };
 
 export default VsStart;
+>>>>>>> kimdongwook

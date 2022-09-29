@@ -8,39 +8,7 @@ $book-border: 1px solid $book-color-border;
   border-bottom-right-radius: 5px;
 }
 
-// LOL CSS
-// body,
-// html {
-//   width: 100%;
-//   height: 100%;
-//   display: table;
-//   text-align: center;
-// }
-
-// body {
-//   background: #fde3a7;
-// }
-
-// .swiper-wrapper {
-//   display: table-cell;
-//   vertical-align: middle;
-// }
-
-// .swiper-wrapper {
-//   padding-left: 0;
-//   list-style: none;
-
-//   > li {
-//     display: inline-block;
-//     margin-left: 2em;
-//   }
-
-//   > li:first-child {
-//     margin-left: 0;
-//   }
-// }
-
-.cc {
+.bookc {
   @extend %book-rounded-corners;
 
   cursor: pointer;
@@ -55,7 +23,7 @@ $book-border: 1px solid $book-color-border;
   transition: box-shadow 0.3s linear;
 }
 
-.cc img {
+.bookc img {
   @extend %book-rounded-corners;
 
   width: inherit;
@@ -65,17 +33,17 @@ $book-border: 1px solid $book-color-border;
   transition: all 0.45s ease;
 }
 
-.cc:hover {
+.bookc:hover {
   box-shadow: 0 2px 4px 0 rgba(#000, 0.25), 0 9px 20px 0 rgba(#000, 0.45);
   transform: scale(1.3);
   img {
-    transform: rotateY(-25deg);
+    transform: scaleX(0.95);
     box-shadow: 1px 1px 5px 5px rgba(#000, 0.2);
   }
 }
 
-.cc::after,
-.cc::before {
+.bookc::after,
+.bookc::before {
   @extend %book-rounded-corners;
 
   content: '';
@@ -89,9 +57,9 @@ $book-border: 1px solid $book-color-border;
   border: $book-border;
 }
 
-.cc::before {
-  left: -3px;
+.bookc::before {
+  right: 3px;
 }
-.cc::after {
-  left: -6px;
+.bookc::after {
+  right: 6px;
 }
