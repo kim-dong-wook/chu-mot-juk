@@ -6,7 +6,7 @@ COPY ./package* /usr/src/app/
 RUN npm install
 
 # 소스를 작업폴더로 복사하고 빌드
-COPY . .
+COPY ./ ./
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
