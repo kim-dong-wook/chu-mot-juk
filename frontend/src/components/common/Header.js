@@ -34,7 +34,7 @@ const Header = () => {
         </Link>
         <div className="w-full flex justify-between">
           <div className="ml-[4vw] space-x-8 text-primary-1 text-xl">
-            <Link to="/testintro">유혀어엉검사</Link>
+            <Link to="/testintro">유형검사</Link>
             <Link to="/vsintro">이상형월드컵</Link>
             <Link to="/tagsearch">태그검색</Link>
             <Link to="/detail">detail</Link>
