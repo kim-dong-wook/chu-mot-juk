@@ -54,6 +54,23 @@ public class UserController {
         }
     }
 
+    @GetMapping("/idcheck/{user_id}")
+    @ApiOperation(value = "회원 아이디 중복 체크", notes = "회원가입 시 회원 아이디 중복 체크 검사")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> idCheck(@PathVariable("user_id") String userId) {
+
+        boolean success = userService.checkUserId(userId);
+
+        if (success) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        } else {
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "fail"));
+        }
+    }
+
     @GetMapping("/me")
     @ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
     @ApiResponses({
