@@ -156,9 +156,9 @@ public class NovelService {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
 
-        String comment = commentRepository.findKeywordByNovelNo(novelNo).orElseThrow(() -> {
-            throw new CustomException(ErrorCode.COMMENT_NOT_FOUND);
-        });
+//        String comment = commentRepository.findKeywordByNovelNo(novelNo).orElseThrow(() -> {
+//            throw new CustomException(ErrorCode.COMMENT_NOT_FOUND);
+//        });
 
         novelInfoRes.setNovelNo(novel.getNovelNo());
         novelInfoRes.setNovelTitle(novel.getNovelTitle());
@@ -179,9 +179,11 @@ public class NovelService {
         }
         novelInfoRes.setTagNames(tagList);
 
-        String[] str = comment.split(",");
-        List<String> commentList = Arrays.asList(str);
-        novelInfoRes.setComments(commentList);
+//        String[] str = comment.split(",");
+//        List<String> commentList = Arrays.asList(str);
+//        novelInfoRes.setComments(commentList);
+
+        novelInfoRes.setComments(null);
 
         return novelInfoRes;
     }
