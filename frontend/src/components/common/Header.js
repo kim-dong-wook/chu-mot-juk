@@ -10,6 +10,14 @@ import kakaoLogin from '../../assets/images/KaKaoLogin.png';
 import { KAKAO_AUTH_URL } from './KaKaoAuth';
 import { useRecoilState } from 'recoil';
 // import { loginState } from '../../stores/atom';
+import {
+  useSoundB1,
+  useSoundB2,
+  useSoundB3,
+  useSoundB4,
+  useSoundMarioDeath,
+} from '../../hooks/useSound';
+// link a button ref={ref1}
 
 const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -22,6 +30,7 @@ const Header = () => {
 
   // const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [modalOpen, setModalOpen] = useState(false);
+  const ref1 = useSoundMarioDeath();
 
   return (
     <div>
@@ -29,7 +38,7 @@ const Header = () => {
         className={`bg-[#554540] hover:duration-300 duration-300 sticky top-0 z-50 flex px-[5%] h-16 items-center
       ${scrollPosition > 30 ? 'bg-primary-4 duration-500' : ''}`}
       >
-        <Link className="w-10 mr-20" to="/">
+        <Link ref={ref1} className="w-10 mr-20" to="/">
           <img alt="" src={logo} style={{ maxWidth: '300%' }}></img>
         </Link>
         <div className="w-full flex justify-between">

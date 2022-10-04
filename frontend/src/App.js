@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/common/Header';
 import TestIntro from './components/personalTest/TestIntro';
 import VsIntro from './components/VS/VsIntro';
-import Kakao from './pages/Kakao';
+import Kakaologin from './pages/Kakao';
+import Kakaologout from './pages/KakaoLogout';
 import MyPage from './pages/MyPage';
 import DetailPage from './pages/DetailPage';
 import LoginPage from './pages/LogoutPage';
@@ -43,7 +44,8 @@ const App = () => {
   return (
     <Routes>
       <Route element={<Header></Header>}>
-        <Route path="/oauth/kakao/callback" element={<Kakao />} />
+        <Route path="/oauth/kakao/callback" element={<Kakaologin />} />
+        <Route path="/logout" element={<Kakaologout />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -55,7 +57,7 @@ const App = () => {
         <Route path="/testresult" element={<TestPage />} />
         <Route path="/testintro" element={<TestIntro />} />
         <Route path="/vsresult" element={<VsResultPage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/detail/:novelNo" element={<DetailPage />} />
         <Route path="/more" element={<MorePage />} />
         <Route path="/temp" element={<TempPage />} />
       </Route>

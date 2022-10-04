@@ -2,6 +2,31 @@ import { atom } from 'recoil';
 // import { recoilPersist } from 'recoil-persist';
 import axios from 'axios';
 
+const isLoginState = atom({
+  key: 'isloginState',
+  default: false,
+});
+const ageRangeState = atom({
+  key: 'ageRangeState',
+  default: 1,
+});
+const genderState = atom({
+  key: 'genderState',
+  default: false,
+});
+const userIdState = atom({
+  key: 'userIdState',
+  default: '',
+});
+const nicknameState = atom({
+  key: 'nicknameState',
+  default: '',
+});
+const profileImgState = atom({
+  key: 'profileImgState',
+  default: '',
+});
+
 const roundState = atom({
   key: 'roundState', // unique ID (with respect to other atoms/selectors)
   default: 0, // default value (aka initial value)
@@ -174,4 +199,10 @@ export {
   failState,
   searchBookState,
   tagsState,
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
 };

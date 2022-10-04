@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import kakaoLogin from '../assets/images/KaKaoLogin.png';
 // import { genderState, loginState } from '../stores/atom';
-// import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
+import {
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
+} from '../stores/atom';
 import logo2 from '../assets/images/logo2.png';
 import {
   CLIENT_ID,
@@ -63,12 +71,19 @@ const Login = () => {
   // }
 
   //@@@@@@
-  const [user_id, setUserId] = useState();
-  const [ageRange, setAgeRange] = useState();
-  const [email, setEmail] = useState();
-  const [gender, setGender] = useState();
-  const [nickName, setNickName] = useState();
-  const [profileImage, setProfileImage] = useState();
+  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState); //Kakao.js 에서 함
+  const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
+  const [gender, setGender] = useRecoilState(genderState); //  'male'
+  const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
+  const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
+  const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
+
+  // const [user_id, setUserId] = useState();
+  // const [ageRange, setAgeRange] = useState();
+  // const [gender, setGender] = useState();
+  // const [nickName, setNickName] = useState();
+  // const [profileImage, setProfileImage] = useState();
+  // const [email, setEmail] = useState();
 
   const getProfile = async () => {
     try {
@@ -79,62 +94,48 @@ const Login = () => {
       console.log(data);
       // 사용자 정보 변수에 저장
       setUserId(data.id);
-      setAgeRange(data.kakao_account.age_range);
-      setEmail(data.kakao_account.email);
-      setGender(data.kakao_account.gender);
+      let ageFix1 = data.kakao_account.age_range.substr(0, 2);
+      let ageFix2 = parseInt(ageFix1 / 10);
+      setAgeRange(ageFix2);
+      // setEmail(data.kakao_account.email);
+      if (data.kakao_account.gender === 'male') {
+        let genderFix = false; // male => false
+        setGender(genderFix);
+      } else {
+        let genderFix = true; // female => true
+        setGender(genderFix);
+      }
       setNickName(data.properties.nickname);
       setProfileImage(data.properties.profile_image);
 
       let body = {
-        ageGroup: data.kakao_account.age_range,
-        gender: data.kakao_account.gender,
-        id: data.id,
-        nickname: data.properties.nickname,
-        password: 'password',
+        ageGroup: ageRange,
+        gender: gender,
+        id: user_id,
+        nickname: nickName,
+        password: 'password', // 카카오에서 안받아옴 그냥 유지
       };
 
-      axiosBasic
+      console.log(body);
+      //  다좋은데 console 128(망) > 125(성공) > 126(카) 순서대로 됨 128왜감??
+      await axiosBasic
         .post('/users', body) //토큰, 추가 정보 전송
         .then((res) => {
-          if (res.data.success) {
+          if (res.data) {
             console.log(res.data);
+            console.log('카');
           }
         })
-        .catch((err) => console.log(err));
-
-      // let result3 = await signIn(
-      //   ageRange,
-      //   gender,
-      //   user_id,
-      //   nickName,
-      //   'password',
-      // );
-      // console.log(result3.data);
-      // axiosBasic({
-      //   method: 'post',
-      //   url: '/users',
-      //   data: {
-      //     id: 'aal',
-      //     // nickname: profile.nickname,
-      //     // image: profile.profile_image_url,
-      //   },
-      // })
-      //   .then((res) => {
-      //     console.log(res);
-      //     // history.push("/main/feed");
-      //   })
-      //   .catch((error) => {
-      //     // console.log(error);
-      //     console.error(error);
-      //     alert('카카오 로그인 에러?');
-      //   });
+        .catch((err) => console.log(err), console.log('망'));
     } catch (err) {
       console.log(err);
       // alert('카카오 로그인 에러?');
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <>
@@ -149,7 +150,7 @@ const Login = () => {
           <div class="mt-2 flex flex-col items-center gap-y-4">
             <a
               href={KAKAO_AUTH_URL}
-              onClick={getProfile()}
+              // onClick={getProfile}
               type="button"
               class="group flex w-full  max-w-[550px] items-center justify-center rounded py-4 pl-6 hover:shadow-lg bg-[#FEE500]"
               data-provider="kakao"
@@ -187,20 +188,6 @@ const Login = () => {
         </div>
       </main>
 
-      <h2>{user_id}</h2>
-      <h2>{nickName}</h2>
-      <h2>
-        {ageRange ? ageRange : ''}|{email}|{gender}
-      </h2>
-
-      <img alt="" src={profileImage}></img>
-      <a href="https://kauth.kakao.com/oauth/logout?client_id=50ca5e8cf40713abcab868ed9ed3047d&logout_redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fhome">
-        로그아웃1
-      </a>
-
-      <a className="ml-[100px]" href="http://localhost:3000/logout">
-        로그아웃2
-      </a>
       {/* {isLoggedIn === true ? (
         <>
           <p>{userData.nickname}</p>
