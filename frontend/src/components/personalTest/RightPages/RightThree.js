@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { testPageState, genreState } from '../../../stores/atom';
+import { testPageState, genreState, testState } from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
@@ -8,10 +8,35 @@ import background from '../../../assets/images/test/rightPage.png';
 const RightThree = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
+  const [tags, setTags] = useRecoilState(testState);
 
   const answers = useRef(null);
-  const onClick = (el, message) => {
-    console.log(message);
+  const onClick = (el, number) => {
+    let temp = new Set();
+    tags.forEach((tag) => {
+      temp.add(tag);
+    });
+    console.log(temp);
+    if (genre === '로맨스') {
+      if (number === 1) {
+        temp.add({ number: 6, name: '서양풍' });
+      } else if (number === 2) {
+        temp.add({ number: 5, name: '동양풍' });
+      } else if (number === 3) {
+        temp.add({ number: 1, name: '현대물' });
+      }
+    } else if (genre === '판타지') {
+      if (number === 1) {
+        temp.add({ number: 162, name: '회귀물' });
+      } else if (number === 2) {
+        temp.add({ number: 159, name: '전통무협' });
+      } else if (number === 3) {
+        temp.add({ number: 149, name: '현대판타지' });
+      }
+    }
+
+    setTags(temp);
+
     el.current.classList.add('right-active');
     setTestPage(testPage + 1);
   };

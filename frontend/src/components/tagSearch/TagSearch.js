@@ -5,6 +5,7 @@ import { searchBookState, tagsState } from '../../stores/atom';
 import SearchList from './SearchList';
 import { getBooksByTags, getBooksByGenre, getBooksByName } from '../../api/API';
 import TagLists from './TagLists';
+import Loading from '../Loading';
 
 const TagSearch = () => {
   const [books, setBooks] = useRecoilState(searchBookState);
@@ -12,12 +13,15 @@ const TagSearch = () => {
   const [hidden, setHidden] = useState(true);
   const [genreSeleted, setGenreSeleted] = useState('로맨스');
   const [keyword, setKeyword] = useState('');
+  const [loading, setLoading] = useState(true);
+
   const onClickToggle = () => {
     setHidden(!hidden);
   };
 
   const onClickGenre = (genre) => {
     const fetchData = async () => {
+      setLoading(true);
       if (genre === '로맨스') {
         const result = await getBooksByGenre(0);
         setBooks(result.data);
@@ -28,6 +32,7 @@ const TagSearch = () => {
         const result = await getBooksByGenre(2);
         setBooks(result.data);
       }
+      setLoading(false);
     };
     fetchData();
     console.log(genre);
@@ -56,8 +61,10 @@ const TagSearch = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const result = await getBooksByGenre(0);
       setBooks(result.data);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -76,11 +83,16 @@ const TagSearch = () => {
     }
   }, [tags]);
 
-  if (!books) {
-    return null;
+  if (!books && loading) {
+    return (
+      <div className="w-[80rem] h-[2200px] mx-auto mt-10">
+        <Loading />
+      </div>
+    );
   }
   return (
     <div className="w-[80rem] h-[2200px] mx-auto mt-10">
+      {loading ? <Loading /> : null}
       <div className="pointer-events-none flex items-center"></div>
       <input
         name="keyword"

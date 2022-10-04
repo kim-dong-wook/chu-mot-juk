@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { testPageState, genreState, failState } from '../../../stores/atom';
+import {
+  testPageState,
+  genreState,
+  failState,
+  testState,
+} from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
@@ -9,9 +14,45 @@ const RightSeven = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
   const [fail, setFail] = useRecoilState(failState);
-
+  const [tags, setTags] = useRecoilState(testState);
   const answers = useRef(null);
   const onClick = (el, number) => {
+    let temp = new Set();
+    tags.forEach((tag) => {
+      temp.add(tag);
+    });
+    console.log(temp);
+    if (genre === '로맨스') {
+      if (number === 1) {
+        temp.add({ number: 54, name: '능력남' });
+        temp.add({ number: 55, name: '재벌남' });
+        temp.add({ number: 75, name: '무심남' });
+        temp.add({ number: 70, name: '철벽남' });
+      } else if (number === 2) {
+        temp.add({ number: 60, name: '다정남' });
+        temp.add({ number: 61, name: '애교남' });
+        temp.add({ number: 80, name: '연하남' });
+        temp.add({ number: 78, name: '존댓말남' });
+      } else if (number === 3) {
+        temp.add({ number: 67, name: '상처남' });
+        temp.add({ number: 50, name: '츤데레남' });
+        temp.add({ number: 65, name: '나쁜남자' });
+        temp.add({ number: 73, name: '까칠남' });
+        temp.add({ number: 74, name: '냉정남' });
+      }
+    } else if (genre === '판타지') {
+      if (number === 1) {
+        temp.add({ number: 190, name: '정령사/소환사' });
+        temp.add({ number: 180, name: '마법사' });
+        temp.add({ number: 183, name: '마검사' });
+        temp.add({ number: 197, name: '마법도구' });
+      } else if (number === 2) {
+        temp.add({ number: 182, name: '마족이야기' });
+        temp.add({ number: 189, name: '네크로맨서/흑마법사' });
+      }
+    }
+    setTags(temp);
+
     el.current.classList.add('right-active');
     if (genre === '로맨스' && number === 4) {
       setFail('code-3');

@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { testPageState, genreState, failState } from '../../../stores/atom';
+import {
+  testPageState,
+  genreState,
+  failState,
+  testState,
+} from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
@@ -9,9 +14,33 @@ const RightSix = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
   const [fail, setFail] = useRecoilState(failState);
+  const [tags, setTags] = useRecoilState(testState);
 
   const answers = useRef(null);
   const onClick = (el, number) => {
+    let temp = new Set();
+    tags.forEach((tag) => {
+      temp.add(tag);
+    });
+    console.log(temp);
+    if (genre === '로맨스') {
+      if (number === 1) {
+        temp.add({ number: 84, name: '능력녀' });
+        temp.add({ number: 85, name: '재벌녀' });
+      } else if (number === 2) {
+        temp.add({ number: 88, name: '계략녀' });
+        temp.add({ number: 89, name: '능글녀' });
+        temp.add({ number: 92, name: '유혹녀' });
+        temp.add({ number: 99, name: '짝사랑녀' });
+      } else if (number === 3) {
+        temp.add({ number: 110, name: '카리스마녀' });
+        temp.add({ number: 111, name: '사이다녀' });
+      } else if (number === 4) {
+        temp.add({ number: 106, name: '무심녀' });
+        temp.add({ number: 82, name: '평범녀' });
+      }
+    }
+    setTags(temp);
     el.current.classList.add('right-active');
     if (genre === '판타지' && number === 3) {
       setFail('code-5');
