@@ -16,6 +16,7 @@ import TestPage from './pages/TestPage';
 import VsPage from './pages/VsPage';
 import VsResultPage from './pages/VsResultPage';
 import { axiosBasic } from './stores/atom';
+import TestResultPage from './pages/TestResultPage';
 
 const App = () => {
   // const KakaoRefresh = async () => {
@@ -52,7 +53,7 @@ const App = () => {
         <Route path="/vs" element={<VsPage />} />
         <Route path="/vsintro" element={<VsIntro />} />
         <Route path="/test" element={<TestPage />} />
-        <Route path="/testresult" element={<TestPage />} />
+        <Route path="/testresult" element={<TestResultPage />} />
         <Route path="/testintro" element={<TestIntro />} />
         <Route path="/vsresult" element={<VsResultPage />} />
         <Route path="/detail" element={<DetailPage />} />

@@ -8,7 +8,6 @@ import background from '../../../assets/images/test/rightPage.png';
 const RightFirst = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
-
   const answers = useRef(null);
   const onClick = (el, number) => {
     if (number === 1) {

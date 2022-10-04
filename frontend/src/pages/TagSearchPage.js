@@ -2,11 +2,7 @@ import React from 'react';
 import TagSearch from '../components/tagSearch/TagSearch';
 
 const TagSearchPage = () => {
-  return (
-    <div>
-      <TagSearch></TagSearch>
-    </div>
-  );
+  return <TagSearch></TagSearch>;
 };
 
 export default TagSearchPage;

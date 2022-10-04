@@ -97,6 +97,11 @@ const tagsState = atom({
   default: [],
 });
 
+const testState = atom({
+  key: 'testState',
+  default: new Set(),
+});
+
 // const { persistAtom } = recoilPersist({
 //   key: 'recoil-persist',
 //   storage: localStorage,
@@ -174,4 +179,5 @@ export {
   failState,
   searchBookState,
   tagsState,
+  testState,
 };

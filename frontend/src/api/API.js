@@ -88,3 +88,16 @@ export const getWCInfo = async () => {
     return null;
   }
 };
+
+export const getBookResult = async (tags) => {
+  try {
+    let jsonData = {
+      tags,
+    };
+    const response = await axiosBasic.post('novel/recommendation', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

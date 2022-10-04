@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { testPageState, genreState, failState } from '../../../stores/atom';
+import {
+  testPageState,
+  genreState,
+  failState,
+  testState,
+} from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
@@ -9,9 +14,35 @@ const RightFour = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
   const [fail, setFail] = useRecoilState(failState);
-
+  const [tags, setTags] = useRecoilState(testState);
   const answers = useRef(null);
   const onClick = (el, number) => {
+    let temp = new Set();
+    tags.forEach((tag) => {
+      temp.add(tag);
+    });
+    console.log(temp);
+    if (genre === '판타지') {
+      if (number === 1) {
+        temp.add({ number: 155, name: '던전물' });
+        temp.add({ number: 152, name: '정통판타지' });
+        temp.add({ number: 172, name: '차원이동물' });
+      } else if (number === 2) {
+        temp.add({ number: 166, name: '전문직' });
+        temp.add({ number: 165, name: '연예계' });
+        temp.add({ number: 153, name: '스포츠' });
+        temp.add({ number: 179, name: '만능회사원' });
+        temp.add({ number: 184, name: '현대판타지' });
+      } else if (number === 3) {
+        temp.add({ number: 159, name: '전통무협' });
+        temp.add({ number: 160, name: '신무협' });
+        temp.add({ number: 185, name: '궁극의검사' });
+        temp.add({ number: 186, name: '전사이야기' });
+      }
+    }
+
+    setTags(temp);
+
     el.current.classList.add('right-active');
     if (genre === '로맨스' && number === 3) {
       setFail('code-1');
