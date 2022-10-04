@@ -2,6 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 import {
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
+} from '../stores/atom';
+
+import {
   getBook,
   getBooksByTag,
   signIn,
@@ -23,27 +32,13 @@ const MyBox = () => {
   // let result9 = await searchMe();
   // console.log(result9.data);
 
-  const [user_id, setUserId] = useState();
-  const [ageRange, setAgeRange] = useState();
-  const [gender, setGender] = useState();
-  const [nickName, setNickName] = useState();
+  const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
+  const [gender, setGender] = useRecoilState(genderState); //  'male'
+  const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
+  const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
+  const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
 
-  const getProfile = async () => {
-    try {
-      let data = await searchUserById('2');
-      // 사용자 정보 변수에 저장
-      setUserId(data.id);
-      setAgeRange(data.ageGroup);
-      setGender(data.gender);
-      setNickName(data.nickname);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+  useEffect(() => {}, []);
 
   const tags = [
     '동해',
@@ -80,18 +75,21 @@ const MyBox = () => {
                   </button>
                 </div>
               </div>
-              <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
+              <div class=" border-y border-y-primary-2 py-[16px]  flex flex-row flex-nowrap">
                 <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
                   <span class=" text-[30px]">성별</span>
                 </div>
                 <div class="justify-between pl-2 border-x-4  border-x-primary-2 flex flex-grow  ">
-                  <div class="text-[30px] ml-4">{gender}</div>
+                  <div class="text-[30px] ml-4">{!gender ? '남' : '여'}</div>
                 </div>
                 <div class="text-center w-64  mb-0    flex-shrink-0 flex flex-col">
                   <span class=" text-[30px]">연령대</span>
                 </div>
                 <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
-                  <div class="text-[30px] ml-4">{ageRange}</div>
+                  <div class="text-[30px] ml-4">
+                    {ageRange}
+                    <span class=" text-[30px]">0대</span>
+                  </div>
                 </div>
               </div>
 
@@ -99,8 +97,20 @@ const MyBox = () => {
                 <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
                   <span class=" text-[30px]">아이디</span>
                 </div>
-                <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
+                <div class="justify-between pl-2 border-x-4 w-[40px] border-x-primary-2 flex flex-grow  ">
                   <div class="text-[30px] ml-4">{user_id}</div>
+                </div>
+                <div class="text-center w-64  mb-0    flex-shrink-0 flex flex-col">
+                  <span class=" text-[30px]">프로필</span>
+                </div>
+                <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
+                  <div class="text-[30px] ml-4">
+                    <img
+                      class="w-[45px] rounded-full"
+                      alt=""
+                      src={profileImage}
+                    ></img>
+                  </div>
                 </div>
               </div>
 
@@ -151,10 +161,13 @@ const MyBox = () => {
                   <span class=" text-[30px]">로그아웃</span>
                 </div>
                 <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
-                  <div class="text-[30px] ml-4">다음에 또 봐요~~</div>
-                  <button class="mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
+                  <div class="text-[30px] ml-4">다음에 또 와주세요!!</div>
+                  <a
+                    href="http://localhost:3000/logout"
+                    class="mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     "
+                  >
                     로그아웃
-                  </button>
+                  </a>
                 </div>
               </div>
             </section>

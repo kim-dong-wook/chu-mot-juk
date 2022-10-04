@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
+import { useParams } from 'react-router-dom';
+
 import './Detail.css';
 import {
   getBook,
@@ -16,6 +18,11 @@ import {
   exceptUserLikeBook,
   exceptUserLiketag,
 } from '../api/API2';
+import { getBooksByTags } from '../api/API';
+import { books } from '../stores/books';
+
+// import { Link } from 'react-router-dom';
+// <Link to={`/movie/${novelNo}`}>{title}</Link>
 
 const Detail = () => {
   const onClick = async () => {
@@ -38,8 +45,8 @@ const Detail = () => {
     // console.log(result6.data);
     // let result7 = await userLikeTag(10, 0, '2', 'jmj', '1234');
     // console.log(result7.data);
-    let result8 = await searchUserById('2');
-    console.log(result8.data);
+    // let result8 = await searchUserById('2');
+    // console.log(result8.data);
     // let result9 = await searchMe();
     // console.log(result9.data);
     // let result10 = await searchUserByUserNo(3);
@@ -67,6 +74,28 @@ const Detail = () => {
     '닳도록',
   ];
 
+  const { novelNo } = useParams();
+  const [book, setBook] = useState('');
+  const [tagsss, setTags] = useState('');
+  const getDeBook = async () => {
+    let result1 = await getBook(novelNo);
+    console.log(result1.data);
+    setBook(result1.data);
+  };
+
+  // 디테일 테크 #현대물이 숫자 몇인지 ???
+  // 1번 백엔드에 물어봐서 if문으로 연결하기
+  const getTags = async () => {
+    let result2 = await getBooksByTags([1, 2, 3]);
+    console.log(result2.data);
+    setTags(result2.data);
+  };
+
+  useEffect(() => {
+    getDeBook();
+    getTags();
+  }, []);
+
   return (
     <>
       <div className="tx-container">
@@ -87,19 +116,22 @@ const Detail = () => {
                   <div className="flex items-center justify-between"></div>
 
                   <div className="flex gap-x-4">
-                    <div className="flex-col ">
-                      <img
-                        onClick={onClick}
-                        alt="나 빼고 다 젊은이"
-                        srcset="https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=256 1x, https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=640 2x"
-                        src="https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=640"
-                        decoding="async"
-                        data-nimg="raw"
-                        className=" rounded  block w-[55vw]"
-                      ></img>
+                    <div className="flex-col w-[98%] ">
+                      <div className="  h-[517px] overflow-hidden">
+                        <img
+                          onClick={onClick}
+                          alt="Thumbnail"
+                          // srcset="https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=256 1x, https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=640 2x"
+                          // src="https://image.txtsoda.com/books/cl7pvr9nr013308mozjmudyan/cover/cover.webp?format=webp&amp;width=640"
+                          src={book.novelThumbnail}
+                          decoding="async"
+                          data-nimg="raw"
+                          className=" rounded  block w-[55vw]"
+                        ></img>
+                      </div>
                       <button
                         type="button"
-                        class="mt-[0.5vw] w-[100%] h-[3vw] text-[32px] px-[32.5%] inline-flex  text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow cursor-not-allowed hover:bg-primary-1"
+                        class="mt-[0.5vw] w-[100%] h-[3vw] text-[32px] px-[31%] inline-flex  text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow cursor-not-allowed hover:bg-primary-1"
                         disabled=""
                       >
                         <svg
@@ -119,29 +151,34 @@ const Detail = () => {
                         좋아요
                       </button>
                     </div>
-                    <div className="  space-y-4">
-                      <p style={{ fontSize: '2vw' }}>제목</p>
-                      <p style={{ fontSize: '2vw' }}>저자</p>
-                      <p style={{ fontSize: '2vw' }}>연재처</p>
-                      <p style={{ fontSize: '2vw' }}>내용소개</p>
-                      <p style={{ fontSize: '2vw' }}>현재 편수 / 완결 여부</p>
-                      <p style={{ fontSize: '2vw' }}>링크는 밑에 버튼으로</p>
-                      <hr className="border-2 border-primary-2 bg-primary-2  "></hr>
-                      <p>
-                        지극히 평범한(?) 할아버지 최춘택. 손녀를 지키기 위해
-                        가상현실 게임 ‘아크스타’ 를 시작했다. 그런데 우연히
-                        전설의 직업을 얻어버렸다…? “염병하네.”
+                    <div className=" max-w-[465px] space-y-4">
+                      <p style={{ fontSize: '2vw' }}>{book.novelTitle}</p>
+                      <p style={{ fontSize: '2vw' }}>{book.novelWriter}</p>
+                      <p style={{ fontSize: '2vw' }}>{book.novelPlatform}</p>
+                      <p style={{ fontSize: '2vw' }}>
+                        {book.novelNewest} {''}/{''}
+                        {book.novelCompleted ? '완결' : '연재중'}
                       </p>
+                      <p style={{ fontSize: '2vw' }}>
+                        <a alt="" href={book.novelLink}>
+                          작품 링크
+                        </a>
+                      </p>
+
+                      <hr className="border-2 border-primary-2 bg-primary-2  "></hr>
+                      <p>{book ? book.novelIntro.slice(0, 111) : []}...</p>
                       <div className="inline">
-                        {tags.slice(0, 4).map((tag, index) => (
-                          <span
-                            id={index}
-                            target="_self"
-                            className="inline-block items-center mr-0.5 text-sm whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 m-2 cursor-default"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                        {(book ? book.tagNames.slice(0, 100) : []).map(
+                          (tag, index) => (
+                            <span
+                              id={index}
+                              target="_self"
+                              className="inline-block items-center mr-0.5 text-sm whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 m-2 cursor-default"
+                            >
+                              #{tag}
+                            </span>
+                          ),
+                        )}
                       </div>
                     </div>
                   </div>
@@ -157,8 +194,26 @@ const Detail = () => {
           <div className="w-full h-full mt-8">
             <div className="text-[30px] mb-4">관련추천 10개만!!!</div>
 
+            <div className="text-[20px] mb-4">
+              /api/novel/search/tags 백엔드 여기에 테크정보 필요 아니면 밑에
+              10개처럼 여기서는 개별작품테그 안보주기 ?추천알고리즘 보고결정?
+            </div>
             <div className="w-full ">
               <div className="flex w-full h-[30.1rem] justify-between flex-wrap my-4">
+                {(tagsss ? tagsss.slice(0, 10) : []).map((book, index) => (
+                  <div className="w-[18%] h-[100%] overflow-hidden">
+                    <img
+                      src={book.novelThumbnail}
+                      alt=""
+                      className="w-full h-[66%] rounded-xl"
+                    ></img>
+                    <div className="text-lg w-full bookName mt-3 h-10">
+                      {book.novelTitle}
+                    </div>
+                    <div className="inline"></div>
+                  </div>
+                ))}
+
                 <div className="w-[18%] h-[100%] overflow-hidden">
                   <img
                     src="https://img.ridicdn.net/cover/3076030032/xxlarge#1"
@@ -166,7 +221,7 @@ const Detail = () => {
                     className="w-full h-[66%] rounded-xl"
                   ></img>
                   <div className="text-lg w-[5rem] bookName my-2">
-                    책이름책이름
+                    책이ㄴㄴㄴㄴㄴ
                   </div>
                   <div className="inline">
                     {tags.slice(0, 5).map((tag, index) => (
@@ -180,6 +235,7 @@ const Detail = () => {
                     ))}
                   </div>
                 </div>
+
                 <div className="w-[18%] h-[100%] overflow-hidden">
                   <img
                     src="https://via.placeholder.com/485x670"
@@ -351,27 +407,6 @@ const Detail = () => {
                 <div className="w-[18%] h-[100%] overflow-hidden">
                   <img
                     src="https://img.ridicdn.net/cover/3076030032/xxlarge#1"
-                    alt=""
-                    className="w-full h-[66%] rounded-xl"
-                  ></img>
-                  <div className="text-lg w-[5rem] bookName my-2">
-                    책이름책이름
-                  </div>
-                  <div className="inline">
-                    {tags.slice(0, 5).map((tag, index) => (
-                      <span
-                        id={index}
-                        target="_self"
-                        className="inline-block items-center mr-0.5 text-sm whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 m-2 cursor-default"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="w-[18%] h-[100%] overflow-hidden">
-                  <img
-                    src="https://via.placeholder.com/485x670"
                     alt=""
                     className="w-full h-[66%] rounded-xl"
                   ></img>

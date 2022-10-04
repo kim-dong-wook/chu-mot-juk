@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-// import { loginState, axiosBasic } from '../stores/atom';
+import { isLoginState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import qs from 'qs';
@@ -108,12 +108,15 @@ function KaKao() {
   //     )
   //     .then((res) => {
   //       console.log(res);
+  // console.log('>>> [LOGIN] ✅ SUCCESS', res.data.email);
   //       // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
   //     })
   //     .catch((err) => {
   //       console.warn('>>> [LOGIN] ❌ ERROR', err.message);
   //     });
   // }, []);
+
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState);
 
   const code = new URL(window.location.href).searchParams.get('code');
 
@@ -134,11 +137,16 @@ function KaKao() {
         payload,
       );
       // Kakao Javascript SDK 초기화
-      window.Kakao.init(CLIENT_ID);
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init(CLIENT_ID);
+      }
+      // window.Kakao.init(CLIENT_ID);
+
       // access token 설정
       window.Kakao.Auth.setAccessToken(res.data.access_token);
       console.log(code);
       console.log(res.data.access_token);
+      setIsLoggedIn(true);
       navigate('/mypage');
     } catch (err) {
       console.log(err);
