@@ -171,14 +171,21 @@ export const exceptUserLikeBook = async (novelNo, userNo) => {
 };
 
 //object
-export const exceptUserLiketag = async (novelNo, userNo) => {
+export const exceptUserLiketag = async (tagNo, userNo) => {
   try {
     let jsonData = {
-      novelNo,
-      userNo,
+      tagNo: tagNo,
+      userNo: userNo,
     };
 
-    const response = await axiosBasic.delete('/users/tags', jsonData);
+    console.log(jsonData);
+
+    const response = await axiosBasic.delete('users/tags', {
+      data: {
+        tagNo,
+        userNo,
+      },
+    });
     return response;
   } catch (error) {
     console.log(error);

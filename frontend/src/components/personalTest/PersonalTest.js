@@ -17,6 +17,7 @@ const PersonalTest = () => {
   const testBook = useRef(null);
   const testBox = useRef(null);
   useEffect(() => {
+    setTestPage(-1);
     setTags(new Set());
     testBox.current.classList.add('animate__animated');
     testBox.current.classList.add('animate__fadeInDown');

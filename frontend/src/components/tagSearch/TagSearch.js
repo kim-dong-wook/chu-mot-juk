@@ -63,8 +63,10 @@ const TagSearch = () => {
       fetchData();
     }
   };
-
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     if (name) {
       const fetchData = async () => {
         setLoading(true);

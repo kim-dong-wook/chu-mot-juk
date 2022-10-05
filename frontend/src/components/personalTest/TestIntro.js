@@ -17,6 +17,7 @@ const TestIntro = () => {
     button.current.classList.add('animate__fadeOutDown');
     let fn = setTimeout(() => {
       navigate('/test');
+      window.location.reload();
     }, 2500);
   };
   useEffect(() => {

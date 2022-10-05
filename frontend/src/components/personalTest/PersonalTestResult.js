@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { testState, testPageState } from '../../stores/atom';
-import { getBookResult } from '../../api/API';
+import { testState, testPageState, userIdState } from '../../stores/atom';
+import { getBookResult, postUserTag } from '../../api/API';
+import { searchUserById, exceptUserLiketag } from '../../api/API2';
 import background from '../../assets/images/test/TestBackground.jpg';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -11,25 +12,34 @@ import IconButton from '@mui/material/IconButton';
 const PersonalTestResult = () => {
   const [tags, setTags] = useRecoilState(testState);
   const [testPage, setTestPage] = useRecoilState(testPageState);
+  const [userId, setUserId] = useRecoilState(userIdState);
   const [results, setResults] = useState(null);
   const [selectors, setSelctors] = useState(null);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [lastTag, setLastTag] = useState(null);
 
-  const handleClick = () => {
+  const handleClick = (number) => {
     setOpen(true);
+    setLastTag(number);
+    postUserTag(number, userInfo.userNo);
   };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
+    setOpen(false);
+  };
 
+  const onClickReset = () => {
+    exceptUserLiketag(lastTag, userInfo.userNo);
     setOpen(false);
   };
 
   const action = (
-    <Button color="secondary" size="small" onClick={handleClose}>
+    <Button color="secondary" size="small" onClick={onClickReset}>
       되돌리기
     </Button>
   );
@@ -50,7 +60,7 @@ const PersonalTestResult = () => {
       }
     });
     console.log('선호 태그 등록 : ' + name);
-    handleClick();
+    handleClick(number);
   };
 
   useEffect(() => {
@@ -69,6 +79,9 @@ const PersonalTestResult = () => {
       });
       setSelctors(temp);
       setResults(result.data);
+
+      const userResult = await searchUserById(userId);
+      setUserInfo(userResult.data);
     };
     fetchData();
   }, []);

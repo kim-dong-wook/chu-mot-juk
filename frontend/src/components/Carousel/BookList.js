@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { nodeVersions } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/4.8/node_modules/browserslist/index';
 import star from '../../assets/images/star.png';
 import './book.css';
 import './book.scss';
@@ -25,8 +26,10 @@ const BookList = ({ number, books }) => {
           <div className="text-xl mt-2 bookName">{book.novelTitle}</div>
           <div className="flex">
             <img className="mt-1 h-[1rem]" src={star} alt="star"></img>
-            &nbsp;{'(4.7)'}&nbsp;&nbsp;
-            <span>22.2만</span>
+            &nbsp;{'('}
+            {book.novelRate}
+            {')'}&nbsp;&nbsp;
+            <span>{book.novelView}</span>
           </div>
         </div>
       ))}
