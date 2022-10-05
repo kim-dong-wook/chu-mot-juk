@@ -72,146 +72,116 @@ const Login = () => {
 
   //@@@@@@
   // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState); //Kakao.js 에서 함
-  const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
-  const [gender, setGender] = useRecoilState(genderState); //  'male'
-  const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
-  const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
-  const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
+  // const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
+  // const [gender, setGender] = useRecoilState(genderState); //  'male'
+  // const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
+  // const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
+  // const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
 
-  // const [user_id, setUserId] = useState();
-  // const [ageRange, setAgeRange] = useState();
-  // const [gender, setGender] = useState();
-  // const [nickName, setNickName] = useState();
-  // const [profileImage, setProfileImage] = useState();
-  // const [email, setEmail] = useState();
+  // const getProfile = async () => {
+  //   try {
+  //     // Kakao SDK API를 이용해 사용자 정보 조회
+  //     let data = await window.Kakao.API.request({
+  //       url: '/v2/user/me',
+  //     });
+  //     console.log(data);
+  //     // 사용자 정보 변수에 저장
+  //     setUserId(data.id);
+  //     let ageFix1 = data.kakao_account.age_range.substr(0, 2);
+  //     let ageFix2 = parseInt(ageFix1 / 10);
+  //     setAgeRange(ageFix2);
+  //     // setEmail(data.kakao_account.email);
+  //     if (data.kakao_account.gender === 'male') {
+  //       let genderFix = false; // male => false
+  //       setGender(genderFix);
+  //     } else {
+  //       let genderFix = true; // female => true
+  //       setGender(genderFix);
+  //     }
+  //     setNickName(data.properties.nickname);
+  //     setProfileImage(data.properties.profile_image);
 
-  const getProfile = async () => {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 조회
-      let data = await window.Kakao.API.request({
-        url: '/v2/user/me',
-      });
-      console.log(data);
-      // 사용자 정보 변수에 저장
-      setUserId(data.id);
-      let ageFix1 = data.kakao_account.age_range.substr(0, 2);
-      let ageFix2 = parseInt(ageFix1 / 10);
-      setAgeRange(ageFix2);
-      // setEmail(data.kakao_account.email);
-      if (data.kakao_account.gender === 'male') {
-        let genderFix = false; // male => false
-        setGender(genderFix);
-      } else {
-        let genderFix = true; // female => true
-        setGender(genderFix);
-      }
-      setNickName(data.properties.nickname);
-      setProfileImage(data.properties.profile_image);
+  //     let body = {
+  //       ageGroup: ageRange,
+  //       gender: gender,
+  //       id: user_id,
+  //       nickname: nickName,
+  //       password: 'password', // 카카오에서 안받아옴 그냥 유지
+  //     };
 
-      let body = {
-        ageGroup: ageRange,
-        gender: gender,
-        id: user_id,
-        nickname: nickName,
-        password: 'password', // 카카오에서 안받아옴 그냥 유지
-      };
+  //     console.log(body);
+  //     //  다좋은데 console 128(망) > 125(성공) > 126(카) 순서대로 됨 128왜감??
+  //     await axiosBasic
+  //       .post('/users', body) //토큰, 추가 정보 전송
+  //       .then((res) => {
+  //         if (res.data) {
+  //           console.log(res.data);
+  //           console.log('카');
+  //         }
+  //       })
+  //       .catch((err) => console.log(err), console.log('망'));
+  //   } catch (err) {
+  //     console.log(err);
+  //     // alert('카카오 로그인 에러?');
+  //   }
+  // };
 
-      console.log(body);
-      //  다좋은데 console 128(망) > 125(성공) > 126(카) 순서대로 됨 128왜감??
-      await axiosBasic
-        .post('/users', body) //토큰, 추가 정보 전송
-        .then((res) => {
-          if (res.data) {
-            console.log(res.data);
-            console.log('카');
-          }
-        })
-        .catch((err) => console.log(err), console.log('망'));
-    } catch (err) {
-      console.log(err);
-      // alert('카카오 로그인 에러?');
-    }
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   getProfile();
+  // }, []);
 
   return (
     <>
-      <main class="flex items-center justify-center">
-        <div class="mt-[5%] tx-main space-y-8 max-w-[60rem]  grow rounded-md bg-[#f3f3f3] shadow-md">
-          <div class="text-center">
-            <h2 class=" font-bold text-3xl ">로그인</h2>
-            <h3 class="mt-2 text-xl">추못죽에 오신 것을 환영합니다!</h3>
-            <img className="m-auto" alt="" src={logo2} />
-          </div>
+      <div className="min-h-[94vh] pt-[5vh]">
+        <main class="flex items-center justify-center">
+          <div class="mt-[5%] tx-main space-y-8 max-w-[60rem]  grow rounded-md bg-[#f3f3f3] shadow-md">
+            <div class="text-center">
+              <h2 class=" font-bold text-3xl ">로그인</h2>
+              <h3 class="mt-2 text-xl">추못죽에 오신 것을 환영합니다!</h3>
+              <img className="m-auto" alt="" src={logo2} />
+            </div>
 
-          <div class="mt-2 flex flex-col items-center gap-y-4">
-            <a
-              href={KAKAO_AUTH_URL}
-              // onClick={getProfile}
-              type="button"
-              class="group flex w-full  max-w-[550px] items-center justify-center rounded py-4 pl-6 hover:shadow-lg bg-[#FEE500]"
-              data-provider="kakao"
-            >
-              <span class="mr-2 group-hover:animate-bounce">
-                <span class="bg-[#FEE500] rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    width="32"
-                    height="32"
-                  >
-                    <path
-                      d="M15.98 5C9.364 5 4 9.164 4 14.302c0 3.267 2.17 6.138 5.47 7.8l-.912 4.574 5.179-3.236c.754.114 1.516.17 2.279.169 6.619 0 11.984-4.165 11.984-9.307S22.598 5 15.98 5Z"
-                      fill="#3A1D1D"
-                    ></path>
-                  </svg>
+            <div class="mt-2 flex flex-col items-center gap-y-4">
+              <a
+                href={KAKAO_AUTH_URL}
+                // onClick={getProfile}
+                type="button"
+                class="group flex w-full  max-w-[550px] items-center justify-center rounded py-4 pl-6 hover:shadow-lg bg-[#FEE500]"
+                data-provider="kakao"
+              >
+                <span class="mr-2 group-hover:animate-bounce">
+                  <span class="bg-[#FEE500] rounded-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      width="32"
+                      height="32"
+                    >
+                      <path
+                        d="M15.98 5C9.364 5 4 9.164 4 14.302c0 3.267 2.17 6.138 5.47 7.8l-.912 4.574 5.179-3.236c.754.114 1.516.17 2.279.169 6.619 0 11.984-4.165 11.984-9.307S22.598 5 15.98 5Z"
+                        fill="#3A1D1D"
+                      ></path>
+                    </svg>
+                  </span>
                 </span>
-              </span>
-              <span class="text-center text-[24px] text-black">
-                카카오 계정으로 로그인하기
-              </span>
-            </a>
+                <span class="text-center text-[24px] text-black">
+                  카카오 계정으로 로그인하기
+                </span>
+              </a>
+            </div>
+
+            <div class="mt-4 text-center  ">
+              <h3 class="mt-2 text-base lg:mt-4 lg:text-xl">
+                지금 로그인하고 추못죽에 서비스를 사용해보세요. 최선을 다해
+                추천해드려요!! :)
+              </h3>
+              <h3 class="mt-2 text-base lg:mt-4 lg:text-xl">
+                서비스 이용을 위해 이메일과 이름을 수집합니다.
+              </h3>
+            </div>
           </div>
-
-          <div class="mt-4 text-center  ">
-            <h3 class="mt-2 text-base lg:mt-4 lg:text-xl">
-              지금 로그인하고 추못죽에 서비스를 사용해보세요. 최선을 다해
-              추천해드려요!! :)
-            </h3>
-            <h3 class="mt-2 text-base lg:mt-4 lg:text-xl">
-              서비스 이용을 위해 이메일과 이름을 수집합니다.
-            </h3>
-          </div>
-        </div>
-      </main>
-
-      {/* {isLoggedIn === true ? (
-        <>
-          <p>{userData.nickname}</p>
-
-          <p top="16px">성별</p>
-          <p>{gender ? '남성' : '여성'}</p>
-
-          <p top="16px">이메일</p>
-          <p>{userData.email}</p>
-
-          <button onClick={Logout}>로그아웃</button>
-        </>
-      ) : (
-        <>
-          <p width="468px">더 나은 서비스를 위해 가입하세요</p>
-          <p width="433px">지금 로그인하세요.</p>
-
-          <a href={KAKAO_AUTH_URL}>
-            <LoginButton2>
-              <img alt="" src={kakaoLogin} />
-            </LoginButton2>
-          </a>
-        </>
-      )} */}
+        </main>
+      </div>
     </>
   );
 };

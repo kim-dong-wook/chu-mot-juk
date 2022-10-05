@@ -153,8 +153,14 @@ const Detail = () => {
                     </div>
                     <div className=" max-w-[465px] space-y-4">
                       <p style={{ fontSize: '2vw' }}>{book.novelTitle}</p>
-                      <p style={{ fontSize: '2vw' }}>{book.novelWriter}</p>
-                      <p style={{ fontSize: '2vw' }}>{book.novelPlatform}</p>
+                      <p style={{ fontSize: '2vw' }}>
+                        {book.novelWriter}
+                        <span class="tx-color-white">저</span>
+                      </p>
+                      <p style={{ fontSize: '2vw' }}>
+                        {book.novelPlatform}
+                        <span class="">출판</span>
+                      </p>
                       <p style={{ fontSize: '2vw' }}>
                         {book.novelNewest} {''}/{''}
                         {book.novelCompleted ? '완결' : '연재중'}
@@ -166,9 +172,9 @@ const Detail = () => {
                       </p>
 
                       <hr className="border-2 border-primary-2 bg-primary-2  "></hr>
-                      <p>{book ? book.novelIntro.slice(0, 111) : []}...</p>
+                      <p>{book ? book.novelIntro.slice(0, 135) : []}...</p>
                       <div className="inline">
-                        {(book ? book.tagNames.slice(0, 100) : []).map(
+                        {(book ? book.tagNames.slice(0, 17) : []).map(
                           (tag, index) => (
                             <span
                               id={index}
