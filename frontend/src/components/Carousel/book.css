@@ -46,7 +46,8 @@
   width: 100%;
   height: 100%;
   display: flex;
-  perspective: 1200px;
+  /* perspective: 1200px; */
+  perspective: 500px;
 }
 
 .book::before {
@@ -70,5 +71,6 @@
 
 .book:hover::before {
   transform: translateY(9px);
+  /* transform: translateZ(10rem); */
   opacity: 1;
 }

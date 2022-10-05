@@ -52,6 +52,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mybox" element={<MyBoxPage />} />
         <Route path="/tagsearch" element={<TagSearchPage />} />
+        <Route path="/tagsearch/:name" element={<TagSearchPage />} />
         <Route path="/vs" element={<VsPage />} />
         <Route path="/vsintro" element={<VsIntro />} />
         <Route path="/test" element={<TestPage />} />

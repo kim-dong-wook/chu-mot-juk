@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { searchBookState, tagsState } from '../../stores/atom';
-
+import { useParams } from 'react-router-dom';
 import SearchList from './SearchList';
-import { getBooksByTags, getBooksByGenre, getBooksByName } from '../../api/API';
+import {
+  getBooksByTags,
+  getBooksByGenre,
+  getBooksByName,
+  getBooksByPlatform,
+} from '../../api/API';
 import TagLists from './TagLists';
 import Loading from '../Loading';
 
@@ -14,7 +19,7 @@ const TagSearch = () => {
   const [genreSeleted, setGenreSeleted] = useState('로맨스');
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const { name } = useParams();
   const onClickToggle = () => {
     setHidden(!hidden);
   };
@@ -60,13 +65,23 @@ const TagSearch = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const result = await getBooksByGenre(0);
-      setBooks(result.data);
-      setLoading(false);
-    };
-    fetchData();
+    if (name) {
+      const fetchData = async () => {
+        setLoading(true);
+        const result = await getBooksByPlatform(name);
+        setBooks(result.data);
+        setLoading(false);
+      };
+      fetchData();
+    } else {
+      const fetchData = async () => {
+        setLoading(true);
+        const result = await getBooksByGenre(0);
+        setBooks(result.data);
+        setLoading(false);
+      };
+      fetchData();
+    }
   }, []);
 
   useEffect(() => {

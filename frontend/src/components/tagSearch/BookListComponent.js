@@ -8,9 +8,9 @@ const BookListComponent = ({ books }) => {
     navigate('/detail/' + novelNo);
   };
   return (
-    <div className="flex w-full h-[29rem] justify-between my-4">
+    <div className="flex w-full h-[29rem] my-4">
       {books.map((book) => (
-        <div className="w-[18%] h-[100%] overflow-hidden">
+        <div className="w-[18%] h-[100%] overflow-hidden mr-7">
           <div className="w-full h-[66%] overflow-hidden rounded-xl">
             <img
               src={book.novelThumbnail}
