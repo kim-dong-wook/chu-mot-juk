@@ -8,10 +8,10 @@ const MyPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState);
   return (
     <>
-      <Login></Login>
-      <Profile></Profile>
+      {/* <Login></Login>
+      <Profile></Profile> */}
 
-      {/* {isLoggedIn === true ? (
+      {isLoggedIn === true ? (
         <>
           <Profile></Profile>
         </>
@@ -19,9 +19,7 @@ const MyPage = () => {
         <>
           <Login></Login>
         </>
-      )} */}
-
-      <div className="mt-[300px]">마이 페이지</div>
+      )}
     </>
   );
 };

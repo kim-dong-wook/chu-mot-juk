@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import kakaoLogin from '../assets/images/KaKaoLogin.png';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import logo2 from '../assets/images/logo2.png';
+import { useRecoilState } from 'recoil';
 import {
-  CLIENT_ID,
-  REDIRECT_URI,
-  LOGOUT_REDIRECT_URI,
-  CLIENT_SECRET,
-  KAKAO_AUTH_URL,
-} from '../components/common/KaKaoAuth';
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
+} from '../stores/atom';
 import { axiosBasic } from '../api/API2';
 import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
-import {
-  getBook,
-  getBooksByTag,
-  signIn,
-  fixSignIn,
-  deleteSignIn,
-  userLikeBook,
-  userLikeTag,
-  searchUserById,
-  searchMe,
-  searchUserByUserNo,
-  exceptUserLikeBook,
-  exceptUserLiketag,
-} from '../api/API2';
-import { isLoginState } from '../stores/atom';
 
 const KakaoLogout = () => {
-  const [isLoggedIn, setLoggedIn] = useRecoilState(isLoginState); //recoil 적용
-
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState); //recoil 적용
+  const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
+  const [gender, setGender] = useRecoilState(genderState); //  'male'
+  const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
+  const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
+  const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
   const navigate = useNavigate();
 
   // const getOut = () => {
@@ -49,8 +36,6 @@ const KakaoLogout = () => {
   //     window.Kakao.Auth.setAccessToken(undefined);
   //   }
   // };
-  setLoggedIn(false);
-  console.log(isLoggedIn);
 
   const getOut = async () => {
     try {
@@ -60,6 +45,25 @@ const KakaoLogout = () => {
       });
       console.log('ㄱㄱ');
       console.log(data);
+      console.log(isLoggedIn);
+      console.log(ageRange);
+      console.log(gender);
+      console.log(user_id);
+      console.log(nickName);
+      console.log(profileImage);
+      setIsLoggedIn(false);
+      setAgeRange(0);
+      setGender(false);
+      setUserId('');
+      setNickName('');
+      setProfileImage('');
+      console.log(isLoggedIn);
+      console.log(ageRange);
+      console.log(gender);
+      console.log(user_id);
+      console.log(nickName);
+      console.log(profileImage);
+      navigate('/mypage');
       // alert('카카오 성공')
     } catch (err) {
       console.log('qq');
@@ -74,7 +78,7 @@ const KakaoLogout = () => {
 
   return (
     <>
-      <div>연결끊기 중 기다려주세요~~</div>
+      <div>로그아웃 중 (연결끊기) 잠시만 기다려주세요~~</div>
     </>
   );
 };

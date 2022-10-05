@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import RightPath from '../../assets/images/bt_right.png';
 import LeftPath from '../../assets/images/bt_left.png';
+import kakao from '../../assets/images/kakao.png';
+import naver from '../../assets/images/naver.png';
+import ridi from '../../assets/images/ridi.png';
 // import { books as dummy } from '../../stores/books';
 import { getBooksByPlatform } from '../../api/API';
 import $ from 'jquery';
@@ -65,8 +68,8 @@ const BookCarousel = ({ name }) => {
     $('#' + moreName).addClass('opacity-0');
   };
 
-  const onClickMore = () => {
-    navigate('/more');
+  const onClickMore = (name) => {
+    navigate('/tagsearch/' + name);
   };
 
   useEffect(() => {
@@ -104,24 +107,35 @@ const BookCarousel = ({ name }) => {
               onMouseOut={onMouseOut}
             >
               <div className="text-2xl mr-4">
-                {name === '카카오페이지'
-                  ? '카카오페이지 인기작'
-                  : name === '네이버시리즈'
-                  ? '네이버시리즈 인기작'
-                  : name === '리디북스'
-                  ? '리디북스 인기작'
-                  : ''}
+                {name === '카카오페이지' ? (
+                  <div className="flex">
+                    <img className="w-8 mr-2" src={kakao} alt=""></img>
+                    카카오페이지 인기작
+                  </div>
+                ) : name === '네이버시리즈' ? (
+                  <div className="flex">
+                    <img className="w-8 mr-2" src={naver} alt=""></img>
+                    네이버시리즈 인기작
+                  </div>
+                ) : name === '리디북스' ? (
+                  <div className="flex">
+                    <img className="w-8 mr-2" src={ridi} alt=""></img>
+                    리디북스 인기작
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               <div
                 id={moreName}
                 className="text-lg opacity-0 duration-200 delay-200 text-gray-500 cursor-pointer"
-                onClick={onClickMore}
+                onClick={() => onClickMore(name)}
               >
                 더보기
               </div>
               <div
                 id={arrowName}
-                onClick={onClickMore}
+                onClick={() => onClickMore(name)}
                 className="text-sm duration-500 translate-x-[-3rem] cursor-pointer"
               >
                 {'>'}

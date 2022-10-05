@@ -41,10 +41,15 @@ const VsStart = () => {
       style={{ backgroundImage: `url(${intro})` }}
     >
       <div
-        className="h-[30rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg space-y-8"
+        className="h-[40rem] w-[40rem] border-2 border-primary-4 flex justify-center items-center flex-col bg-gradient-to-br from-primary-2 to-primary-3 rounded-lg space-y-8"
         ref={box}
       >
         <img src={intro2} alt="" className="w-[20%]" />
+        <div className="text-lg text-center">
+          두근두근..<br></br>이세계에서 같이 이야기를 펼치고 싶은<br></br>당신의
+          이상형을 골라보세요!
+          <br></br>
+        </div>
         <div className="bg-primary-1 w-10/12 h-[11rem] space-y-4 p-4 rounded-lg text-xl">
           <div className="font-bold">총 라운드를 선택하세요.</div>
           <Box sx={{ minWidth: 120 }}>

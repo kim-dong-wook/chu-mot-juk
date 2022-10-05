@@ -1,30 +1,41 @@
 import { atom } from 'recoil';
-// import { recoilPersist } from 'recoil-persist';
+import { recoilPersist } from 'recoil-persist';
 import axios from 'axios';
+
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist',
+  storage: localStorage,
+});
 
 const isLoginState = atom({
   key: 'isloginState',
   default: false,
+  effects_UNSTABLE: [persistAtom],
 });
 const ageRangeState = atom({
   key: 'ageRangeState',
-  default: 1,
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
 });
 const genderState = atom({
   key: 'genderState',
   default: false,
+  effects_UNSTABLE: [persistAtom],
 });
 const userIdState = atom({
   key: 'userIdState',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 const nicknameState = atom({
   key: 'nicknameState',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 const profileImgState = atom({
   key: 'profileImgState',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 const roundState = atom({
