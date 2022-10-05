@@ -12,7 +12,6 @@ const MainPage = () => {
       <BookCarousel name={'네이버시리즈'}></BookCarousel>
       <BookCarousel name={'리디북스'}></BookCarousel>
       <Footer></Footer>
-      <Footer2></Footer2>
     </div>
   );
 };
