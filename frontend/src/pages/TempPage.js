@@ -35,7 +35,7 @@ const TempPage = () => {
     // navigate('/mypage');
   }, []);
 
-  return <Temp></Temp>;
+  return <p>카카오 로그인 초기화중</p>;
 };
 
 export default TempPage;

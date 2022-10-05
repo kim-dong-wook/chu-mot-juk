@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-
 import './style.css';
 
 // import required modules
