@@ -49,6 +49,8 @@ const VsMain = () => {
     setSelected(selected.concat(winner));
     right.current.classList.remove('animate__zoomIn');
     left.current.classList.remove('animate__zoomIn');
+    left.current.classList.remove('animate__headShake');
+    right.current.classList.remove('animate__headShake');
 
     if (side === 'left') {
       right.current.classList.add('animate__zoomOutRight');
@@ -87,6 +89,15 @@ const VsMain = () => {
     }, 1500);
   };
 
+  const onMouseOverPicture = (ref) => {
+    ref.current.classList.remove('animate__zoomIn');
+    ref.current.classList.remove('animate__headShake');
+    ref.current.classList.add('animate__headShake');
+  };
+
+  const onMouseOutPicture = (ref) => {
+    ref.current.classList.remove('animate__headShake');
+  };
   useEffect(() => {
     const fetchData = async () => {
       const result = await getWCInfo();
@@ -161,29 +172,15 @@ const VsMain = () => {
           <div
             className="w-[35%] h-[65%] flex justify-center items-center"
             ref={left}
+            onMouseOver={() => onMouseOverPicture(left)}
+            onMouseOut={() => onMouseOutPicture(left)}
           >
-            <div class="ud_book_box" className="w-[100%] h-[100%]">
-              <div class="ud_book">
-                <img
-                  className={`w-[100%] h-[100%] `}
-                  src={
-                    startBooks[2 * current] ? startBooks[2 * current].pic : ''
-                  }
-                  alt=""
-                  onClick={() => onClick(startBooks[2 * current].wcNo, 'left')}
-                ></img>
-                <div class="ud_ruckseite">
-                  <img
-                    className={`w-[100%] h-[100%]`}
-                    src={sideBookPath}
-                    alt=""
-                    onClick={() =>
-                      onClick(startBooks[2 * current].wcNo, 'left')
-                    }
-                  ></img>
-                </div>
-              </div>
-            </div>
+            <img
+              className={`w-[100%] h-[100%]`}
+              src={startBooks[2 * current] ? startBooks[2 * current].pic : ''}
+              alt=""
+              onClick={() => onClick(startBooks[2 * current].wcNo, 'left')}
+            ></img>
           </div>
           <div>
             <img src={VSimg} alt="" className="" />
@@ -191,33 +188,19 @@ const VsMain = () => {
           <div
             className="w-[35%] h-[65%] flex justify-center items-center"
             ref={right}
+            onMouseOver={() => onMouseOverPicture(right)}
+            onMouseOut={() => onMouseOutPicture(right)}
           >
-            <div class="ud_book_box" className="w-[100%] h-[100%]">
-              <div class="ud_book">
-                <img
-                  className={`w-[100%] h-[100%]`}
-                  src={
-                    startBooks[2 * current + 1]
-                      ? startBooks[2 * current + 1].pic
-                      : ''
-                  }
-                  alt=""
-                  onClick={() =>
-                    onClick(startBooks[2 * current + 1].wcNo, 'right')
-                  }
-                ></img>
-                <div class="ud_ruckseite">
-                  <img
-                    className={`w-[100%] h-[100%]`}
-                    src={sideBookPath}
-                    alt=""
-                    onClick={() =>
-                      onClick(startBooks[2 * current + 1].wcNo, 'right')
-                    }
-                  ></img>
-                </div>
-              </div>
-            </div>
+            <img
+              className={`w-[100%] h-[100%]`}
+              src={
+                startBooks[2 * current + 1]
+                  ? startBooks[2 * current + 1].pic
+                  : ''
+              }
+              alt=""
+              onClick={() => onClick(startBooks[2 * current + 1].wcNo, 'right')}
+            ></img>
           </div>
         </div>
       </div>

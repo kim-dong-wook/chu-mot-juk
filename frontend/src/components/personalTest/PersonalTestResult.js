@@ -38,6 +38,10 @@ const PersonalTestResult = () => {
     navigate('/testintro');
   };
 
+  const onClickBook = (novelNo) => {
+    navigate('/detail/' + novelNo);
+  };
+
   const onClickTag = (name) => {
     let number = -1;
     tags.forEach((tag) => {
@@ -117,7 +121,10 @@ const PersonalTestResult = () => {
           <div className="flex text-xl mt-20 justify-between">
             <div>
               이 작품이 궁금하다면?
-              <span className="ml-2 hover:text-primary-3 cursor-pointer">
+              <span
+                className="ml-2 hover:text-primary-3 cursor-pointer"
+                onClick={() => onClickBook(results[0].novelNo)}
+              >
                 보러가기{' '}
               </span>
             </div>
