@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nodeVersions } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/4.8/node_modules/browserslist/index';
 import star from '../../assets/images/star.png';
 import './book.css';
 import './book.scss';
