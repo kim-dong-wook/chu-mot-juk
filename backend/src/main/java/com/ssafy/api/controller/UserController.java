@@ -1,8 +1,12 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.dto.LikeListDTO;
 import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTagReq;
+import com.ssafy.api.response.LikeListRes;
+import com.ssafy.api.response.NovelInfoRes;
+import com.ssafy.api.service.NovelService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -16,10 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -31,6 +32,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    NovelService novelService;
 
     @PostMapping
     @ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
@@ -196,8 +200,18 @@ public class UserController {
     })
     public ResponseEntity<List> getLikeListByUserNo
             (@PathVariable @ApiParam(value = "userNo") Long userNo) {
-        List<LikeList> likeList = userService.getLikeListByUserNo(userNo);
-        return ResponseEntity.status(200).body(likeList);
+        List<LikeListDTO> likeListDTO = userService.getLikeListByUserNo(userNo);
+
+        List<LikeListRes> likeListResList = new ArrayList<>();
+        for(int i = 0; i < likeListDTO.size(); i++) {
+            LikeListRes likeListRes = new LikeListRes();
+            likeListRes.setLikeNo(likeListDTO.get(i).getLikeNo());
+            NovelInfoRes novel = novelService.getNovelInfoByNovelNo(likeListDTO.get(i).getNovelNo());
+            likeListRes.setNovel(novel);
+            likeListResList.add(likeListRes);
+        }
+
+        return ResponseEntity.status(200).body(likeListResList);
     }
 
     @DeleteMapping("/novels")

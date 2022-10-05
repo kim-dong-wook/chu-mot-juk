@@ -1,8 +1,11 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.LikeListDTO;
 import com.ssafy.api.request.LikeListReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTagReq;
+import com.ssafy.api.response.LikeListRes;
+import com.ssafy.api.response.NovelInfoRes;
 import com.ssafy.common.exception.handler.CustomException;
 import com.ssafy.common.exception.handler.ErrorCode;
 import com.ssafy.db.entity.*;
@@ -172,14 +175,21 @@ public class UserService {
         return true;
     }
 
-    public List<LikeList> getLikeListByUserNo(Long userNo) {
+    public List<LikeListDTO> getLikeListByUserNo(Long userNo) {
         User user = userRepository.findByUserNo(userNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         });
         List<LikeList> likeList = likeListRepository.findLikeListsByUserUserNo(userNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOT_FOUND_EXCEPTION);
         });
-        return likeList;
+        List<LikeListDTO> list = new ArrayList<>();
+        for(int i = 0; i < likeList.size(); i++) {
+            LikeListDTO likeListDTO = new LikeListDTO();
+            likeListDTO.setLikeNo(likeList.get(i).getLikeNo());
+            likeListDTO.setNovelNo(likeList.get(i).getNovel().getNovelNo());
+            list.add(likeListDTO);
+        }
+        return list;
     }
 
     @Transactional
