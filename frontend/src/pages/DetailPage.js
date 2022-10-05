@@ -4,8 +4,6 @@ const DetailPage = () => {
   return (
     <div>
       <Detail></Detail>
-
-      <div className="mt-[500px]">상세보기</div>
     </div>
   );
 };
