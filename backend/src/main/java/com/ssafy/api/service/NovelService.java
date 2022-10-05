@@ -390,4 +390,12 @@ public class NovelService {
         return shelf;
     }
 
+    public Tag getTagNameByTagNo(Long tagNo) {
+        Tag tag = tagRepository.findTagByTagNo(tagNo).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tag;
+    }
+
 }

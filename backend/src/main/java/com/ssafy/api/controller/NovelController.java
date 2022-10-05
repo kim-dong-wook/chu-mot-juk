@@ -268,6 +268,19 @@ public class NovelController {
         List<Novel> novel = novelService.getRecommendedNovelByTags(surveyReq);
         return ResponseEntity.status(200).body(novel);
     }
+
+    @GetMapping("/search/{tagNo}")
+    @ApiOperation(value = "태그 번호로 태그 이름 조회", notes = "태그 번호를 입력받아 태그 이름을 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당하는 태그 번호 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<Tag> getTagNameByTagNo(@PathVariable("tagNo") Long tagNo) {
+        Tag tag = novelService.getTagNameByTagNo(tagNo);
+        return ResponseEntity.status(200).body(tag);
+    }
 }
 
 
