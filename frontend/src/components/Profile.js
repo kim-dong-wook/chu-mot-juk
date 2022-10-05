@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 import {
+  searchBookState,
+  tagsState,
   isLoginState,
   ageRangeState,
   genderState,
@@ -10,6 +12,7 @@ import {
   nicknameState,
   profileImgState,
 } from '../stores/atom';
+import { getBooksByGenre } from '../api/API';
 import { axiosBasic } from '../api/API2';
 import {
   getBook,
@@ -25,14 +28,9 @@ import {
   exceptUserLikeBook,
   exceptUserLiketag,
 } from '../api/API2';
-import { data } from 'jquery';
+import TagLists from './tagSearch/TagLists2';
 
 const MyBox = () => {
-  // let result8 = await searchUserById('2');
-  // console.log(result8.data);
-  // let result9 = await searchMe();
-  // console.log(result9.data);
-
   const [ageRange, setAgeRange] = useRecoilState(ageRangeState); // '20~29'
   const [gender, setGender] = useRecoilState(genderState); //  'male'
   const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
@@ -87,33 +85,57 @@ const MyBox = () => {
     }
   };
 
+  const onClickToggle = () => {
+    setHidden(!hidden);
+  };
+
+  const [tags, setTags] = useRecoilState(tagsState);
+  const [hidden, setHidden] = useState(true);
+  const [books, setBooks] = useRecoilState(searchBookState);
+  const [loading, setLoading] = useState(true);
+  const [genreSeleted, setGenreSeleted] = useState('로맨스');
+
+  const onClickGenre = (genre) => {
+    const fetchData = async () => {
+      setLoading(true);
+      if (genre === '로맨스') {
+        const result = await getBooksByGenre(0);
+        setBooks(result.data);
+      } else if (genre === '판타지') {
+        const result = await getBooksByGenre(1);
+        setBooks(result.data);
+      } else if (genre === 'BL') {
+        const result = await getBooksByGenre(2);
+        setBooks(result.data);
+      }
+      setLoading(false);
+    };
+    fetchData();
+    console.log(genre);
+    setGenreSeleted(genre);
+  };
+  const [userInfo, setUserInfo] = useState(null);
+  const fetchData = async () => {
+    const userResult = await searchUserById(user_id);
+    setUserInfo(userResult.data);
+    // userInfo.userNo
+    let result7 = await userLikeTag(userInfo.userNo);
+    console.log(result7.data);
+    // setTags()
+    setTags(result7.data);
+  };
+
   useEffect(() => {
     getProfile();
+
+    fetchData();
   }, []);
-
-  const tags = [
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-  ];
-
   return (
     <>
       <div className="tx-container">
         <main className="tx-main space-y-8 max-w-[80rem] lg:space-y-16">
           <div className="w-full h-full mt-8">
-            <div className="text-[30px] mb-4">마이페이지</div>
+            {/* <div className="text-[30px] mb-4">마이페이지</div> */}
             <section class="text-gray-600 border-y border-y-primary-2 bg-[#f3f3f3] overflow-hidden">
               <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
                 <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
@@ -171,55 +193,110 @@ const MyBox = () => {
                 </div>
                 <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
                   <div className="inline">
-                    {tags.slice(0, 22).map((tag, index) => (
+                    {(tags ? tags.slice(0, 122) : []).map((tag, index) => (
                       <span
                         id={index}
                         target="_self"
                         className="inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2  m-2 cursor-default"
                       >
-                        #{tag}
+                        #{tag.tagName}
                       </span>
                     ))}
                   </div>
-
-                  <button class="my-auto shrink-0 max-h-[45px] mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
-                    유형검사
-                  </button>
-                </div>
-              </div>
-              <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
-                <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
-                  <span class="my-auto shrink-0 text-[30px]">
-                    모든 태그(토글 한행 hidden) 각각테그들 토글로 위아래
-                  </span>
-                </div>
-                <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
-                  <div className="inline">
-                    {tags.slice(0, 22).map((tag, index) => (
-                      <span
-                        id={index}
-                        target="_self"
-                        className="inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2  m-2 cursor-default"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
-                <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
-                  <span class=" text-[30px]">로그아웃</span>
-                </div>
-                <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
-                  <div class="text-[30px] ml-4">다음에 또 와주세요!!</div>
-                  <Link to="/logout">
-                    <span class="mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
-                      로그아웃
-                    </span>
+                  <Link to="/testintro">
+                    <button class="my-auto shrink-0 max-h-[45px] mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
+                      유형검사
+                    </button>
                   </Link>
-                  {/* 
-                    href="http://localhost:3000/logout" */}
+                </div>
+              </div>
+              <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
+                <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
+                  <span class="my-auto shrink-0 text-[30px]">태그 수정</span>
+                </div>
+                <div class="justify-between pl-[30px] border-l-4  border-l-primary-2 flex flex-grow  ">
+                  <div className="w-full h-[3rem] flex justify-between items-center  ">
+                    <div className="flex items-center">
+                      <div className="flex space-x-4 text-xl text-primary-3 items-end">
+                        <div
+                          className={`rounded-full  px-[12px] py-[1px] mx-[5px] cursor-pointer ${
+                            genreSeleted === '로맨스'
+                              ? 'scale-125 bg-primary-2'
+                              : 'text-primary-4'
+                          }`}
+                          onClick={() => onClickGenre('로맨스')}
+                        >
+                          로맨스/로판
+                        </div>
+                        <div
+                          className={`rounded-full  px-[12px] py-[1px] cursor-pointer ${
+                            genreSeleted === '판타지'
+                              ? 'scale-125 bg-primary-2'
+                              : 'text-primary-4'
+                          }`}
+                          onClick={() => onClickGenre('판타지')}
+                        >
+                          판타지
+                        </div>
+                        <div
+                          className={`rounded-full  px-[12px] py-[1px] cursor-pointer ${
+                            genreSeleted === 'BL'
+                              ? 'scale-125 bg-primary-2'
+                              : 'text-primary-4'
+                          }`}
+                          onClick={() => onClickGenre('BL')}
+                        >
+                          BL
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right 
+                    text-[24px] text-white bg-primary-2 py-1 px-5 
+                       hover:bg-primary-3 "
+                      onClick={onClickToggle}
+                    >
+                      {hidden ? '전체 보기' : '숨기기'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`${
+                  hidden ? 'hidden' : ''
+                } my-8 space-y-8 h-[24rem] overflow-y-scroll pr-4`}
+                style={{ padding: '0px 55px 0px 66px' }}
+              >
+                <TagLists genre={genreSeleted}></TagLists>
+              </div>
+
+              {/* <div className="inline">
+                    {tags.slice(0, 22).map((tag, index) => (
+                      <span
+                        id={index}
+                        target="_self"
+                        className="inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2  m-2 cursor-default"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div> */}
+              <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
+                <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
+                  <span class=" text-[30px]">연결 끊기</span>
+                </div>
+                <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
+                  <div class="text-[30px] ml-4">다음에 또 봐요!!</div>
+                  <Link to="/end">
+                    <button
+                      class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right 
+                    text-[24px] text-white bg-primary-2 py-1 px-5 
+                       hover:bg-primary-3 "
+                    >
+                      연결 끊기
+                    </button>
+                  </Link>
                 </div>
               </div>
             </section>

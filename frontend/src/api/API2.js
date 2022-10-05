@@ -162,8 +162,13 @@ export const exceptUserLikeBook = async (novelNo, userNo) => {
       novelNo,
       userNo,
     };
-
-    const response = await axiosBasic.delete('/users/novels', jsonData);
+    console.log(jsonData);
+    const response = await axiosBasic.delete('/users/novels', {
+      data: {
+        novelNo,
+        userNo,
+      },
+    });
     return response;
   } catch (error) {
     console.log(error);

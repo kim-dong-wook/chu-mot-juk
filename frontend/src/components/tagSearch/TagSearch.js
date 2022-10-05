@@ -124,24 +124,30 @@ const TagSearch = () => {
           <div className="text-3xl mr-6">키워드로 검색하기</div>
           <div className="flex space-x-4 text-xl text-primary-3 items-end">
             <div
-              className={`cursor-pointer ${
-                genreSeleted === '로맨스' ? 'scale-110 text-primary-4' : ''
+              className={`rounded-full  px-[12px] py-[1px] mx-[5px] cursor-pointer ${
+                genreSeleted === '로맨스'
+                  ? 'scale-125 bg-primary-2'
+                  : 'text-primary-4'
               }`}
               onClick={() => onClickGenre('로맨스')}
             >
               로맨스/로판
             </div>
             <div
-              className={`cursor-pointer ${
-                genreSeleted === '판타지' ? 'scale-110 text-primary-4' : ''
+              className={`rounded-full  px-[12px] py-[1px] cursor-pointer ${
+                genreSeleted === '판타지'
+                  ? 'scale-125 bg-primary-2'
+                  : 'text-primary-4'
               }`}
               onClick={() => onClickGenre('판타지')}
             >
               판타지
             </div>
             <div
-              className={`cursor-pointer ${
-                genreSeleted === 'BL' ? 'scale-110 text-primary-4' : ''
+              className={`rounded-full  px-[12px] py-[1px] cursor-pointer ${
+                genreSeleted === 'BL'
+                  ? 'scale-125 bg-primary-2'
+                  : 'text-primary-4'
               }`}
               onClick={() => onClickGenre('BL')}
             >
