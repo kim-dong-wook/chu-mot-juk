@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
 import {
@@ -9,7 +10,7 @@ import {
   nicknameState,
   profileImgState,
 } from '../stores/atom';
-
+import { axiosBasic } from '../api/API2';
 import {
   getBook,
   getBooksByTag,
@@ -38,7 +39,57 @@ const MyBox = () => {
   const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
   const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
 
-  useEffect(() => {}, []);
+  const getProfile = async () => {
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 조회
+      let data = await window.Kakao.API.request({
+        url: '/v2/user/me',
+      });
+      console.log(data);
+      // 사용자 정보 변수에 저장
+      setUserId(data.id);
+      let ageFix1 = data.kakao_account.age_range.substr(0, 2);
+      let ageFix2 = parseInt(ageFix1 / 10);
+      setAgeRange(ageFix2);
+      // setEmail(data.kakao_account.email);
+      if (data.kakao_account.gender === 'male') {
+        let genderFix = false; // male => false
+        setGender(genderFix);
+      } else {
+        let genderFix = true; // female => true
+        setGender(genderFix);
+      }
+      setNickName(data.properties.nickname);
+      setProfileImage(data.properties.profile_image);
+
+      let body = {
+        ageGroup: ageRange,
+        gender: gender,
+        id: user_id,
+        nickname: nickName,
+        password: 'password', // 카카오에서 안받아옴 그냥 유지
+      };
+
+      console.log(body);
+      //  다좋은데 console 128(망) > 125(성공) > 126(카) 순서대로 됨 128왜감??
+      await axiosBasic
+        .post('/users', body) //토큰, 추가 정보 전송
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            console.log('카');
+          }
+        })
+        .catch((err) => console.log(err), console.log('망'));
+    } catch (err) {
+      console.log(err);
+      // alert('카카오 로그인 에러?');
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   const tags = [
     '동해',
@@ -162,12 +213,13 @@ const MyBox = () => {
                 </div>
                 <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
                   <div class="text-[30px] ml-4">다음에 또 와주세요!!</div>
-                  <a
-                    href="http://localhost:3000/logout"
-                    class="mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     "
-                  >
-                    로그아웃
-                  </a>
+                  <Link to="/logout">
+                    <span class="mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
+                      로그아웃
+                    </span>
+                  </Link>
+                  {/* 
+                    href="http://localhost:3000/logout" */}
                 </div>
               </div>
             </section>

@@ -159,11 +159,7 @@ function KaKao() {
 
   return (
     <>
-      <div>로딩 중 기다려주세요~~</div>
-      {/* <h2>{user_id}</h2>
-      <h2>{nickName}</h2>
-      <img src={profileImage}></img> */}
-      {/* 로그인에 성공했어요!!/회원가입이 필요해요!! / 로그인 실패! 정보 제공 동의 후 다시 시도해주세요. */}
+      <div>로딩 중 잠시만 기다려주세요~~</div>
     </>
   );
 }

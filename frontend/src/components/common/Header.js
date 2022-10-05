@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import logo from '../../assets/images/logo1.png';
 import logo2 from '../../assets/images/logo2.png';
 import wIcon from '../../assets/images/whiteIcon.png';
@@ -9,6 +9,14 @@ import close from '../../assets/images/CloseButton.png';
 import kakaoLogin from '../../assets/images/KaKaoLogin.png';
 import { KAKAO_AUTH_URL } from './KaKaoAuth';
 import { useRecoilState } from 'recoil';
+import {
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
+} from '../../stores/atom';
 // import { loginState } from '../../stores/atom';
 import {
   useSoundB1,
@@ -28,9 +36,13 @@ const Header = () => {
     window.addEventListener('scroll', updateScroll);
   });
 
-  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [modalOpen, setModalOpen] = useState(false);
-  const ref1 = useSoundMarioDeath();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoginState);
+  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
+  // 모달 나중에 ㅠ
+  // const [modalOpen, setModalOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const ref1 = useSoundB1();
 
   return (
     <div>
@@ -51,14 +63,12 @@ const Header = () => {
           </div>
 
           <div className=" space-x-8 text-primary-1 text-xl">
-            <Link to="/logout">로그아웃</Link>
-            <Link to="/mybox">보관함</Link>
-            <Link to="/mypage">로그인</Link>
-
-            {/* isLoggedIn === false */}
-            {1 && (
+            {isLoggedIn === false && (
               <>
-                <button
+                <Link to="/mypage">로그인</Link>
+                {/* <Link to="/mybox">보관함</Link>
+                <Link to="/logout">로그아웃</Link> */}
+                {/* <button
                   style={{ borderStyle: 'solid' }}
                   className="bg-[#fff] border-black border 
                   w-[90px] h-[] cursor-pointer rounded-full "
@@ -67,8 +77,8 @@ const Header = () => {
                   }}
                 >
                   <Text>로그인</Text>
-                </button>
-                {modalOpen && (
+                </button> */}
+                {/* {modalOpen && (
                   <Container>
                     <Background />
                     <ModalBlock>
@@ -98,21 +108,34 @@ const Header = () => {
                       </Wrapper>
                     </ModalBlock>
                   </Container>
-                )}
-              </>
-            )}
-            {/* isLoggedIn === true */}
-            {1 === true && (
-              <>
-                <Blank />
-                <Link to={`/mypage`}>
-                  <Image src={wIcon} />
-                </Link>
-
-                {/* 토글 */}
+                )} */}
               </>
             )}
           </div>
+        </div>
+        <div className="   text-primary-2 text-xl">
+          {isLoggedIn === true && (
+            <>
+              <Image
+                menuOpen={menuOpen}
+                onClick={() => setMenuOpen(!menuOpen)}
+                src={profileImg}
+              />
+              {menuOpen ? (
+                <DropdownMenu onMouseLeave={() => setMenuOpen(false)}>
+                  <Link to="/mypage">
+                    <Menu>마이페이지</Menu>
+                  </Link>
+                  <Link to="/mybox">
+                    <Menu>보관함</Menu>
+                  </Link>
+                  <Link to="/logout">
+                    <Menu>로그아웃</Menu>
+                  </Link>
+                </DropdownMenu>
+              ) : null}
+            </>
+          )}
         </div>
       </header>
       <main>
@@ -124,22 +147,49 @@ const Header = () => {
 
 export default Header;
 
-const Text = styled.div`
-  color: ${(props) => props.color || 'black'};
-  font-size: 20px;
-  /* font-family: 'Pretendard'; */
+const DropdownMenu = styled.ul`
+  border-radius: 16px;
+  margin-top: 11.5px;
+  margin-left: -91px;
+  height: 170px;
+  background-color: white;
+  position: absolute;
+  /* transform: translateX(-22px); */
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding-left: 0px;
+`;
+
+const Menu = styled.li`
+  padding-top: 18px;
+  padding-left: 0px;
+  width: 220px;
+  height: 50px;
+  cursor: pointer;
+  text-align: center;
+  :hover {
+    background-color: white;
+    font-weight: 700;
+  }
+  background-color: white;
 `;
 
 const Image = styled.img`
   /* margin-right: 3.2rem; */
-  width: 40px;
+  width: 44px;
   height: 40px;
-  display: inline;
-`;
-const Blank = styled.div`
-  width: 171px;
-  height: 40px;
-  /* margin-right: 1.5rem; */
+  display: block;
+  border-radius: 9999px;
+  cursor: pointer;
+  ${(props) =>
+    props.menuOpen
+      ? css`
+          opacity: 0.5;
+        `
+      : `
+      opacity: 1;
+      `}
 `;
 
 export const Container = styled.div`
