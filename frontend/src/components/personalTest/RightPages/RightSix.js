@@ -9,13 +9,19 @@ import {
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
-
+import { useSoundB1 } from '../../../hooks/useSound';
 const RightSix = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
   const [fail, setFail] = useRecoilState(failState);
   const [tags, setTags] = useRecoilState(testState);
-
+  const ref1 = useSoundB1();
+  const ref2 = useSoundB1();
+  const ref3 = useSoundB1();
+  const ref4 = useSoundB1();
+  const ref5 = useSoundB1();
+  const ref6 = useSoundB1();
+  const ref7 = useSoundB1();
   const answers = useRef(null);
   const onClick = (el, number) => {
     let temp = new Set();
@@ -72,6 +78,7 @@ const RightSix = ({ page }) => {
         >
           <div
             className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
+            ref={ref1}
             onClick={() => onClick(page, 1)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -81,6 +88,7 @@ const RightSix = ({ page }) => {
           </div>
           <div
             className="text-xl max-w-xl max-h-xl   hover:scale-[1.1] cursor-pointer relative"
+            ref={ref2}
             onClick={() => onClick(page, 2)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -90,6 +98,7 @@ const RightSix = ({ page }) => {
           </div>
           <div
             className="text-xl max-w-xl max-h-xl   hover:scale-[1.1] cursor-pointer relative"
+            ref={ref3}
             onClick={() => onClick(page, 3)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -99,6 +108,7 @@ const RightSix = ({ page }) => {
           </div>
           <div
             className="text-xl max-w-xl max-h-xl   hover:scale-[1.1] cursor-pointer relative"
+            ref={ref4}
             onClick={() => onClick(page, 4)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -121,6 +131,7 @@ const RightSix = ({ page }) => {
         >
           <div
             className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
+            ref={ref5}
             onClick={() => onClick(page, 1)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -130,6 +141,7 @@ const RightSix = ({ page }) => {
           </div>
           <div
             className="text-xl max-w-xl max-h-xl   hover:scale-[1.1] cursor-pointer relative"
+            ref={ref6}
             onClick={() => onClick(page, 2)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -140,6 +152,7 @@ const RightSix = ({ page }) => {
           </div>
           <div
             className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
+            ref={ref7}
             onClick={() => onClick(page, 3)}
           >
             <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -151,7 +164,17 @@ const RightSix = ({ page }) => {
       </div>
     );
   }
-  return <div></div>;
+  return (
+    <div>
+      <div ref={ref1}></div>
+      <div ref={ref2}></div>
+      <div ref={ref3}></div>
+      <div ref={ref4}></div>
+      <div ref={ref5}></div>
+      <div ref={ref6}></div>
+      <div ref={ref7}></div>
+    </div>
+  );
 };
 
 export default RightSix;
