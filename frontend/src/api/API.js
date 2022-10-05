@@ -101,3 +101,17 @@ export const getBookResult = async (tags) => {
     return null;
   }
 };
+
+export const postUserTag = async (tagNo, userNo) => {
+  try {
+    let jsonData = {
+      tagNo,
+      userNo,
+    };
+    const response = await axiosBasic.post('novel/tags', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
