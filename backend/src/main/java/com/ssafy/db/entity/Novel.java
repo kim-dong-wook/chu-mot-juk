@@ -56,6 +56,12 @@ public class Novel {
     @Column(nullable = false)
     private String novelPlatform;
 
+    @Column
+    private String novelView;
+
+    @Column
+    private String novelRate;
+
     @JsonIgnore
     @OneToMany(mappedBy = "novel")
     private List<NovelTag> novelTags = new ArrayList<>();

@@ -50,6 +50,12 @@ public class NovelInfoRes {
     @ApiModelProperty(name = "소설 로맨스 가이드 (사용 권장 X)", example = "#어쩌고버스")
     String novelRomanceGuide;
 
+    @ApiModelProperty(name = "소설 평점", example = "9.8")
+    String novelRate;
+
+    @ApiModelProperty(name = "소설 조회수", example = "999.9만")
+    String novelView;
+
     @ApiModelProperty(name = "소설 태그이름 리스트", example = "어쩌고버스")
     List<String> TagNames;
 

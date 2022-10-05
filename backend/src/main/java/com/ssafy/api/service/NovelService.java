@@ -271,9 +271,17 @@ public class NovelService {
     }
 
     public List<Novel> getNovelsByNovelPlatform(String novelPlatform) {
-        List<Novel> book = novelRepository.findNovelsByNovelPlatform(novelPlatform).orElseThrow(() -> {
-            throw new CustomException(ErrorCode.PLATFORM_NOT_FOUND);
-        });
+        List<Novel> book;
+        if(novelPlatform.equals("리디북스")) {
+            book = novelRepository.findNovelsByNovelPlatformAndTop(novelPlatform).orElseThrow(() -> {
+                throw new CustomException(ErrorCode.PLATFORM_NOT_FOUND);
+            });
+        } else {
+            book = novelRepository.findNovelsByNovelPlatform(novelPlatform).orElseThrow(() -> {
+                throw new CustomException(ErrorCode.PLATFORM_NOT_FOUND);
+            });
+        }
+
         return book;
     }
 

@@ -19,6 +19,8 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     Optional<List<Novel>> findNovelsByNovelWriterContains(String novelWriter);
     Optional<Novel> findNovelByNovelNo(Long novelNo);
     Optional<List<Novel>> findNovelsByNovelPlatform(String novelPlatform);
+    @Query(value = "SELECT distinct n FROM Novel n WHERE n.novelPlatform = :novelPlatform AND n.novelRate is not null")
+    Optional<List<Novel>> findNovelsByNovelPlatformAndTop(String novelPlatform);
     @Query(value = "SELECT distinct n FROM Novel n JOIN FETCH n.novelTags WHERE n.novelGenre = :novelGenre")
     Optional<List<Novel>> findNovelsByNovelGenre(Integer novelGenre);
 
