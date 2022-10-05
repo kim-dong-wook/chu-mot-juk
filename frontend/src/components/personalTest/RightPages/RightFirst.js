@@ -4,11 +4,13 @@ import { testPageState, genreState } from '../../../stores/atom';
 
 import answer from '../../../assets/images/test/answer.png';
 import background from '../../../assets/images/test/rightPage.png';
-
+import { useSoundB1 } from '../../../hooks/useSound';
 const RightFirst = ({ page }) => {
   const [testPage, setTestPage] = useRecoilState(testPageState);
   const [genre, setGenre] = useRecoilState(genreState);
   const answers = useRef(null);
+  const ref1 = useSoundB1();
+  const ref2 = useSoundB1();
   const onClick = (el, number) => {
     if (number === 1) {
       setGenre('로맨스');
@@ -36,6 +38,7 @@ const RightFirst = ({ page }) => {
       >
         <div
           className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
+          ref={ref1}
           onClick={() => onClick(page, 1)}
         >
           <img src={answer} alt="" className="w-full h-full absolute"></img>
@@ -43,6 +46,7 @@ const RightFirst = ({ page }) => {
         </div>
         <div
           className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
+          ref={ref2}
           onClick={() => onClick(page, 2)}
         >
           <img src={answer} alt="" className="w-full h-full absolute"></img>

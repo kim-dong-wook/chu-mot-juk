@@ -136,7 +136,7 @@ const PersonalTestResult = () => {
             </div>
             <Snackbar
               open={open}
-              autoHideDuration={5000}
+              autoHideDuration={3000}
               onClose={handleClose}
               message="태그가 등록되었습니다."
               action={action}

@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import star from '../../assets/images/star.png';
 import './book.css';
 import './book.scss';
 const BookList = ({ number, books }) => {
   const navigate = useNavigate();
-  const onClickDetail = () => {
-    navigate('/detail');
+  const onClickDetail = (novelNo) => {
+    navigate('/detail/' + novelNo);
   };
   return (
     <div className="w-full h-full flex justify-between overflow-visible books">
@@ -17,13 +18,15 @@ const BookList = ({ number, books }) => {
                 key={book.novelNo}
                 src={book.novelThumbnail}
                 alt=""
-                onClick={onClickDetail}
+                onClick={() => onClickDetail(book.novelNo)}
               ></img>
             </div>
           </div>
-          <div className="text-lg mt-2 bookName">{book.novelTitle}</div>
-          <div>
-            별점 <span>조회수</span>
+          <div className="text-xl mt-2 bookName">{book.novelTitle}</div>
+          <div className="flex">
+            <img className="mt-1 h-[1rem]" src={star} alt="star"></img>
+            &nbsp;{'(4.7)'}&nbsp;&nbsp;
+            <span>22.2만</span>
           </div>
         </div>
       ))}
