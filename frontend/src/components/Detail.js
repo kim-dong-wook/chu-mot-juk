@@ -28,7 +28,7 @@ import {
   exceptUserLikeBook,
   exceptUserLiketag,
 } from '../api/API2';
-import { getBooksByTags, postUserBook } from '../api/API';
+import { getTagNameByTagNo, getBooksByTags, postUserBook } from '../api/API';
 import { books } from '../stores/books';
 import Temp from './Carousel/test/Temp';
 import { useNavigate } from 'react-router-dom';
@@ -69,55 +69,63 @@ const Detail = () => {
     // console.log(result12.data);
   };
 
-  const tags = [
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-  ];
-
   const { novelNo } = useParams();
   const [book, setBook] = useState('');
   const [tagsss, setTags] = useState('');
+  const [deTagNos, setDeTagNos] = useState([]);
+
   const getDeBook = async () => {
     let result1 = await getBook(novelNo);
     console.log(result1.data);
     setBook(result1.data);
-  };
+    console.log(result1.data.tagNames[0]);
+    let deTagNo0 = await getTagNameByTagNo(result1.data.tagNames[0]);
+    // let deTagNo1 = await getTagNameByTagNo(result1.data.tagNames[1]);
+    // let deTagNo2 = await getTagNameByTagNo(book.tagNames[2]);
+    console.log([deTagNo0.data.tagNo]);
+    setDeTagNos([deTagNo0.data.tagNo]);
 
-  // 디테일 테크 #현대물이 숫자 몇인지 ???
-  // 1번 백엔드에 물어봐서 if문으로 연결하기
-  const getTags = async () => {
-    let result2 = await getBooksByTags([1, 2, 3]);
+    // };
+    // 디테일 테크 #현대물이 숫자 몇인지 ???
+
+    // const getTags = async () => {
+    // console.log(deTagNos);
+    let result2 = await getBooksByTags([
+      deTagNo0.data.tagNo,
+      // deTagNo0.data.tagNo,
+      // deTagNo1.data.tagNo,
+    ]);
     console.log(result2.data);
     setTags(result2.data);
   };
 
   // 지금 디테일 좋아하는지 표시
+  const [like, setLike] = useState(false);
   const [user_id, setUserId] = useRecoilState(userIdState);
   const [userInfo, setUserInfo] = useState(null);
   const fetchData = async () => {
     const userResult = await searchUserById(user_id);
     setUserInfo(userResult.data);
     // userInfo.userNo => 2504 예시
-    let result1 = await userLikeBook(userInfo.userNo);
+    let result1 = await userLikeBook(userResult.data.userNo);
     // 목록들 가져와서 내가 좋아요한 책인지 확인 한값 useState로
+    console.log(result1.data);
+    result1.data.forEach(function (number) {
+      console.log(number.novel.novelNo);
+      console.log(novelNo);
+      if (novelNo == number.novel.novelNo) {
+        setLike(true);
+        console.log('hi');
+      }
+    });
+    console.log(like);
   };
 
-  const [like, setLike] = useState(false);
   const onClickLike = async () => {
     await postUserBook(novelNo, userInfo.userNo);
     setLike(!like);
+    console.log(userInfo.userNo);
+    console.log(novelNo);
   };
   const onClickDisLike = async () => {
     await exceptUserLikeBook(novelNo, userInfo.userNo);
@@ -127,11 +135,15 @@ const Detail = () => {
   const navigate = useNavigate();
   const onClickBook = (novelNo10) => {
     navigate('/detail/' + novelNo10);
+    window.location.reload();
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getDeBook();
-    getTags();
+    // getTags();
     fetchData();
   }, []);
 
@@ -213,7 +225,7 @@ const Detail = () => {
                       </div>
                     </div>
                     <div className="flex justify-between flex-col max-w-[465px] space-y-4">
-                      <p className="px-[4px]" style={{ fontSize: '38px' }}>
+                      <p className="px-[4px]" style={{ fontSize: '33px' }}>
                         {book.novelTitle}
                       </p>
                       <p className="px-[4px]" style={{ fontSize: '23px' }}>
@@ -236,7 +248,7 @@ const Detail = () => {
                         {book ? book.novelIntro.slice(0, 111) : []}...
                       </p>
                       <div className="inline">
-                        {(book ? book.tagNames.slice(0, 14) : []).map(
+                        {(book ? book.tagNames.slice(0, 12) : []).map(
                           (tag, index) => (
                             <span
                               id={index}
@@ -264,9 +276,16 @@ const Detail = () => {
                 {/* </div> */}
               </main>
               <aside className="col-span-4    border-2border-blue-600">
-                <p>댓글 관련 그 어떤것? 통계 면 이상형월드컵이랑 비슷?</p>
-                <p>??????????</p>
-                <Temp></Temp>
+                <div className="flex justify-between flex-col  space-y-8">
+                  <h1
+                    style={{ fontSize: '33px' }}
+                    class="font-extrabold mt-8 mx-auto text-[40px] bg-clip-text bg-gradient-to-r from-primary-3 to-primary-2"
+                  >
+                    주요 키워드
+                  </h1>
+                  <p>액자모양 크기 맞추기 </p>
+                  <Temp book={book}></Temp>
+                </div>
               </aside>
             </div>
           </section>

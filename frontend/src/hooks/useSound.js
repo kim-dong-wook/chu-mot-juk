@@ -4,6 +4,8 @@ import SoundB2 from '../assets/sounds/book2.mp3';
 import SoundB3 from '../assets/sounds/book3.mp3';
 import SoundB4 from '../assets/sounds/book4.mp3';
 import SoundMarioDeath from '../assets/sounds/marioDeath.mp3';
+import robloxDeath from '../assets/sounds/robloxDeath.mp3';
+import testStart from '../assets/sounds/testStart.wav';
 
 export const useSoundB1 = () => {
   const ref = useRef();
@@ -57,6 +59,30 @@ export const useSoundMarioDeath = () => {
   const ref = useRef();
   useEffect(() => {
     const audio = new Audio(SoundMarioDeath);
+    ref.current.addEventListener('click', () => {
+      audio.load();
+      audio.play();
+    });
+  }, []);
+  return ref;
+};
+
+export const useRobloxDeath = () => {
+  const ref = useRef();
+  useEffect(() => {
+    const audio = new Audio(robloxDeath);
+    ref.current.addEventListener('click', () => {
+      audio.load();
+      audio.play();
+    });
+  }, []);
+  return ref;
+};
+
+export const useTestStart = () => {
+  const ref = useRef();
+  useEffect(() => {
+    const audio = new Audio(testStart);
     ref.current.addEventListener('click', () => {
       audio.load();
       audio.play();

@@ -5,7 +5,11 @@ import background from '../../assets/images/test/TestBackground.jpg';
 import logo from '../../assets/images/test/TestLogo.png';
 import start from '../../assets/images/test/TestStart.png';
 import 'animate.css';
+import { useTestStart } from '../../hooks/useSound';
+// link a button ref={ref1}
+
 const TestIntro = () => {
+  const refs = useTestStart();
   const navigate = useNavigate();
   const button = useRef(null);
   const logoImg = useRef(null);
@@ -46,7 +50,13 @@ const TestIntro = () => {
           className="bg-blue-300 h-[6rem] rounded-3xl mt-8 p-2 hover:brightness-125 fadeIn duration-200"
           ref={button}
         >
-          <img src={start} alt="" onClick={onClick} className="w-[15rem]"></img>
+          <img
+            ref={refs}
+            src={start}
+            alt=""
+            onClick={onClick}
+            className="w-[15rem]"
+          ></img>
         </div>
       </div>
     </div>

@@ -183,7 +183,7 @@ export const exceptUserLiketag = async (tagNo, userNo) => {
       userNo: userNo,
     };
 
-    console.log(jsonData);
+    // console.log(jsonData);
 
     const response = await axiosBasic.delete('users/tags', {
       data: {

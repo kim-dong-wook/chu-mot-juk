@@ -20,13 +20,17 @@ const TagList = ({ genre, category, tagType }) => {
     setHidden(!hidden);
   };
 
+  // userInfo.userNo
+
   const postTag = async (tag) => {
     let result1 = await postUserTag(tag, userInfo.userNo);
     console.log(result1.data);
+    console.log(result1);
   };
   const deleteTag = async (tag) => {
     let result2 = await exceptUserLiketag(tag, userInfo.userNo);
     console.log(result2.data);
+    console.log(result2);
   };
   const onClickTag = (e, tag) => {
     if (!e.target.classList.contains('toggled')) {
@@ -34,14 +38,14 @@ const TagList = ({ genre, category, tagType }) => {
       e.target.classList.remove('text-primary-4');
       e.target.classList.add('text-white');
       setSelected([...selected].concat(tag.tagNo));
-      postTag();
+      postTag(tag.tagNo);
     } else {
       e.target.classList.remove('toggled');
       e.target.classList.remove('text-white');
       e.target.classList.add('text-primary-4');
       setSelected(selected.filter((no) => no !== tag.tagNo));
       exceptUserLiketag(tag, userInfo.userNo);
-      deleteTag();
+      deleteTag(tag.tagNo);
     }
   };
   useEffect(() => {
