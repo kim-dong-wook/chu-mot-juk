@@ -138,3 +138,17 @@ export const getTagNameByTagNo = async (tagName) => {
     console.log(error);
   }
 };
+
+export const getBooksBySugeestion = async (ageGroup, gender) => {
+  try {
+    let jsonData = {
+      ageGroup,
+      gender,
+    };
+    const response = await axiosBasic.post('novel/suggestion', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
