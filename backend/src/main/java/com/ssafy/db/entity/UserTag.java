@@ -30,7 +30,7 @@ public class UserTag {
     public void setTag(Tag tag) {
         this.tag = tag;
         if(!tag.getUserTagList().contains(this)) {
-            user.getUserTagList().add(this);
+            tag.getUserTagList().add(this);
         }
     }
 
