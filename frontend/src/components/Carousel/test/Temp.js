@@ -27,7 +27,23 @@ const Temp = ({ book }) => {
         modules={[EffectCards]}
         className="mySwiper"
       >
-        {(book ? book.comments.slice(0, 10) : []).map((tag, index) => (
+        {(book.comments
+          ? book.comments.slice(0, 10)
+          : [
+              '키워드 없음',
+              '키워드 없음',
+              '키워드 없음',
+              '키워드 없음',
+              '키워드 없음',
+              '키워드 없음',
+
+              '키워드 없음',
+              '키워드 없음',
+
+              '키워드 없음',
+              '키워드 없음',
+            ]
+        ).map((tag, index) => (
           <SwiperSlide>
             <div onClick={onClick1} class="card">
               {!c1 ? `${index + 1}위` : `#${tag}`}
