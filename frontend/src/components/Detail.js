@@ -69,23 +69,6 @@ const Detail = () => {
     // console.log(result12.data);
   };
 
-  const tags = [
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-  ];
-
   const { novelNo } = useParams();
   const [book, setBook] = useState('');
   const [tagsss, setTags] = useState('');
@@ -95,18 +78,23 @@ const Detail = () => {
     let result1 = await getBook(novelNo);
     console.log(result1.data);
     setBook(result1.data);
-
+    console.log(result1.data.tagNames[0]);
     let deTagNo0 = await getTagNameByTagNo(result1.data.tagNames[0]);
-    let deTagNo1 = await getTagNameByTagNo(book.tagNames[1]);
+    // let deTagNo1 = await getTagNameByTagNo(result1.data.tagNames[1]);
     // let deTagNo2 = await getTagNameByTagNo(book.tagNames[2]);
-    setDeTagNos([deTagNo0.data.tagNo, deTagNo1.data.tagNo]);
-    console.log([deTagNo0.data.tagNo, deTagNo1.data.tagNo]);
-  };
-  // 디테일 테크 #현대물이 숫자 몇인지 ???
+    console.log([deTagNo0.data.tagNo]);
+    setDeTagNos([deTagNo0.data.tagNo]);
 
-  const getTags = async () => {
-    console.log(deTagNos);
-    let result2 = await getBooksByTags(deTagNos);
+    // };
+    // 디테일 테크 #현대물이 숫자 몇인지 ???
+
+    // const getTags = async () => {
+    // console.log(deTagNos);
+    let result2 = await getBooksByTags([
+      1, 2, 3,
+      // deTagNo0.data.tagNo,
+      // deTagNo1.data.tagNo,
+    ]);
     // console.log(result2.data);
     setTags(result2.data);
   };
@@ -154,7 +142,7 @@ const Detail = () => {
       top: 0,
     });
     getDeBook();
-    getTags();
+    // getTags();
     fetchData();
   }, []);
 
