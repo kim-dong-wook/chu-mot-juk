@@ -19,13 +19,15 @@ const FailPageOne = () => {
       one.current.classList.add('out');
     }
   }, [testPage]);
+
+  useEffect(() => {});
   return (
     <div
       className="w-full h-full right_book_page bg-cover text-2xl flex flex-col items-center justify-center space-y-10"
       style={{ backgroundImage: `url(${background})` }}
       ref={page}
     >
-      <div className="text-center out" ref={one}>
+      <div className="text-center out text-red-400" ref={one}>
         {fail === 'code-1' ? (
           <div>
             당신은 반찬을 주러 오신 어머니에게 들켜 <br></br>등짝 스매쉬를 맞아
@@ -44,7 +46,8 @@ const FailPageOne = () => {
             <br></br>
             "사유 : 퀘스트에 응하지 않았습니다.
             <br></br>
-            시스템은 시스템에 불응하는 자를 가만 두지 않을 것입니다."
+            시스템은 시스템에 불응하는 자를
+            <br></br>가만 두지 않을 것입니다."
           </div>
         ) : fail === 'code-5' ? (
           <div>

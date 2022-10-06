@@ -11,6 +11,7 @@ const RestartPage = ({ page }) => {
   const [genre, setGenre] = useRecoilState(genreState);
   const navigate = useNavigate();
   const answers = useRef(null);
+  const p = useRef(null);
   const onClick = (el) => {
     el.current.classList.add('right-active');
     answers.current.classList.remove('z-50');
@@ -24,6 +25,10 @@ const RestartPage = ({ page }) => {
       let fn = setTimeout(() => {
         page.current.classList.remove('z-30');
       }, 1000);
+      let fn2 = setTimeout(() => {
+        p.current.classList.add('animate__animated');
+        p.current.classList.add('animate__headShake');
+      }, 3000);
       page.current.classList.add('z-50');
     }
   }, [testPage, page]);
@@ -40,6 +45,7 @@ const RestartPage = ({ page }) => {
         <div
           className="text-xl max-w-xl max-h-xl hover:scale-[1.1] cursor-pointer relative"
           onClick={() => onClick(page)}
+          ref={p}
         >
           <img src={answer} alt="" className="w-full h-full absolute"></img>
           <div className="my-4 mx-10 flex flex-col items-center">

@@ -11,6 +11,8 @@ import $ from 'jquery';
 import BookList from './BookList';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { ageRangeState, genderState } from '../../stores/atom';
+import { useRecoilState } from 'recoil';
 
 const BookCarousel = ({ name }) => {
   const [prev, setPrev] = useState(7);
@@ -18,6 +20,8 @@ const BookCarousel = ({ name }) => {
   const [next, setNext] = useState(1);
   const [books, setBooks] = useState([]);
   const [Ids, setIds] = useState([]);
+  const [ageRange, setAgeRange] = useRecoilState(ageRangeState);
+  const [gender, setGenderState] = useRecoilState(genderState);
 
   const navigate = useNavigate();
   // const Ids = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -81,6 +85,15 @@ const BookCarousel = ({ name }) => {
         );
         setPrev(5);
         setIds([0, 1, 2, 3, 4, 5]);
+      } else if (name === '맞춤추천') {
+        // let recommendation = await API;
+        //  setBooks(
+        //    [...recommendation.data.slice(0, 10)].concat(
+        //      recommendation.data.slice(0, 10),
+        //    ),
+        // );
+        // setPrev(3);
+        //  setIds([0, 1, 2, 3]);
       } else {
         setBooks(
           [...result.data.slice(0, 20)].concat(result.data.slice(0, 20)),
