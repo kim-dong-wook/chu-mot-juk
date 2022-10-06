@@ -11,6 +11,7 @@ const MainPage = () => {
       <BookCarousel name={'카카오페이지'}></BookCarousel>
       <BookCarousel name={'네이버시리즈'}></BookCarousel>
       <BookCarousel name={'리디북스'}></BookCarousel>
+      <BookCarousel name={'맞춤추천'}></BookCarousel>
       <Footer></Footer>
     </div>
   );

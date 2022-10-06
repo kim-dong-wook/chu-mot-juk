@@ -5,6 +5,7 @@ import TestIntro from './components/personalTest/TestIntro';
 import VsIntro from './components/VS/VsIntro';
 import Kakaologin from './pages/Kakao';
 import Kakaologout from './pages/KakaoLogout';
+import KakaoEnd from './pages/KakaoEnd';
 import MyPage from './pages/MyPage';
 import DetailPage from './pages/DetailPage';
 import LoginPage from './pages/LogoutPage';
@@ -47,6 +48,7 @@ const App = () => {
       <Route element={<Header></Header>}>
         <Route path="/oauth/kakao/callback" element={<Kakaologin />} />
         <Route path="/logout" element={<Kakaologout />} />
+        <Route path="/end" element={<KakaoEnd />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />

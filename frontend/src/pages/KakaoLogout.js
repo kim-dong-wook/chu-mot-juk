@@ -21,12 +21,42 @@ const KakaoLogout = () => {
   const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
   const navigate = useNavigate();
 
+  // 진짜 로그아웃 완전 가라로 함 노답
+  const getOut = async () => {
+    // Kakao SDK API를 이용해 사용자 정보 조회
+    try {
+      // let data = await window.Kakao.Auth.logout();
+      // console.log(data);
+      // console.log(window.Kakao.Auth.getAccessToken());
+      setIsLoggedIn(false);
+      setAgeRange(0);
+      setGender(false);
+      setUserId('');
+      setNickName('');
+      setProfileImage('');
+      navigate('/mypage');
+    } catch (err) {
+      console.log(err);
+      console.log('Not logged in.');
+      setIsLoggedIn(false);
+      setAgeRange(0);
+      setGender(false);
+      setUserId('');
+      setNickName('');
+      setProfileImage('');
+      navigate('/mypage');
+    }
+  };
+
   // const getOut = () => {
   //   if (window.Kakao.Auth.getAccessToken()) {
   //     window.Kakao.API.request({
   //       url: '/v1/user/unlink',
   //       success: function (response) {
-  //         console.log('a');
+  //       console.log('a');
+  //       console.log(isLoggedIn);
+  //       navigate('/mypage');
+
   //       },
   //       fail: function (error) {
   //         console.log('aa');
@@ -37,40 +67,42 @@ const KakaoLogout = () => {
   //   }
   // };
 
-  const getOut = async () => {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 조회
-      let data = await window.Kakao.API.request({
-        url: '/v1/user/unlink',
-      });
-      console.log('ㄱㄱ');
-      console.log(data);
-      console.log(isLoggedIn);
-      console.log(ageRange);
-      console.log(gender);
-      console.log(user_id);
-      console.log(nickName);
-      console.log(profileImage);
-      setIsLoggedIn(false);
-      setAgeRange(0);
-      setGender(false);
-      setUserId('');
-      setNickName('');
-      setProfileImage('');
-      console.log(isLoggedIn);
-      console.log(ageRange);
-      console.log(gender);
-      console.log(user_id);
-      console.log(nickName);
-      console.log(profileImage);
-      navigate('/mypage');
-      // alert('카카오 성공')
-    } catch (err) {
-      console.log('qq');
-      console.log(err);
-      // alert('카카오 로그인 에러?');
-    }
-  };
+  // 연결끊기 안됨  새로고침하면 window.Kakao.Auth.getAccessToken() 사라짐
+
+  // const getOut = async () => {
+  //   try {
+  //     // Kakao SDK API를 이용해 사용자 정보 조회
+  //     let data = await window.Kakao.API.request({
+  //       url: '/v1/user/unlink',
+  //     });
+  //     console.log('ㄱㄱ');
+  //     console.log(data);
+  //     console.log(isLoggedIn);
+  //     console.log(ageRange);
+  //     console.log(gender);
+  //     console.log(user_id);
+  //     console.log(nickName);
+  //     console.log(profileImage);
+  //     setIsLoggedIn(false);
+  //     setAgeRange(0);
+  //     setGender(false);
+  //     setUserId('');
+  //     setNickName('');
+  //     setProfileImage('');
+  //     console.log(isLoggedIn);
+  //     console.log(ageRange);
+  //     console.log(gender);
+  //     console.log(user_id);
+  //     console.log(nickName);
+  //     console.log(profileImage);
+  //     navigate('/mypage');
+  //     // alert('카카오 성공')
+  //   } catch (err) {
+  //     console.log('qq');
+  //     console.log(err);
+  //     // alert('카카오 로그인 에러?');
+  //   }
+  // };
 
   useEffect(() => {
     getOut();
@@ -78,7 +110,7 @@ const KakaoLogout = () => {
 
   return (
     <>
-      <div>로그아웃 중 (연결끊기) 잠시만 기다려주세요~~</div>
+      <div>로그아웃 중 잠시만 기다려주세요~~</div>
     </>
   );
 };

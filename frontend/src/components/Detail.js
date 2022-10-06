@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { videosState } from '../stores/atom';
 import { useRecoilState } from 'recoil';
+import {
+  searchBookState,
+  tagsState,
+  isLoginState,
+  ageRangeState,
+  genderState,
+  userIdState,
+  nicknameState,
+  profileImgState,
+} from '../stores/atom';
 import { useParams } from 'react-router-dom';
 
 import './Detail.css';
@@ -18,9 +28,10 @@ import {
   exceptUserLikeBook,
   exceptUserLiketag,
 } from '../api/API2';
-import { getBooksByTags } from '../api/API';
+import { getTagNameByTagNo, getBooksByTags, postUserBook } from '../api/API';
 import { books } from '../stores/books';
 import Temp from './Carousel/test/Temp';
+import { useNavigate } from 'react-router-dom';
 
 // import { Link } from 'react-router-dom';
 // <Link to={`/movie/${novelNo}`}>{title}</Link>
@@ -58,43 +69,82 @@ const Detail = () => {
     // console.log(result12.data);
   };
 
-  const tags = [
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-    '하느님이',
-    '보우하사',
-    '우리나라',
-    '만세',
-    '동해',
-    '물과',
-    '백두산',
-    '이마르고',
-    '닳도록',
-  ];
-
   const { novelNo } = useParams();
   const [book, setBook] = useState('');
   const [tagsss, setTags] = useState('');
+  const [deTagNos, setDeTagNos] = useState([]);
+
   const getDeBook = async () => {
     let result1 = await getBook(novelNo);
     console.log(result1.data);
     setBook(result1.data);
-  };
+    console.log(result1.data.tagNames[0]);
+    let deTagNo0 = await getTagNameByTagNo(result1.data.tagNames[0]);
+    // let deTagNo1 = await getTagNameByTagNo(result1.data.tagNames[1]);
+    // let deTagNo2 = await getTagNameByTagNo(book.tagNames[2]);
+    console.log([deTagNo0.data.tagNo]);
+    setDeTagNos([deTagNo0.data.tagNo]);
 
-  // 디테일 테크 #현대물이 숫자 몇인지 ???
-  // 1번 백엔드에 물어봐서 if문으로 연결하기
-  const getTags = async () => {
-    let result2 = await getBooksByTags([1, 2, 3]);
+    // };
+    // 디테일 테크 #현대물이 숫자 몇인지 ???
+
+    // const getTags = async () => {
+    // console.log(deTagNos);
+    let result2 = await getBooksByTags([
+      deTagNo0.data.tagNo,
+      // deTagNo0.data.tagNo,
+      // deTagNo1.data.tagNo,
+    ]);
     console.log(result2.data);
     setTags(result2.data);
   };
 
+  // 지금 디테일 좋아하는지 표시
+  const [like, setLike] = useState(false);
+  const [user_id, setUserId] = useRecoilState(userIdState);
+  const [userInfo, setUserInfo] = useState(null);
+  const fetchData = async () => {
+    const userResult = await searchUserById(user_id);
+    setUserInfo(userResult.data);
+    // userInfo.userNo => 2504 예시
+    let result1 = await userLikeBook(userResult.data.userNo);
+    // 목록들 가져와서 내가 좋아요한 책인지 확인 한값 useState로
+    console.log(result1.data);
+    result1.data.forEach(function (number) {
+      console.log(number.novel.novelNo);
+      console.log(novelNo);
+      if (novelNo == number.novel.novelNo) {
+        setLike(true);
+        console.log('hi');
+      }
+    });
+    console.log(like);
+  };
+
+  const onClickLike = async () => {
+    await postUserBook(novelNo, userInfo.userNo);
+    setLike(!like);
+    console.log(userInfo.userNo);
+    console.log(novelNo);
+  };
+  const onClickDisLike = async () => {
+    await exceptUserLikeBook(novelNo, userInfo.userNo);
+    setLike(!like);
+  };
+
+  const navigate = useNavigate();
+  const onClickBook = (novelNo10) => {
+    navigate('/detail/' + novelNo10);
+    window.location.reload();
+  };
+
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getDeBook();
-    getTags();
+    // getTags();
+    fetchData();
   }, []);
 
   return (
@@ -131,40 +181,62 @@ const Detail = () => {
                         ></img>
                       </div>
                       <div class="flex justify-center">
-                        <button
-                          type="button"
-                          class="cursor-not-allowed mt-[0.5vw] w-[100%] pl-[30%] h-[57.59px] text-[32px] inline-flex  text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow  hover:bg-primary-1"
-                          disabled=""
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-10 h-10"
+                        {!like ? (
+                          <button
+                            onClick={onClickLike}
+                            type="button"
+                            class="cursor-pointer mt-[0.5vw] w-[100%] pl-[30%] h-[57.59px] text-[32px] inline-flex  text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow  hover:bg-primary-1"
+                            disabled=""
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                            />
-                          </svg>
-                          좋아요
-                        </button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-10 h-10"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                              />
+                            </svg>
+                            좋아요
+                          </button>
+                        ) : (
+                          <button
+                            onClick={onClickDisLike}
+                            type="button"
+                            class="cursor-pointer mt-[0.5vw] w-[100%] pl-[30%] h-[57.59px] text-[32px] inline-flex  text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow  hover:bg-primary-1"
+                            disabled=""
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="w-10 h-10"
+                            >
+                              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                            </svg>{' '}
+                            좋아요
+                          </button>
+                        )}
                       </div>
                     </div>
-                    <div className=" max-w-[465px] space-y-4">
-                      <p style={{ fontSize: '38px' }}>{book.novelTitle}</p>
-                      <p style={{ fontSize: '23px' }}>
+                    <div className="flex justify-between flex-col max-w-[465px] space-y-4">
+                      <p className="px-[4px]" style={{ fontSize: '33px' }}>
+                        {book.novelTitle}
+                      </p>
+                      <p className="px-[4px]" style={{ fontSize: '23px' }}>
                         {book.novelWriter}
-                        <span class="text-[#686868]"> 저</span>
+                        <span class="text-[#686868]"> 저자</span>
                       </p>
-                      <p style={{ fontSize: '23px' }}>
+                      <p className="px-[4px]" style={{ fontSize: '23px' }}>
                         {book.novelPlatform}
-                        <span class="text-[#686868]"> 출판</span>
+                        <span class="text-[#686868]"> 출판사</span>
                       </p>
-                      <p style={{ fontSize: '23px' }}>
+                      <p className="px-[4px]" style={{ fontSize: '23px' }}>
                         총 {book.novelNewest}화 |
                         <span class="text-[#686868]">
                           {book.novelCompleted ? ' 완결' : ' 미완결'}
@@ -172,11 +244,11 @@ const Detail = () => {
                       </p>
 
                       {/* <hr className="border-2 border-primary-2 bg-primary-2  "></hr> */}
-                      <p style={{ marginBottom: '10px' }}>
-                        {book ? book.novelIntro.slice(0, 180) : []}...
+                      <p className="px-[8px] ">
+                        {book ? book.novelIntro.slice(0, 111) : []}...
                       </p>
                       <div className="inline">
-                        {(book ? book.tagNames.slice(0, 14) : []).map(
+                        {(book ? book.tagNames.slice(0, 12) : []).map(
                           (tag, index) => (
                             <span
                               id={index}
@@ -191,7 +263,7 @@ const Detail = () => {
                       <div class="flex justify-center">
                         <a
                           type="button"
-                          class=" cursor-pointer pt-[14px] w-[95%] h-[57.59px] text-[32px] text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow  hover:bg-primary-1"
+                          class=" cursor-pointer pt-[14px] w-[96%] h-[57.59px] text-[32px] text-center items-center  py-2  font-semibold leading-6 text-white transition duration-150 ease-in-out bg-primary-2 rounded-md shadow  hover:bg-primary-1"
                           disabled=""
                           href={book.novelLink}
                         >
@@ -204,9 +276,16 @@ const Detail = () => {
                 {/* </div> */}
               </main>
               <aside className="col-span-4    border-2border-blue-600">
-                <p>댓글 관련 그 어떤것? 통계 면 이상형월드컵이랑 비슷?</p>
-                <p>??????????</p>
-                <Temp></Temp>
+                <div className="flex justify-between flex-col  space-y-8">
+                  <h1
+                    style={{ fontSize: '33px' }}
+                    class="font-extrabold mt-8 mx-auto text-[40px] bg-clip-text bg-gradient-to-r from-primary-3 to-primary-2"
+                  >
+                    주요 키워드
+                  </h1>
+                  <p>액자모양 크기 맞추기 </p>
+                  <Temp book={book}></Temp>
+                </div>
               </aside>
             </div>
           </section>
@@ -218,11 +297,12 @@ const Detail = () => {
             <div className="w-full ">
               <div className="flex w-full  justify-between flex-wrap my-4">
                 {(tagsss ? tagsss.slice(0, 10) : []).map((book, index) => (
-                  <div className="w-[18%] h-[100%] overflow-hidden">
+                  <div className="w-[18%] h-[100%] ">
                     <img
                       src={book.novelThumbnail}
                       alt=""
-                      className="w-full h-[350px] rounded-xl"
+                      className="w-full h-[350px] rounded-xl cursor-pointer hover:scale-125 duration-200"
+                      onClick={() => onClickBook(book.novelNo)}
                     ></img>
                     <div className="text-lg w-full bookName mt-2 mb-3 h-10">
                       {book.novelTitle}

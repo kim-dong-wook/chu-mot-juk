@@ -7,6 +7,12 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
+export const isLikeTagState = atom({
+  key: 'isLikeTagState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 const isLoginState = atom({
   key: 'isloginState',
   default: false,

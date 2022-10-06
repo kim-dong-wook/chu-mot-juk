@@ -1,16 +1,19 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 const Footer = () => {
   return (
-    <footer class="bg-white text-sm leading-loose">
-      <div class="mx-auto max-w-6xl p-6 text-gray-400 lg:py-12 lg:px-8">
-        <p class="mb-8 text-gray-500">
+    <footer class="bg-[#f3f3f3] text-sm leading-loose">
+      <div class=" text-[18px] mx-auto max-w-[88rem] text-[#686868] py-12 lg:px-8">
+        <p class="mb-8 text-gray-900">
           <a
             target="_blank"
             class="mr-4 underline"
             rel="noopener noreferrer"
-            href="/terms"
+            href="/#"
           >
             이용약관
           </a>
@@ -18,7 +21,7 @@ const Footer = () => {
             target="_blank"
             class="mr-4 underline"
             rel="noopener noreferrer"
-            href="/privacy"
+            href="/#"
           >
             개인정보처리방침
           </a>
@@ -26,24 +29,49 @@ const Footer = () => {
             target="_blank"
             class="mr-4 underline"
             rel="noopener noreferrer"
-            href="/help"
+            href="/#"
           >
             고객센터
           </a>
         </p>
-        <p>(주)디엘피스튜디오</p>
-        <p>대표이사 박문대</p>
-        <p class="mt-8">
-          대표번호 <a href="tel:02-6959-8799">02-6959-8799</a> · 고객문의{' '}
-          <a href="mailto:help@txtsoda.com">help@txtsoda.com</a>
-        </p>
-        {/* <p>텍스트소다에 가입하려면</p>
-            <p>
-              <a target="_self" class="mx-1 underline" href="/signup">
-                회원가입
-              </a>
-              <span>페이지로 이동하세요.</span>
-            </p> */}
+        <div className="flex justify-between items-center mb-[0.8em]">
+          <div>
+            <p>(주)추천못하면죽는병걸림</p>
+            <p>대표이사 : 김동욱 김다은 박예은 이성민 전민재 최태순</p>
+            {/* <p>주소 : 서울특별시 강남구 테헤란로 212 멀티캠퍼스</p> */}
+          </div>
+          <div className="w-[7.5em] text-[#686868] flex justify-around">
+            <a href="mailto:ssafy@ssafy.com">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="h-[1.5em]  hover:curor-pointer"
+              />
+            </a>
+            <a href="/#">
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="w-[1.5em] h-[1.5em]  hover:curor-pointer"
+              />
+            </a>
+            <a href="/#">
+              <FontAwesomeIcon
+                icon={faYoutube}
+                className="h-[1.5em]  hover:curor-pointer"
+              />
+            </a>
+          </div>
+        </div>
+        <div className="flex justify-between items-center mb-[0.8em]">
+          <div>
+            <p class="  ">
+              싸피 번호 <a href="tel:02-3429-5100">02-3429-5100</a> · 이메일
+              문의 <a href="mailto:ssafy@ssafy.com ">ssafy@ssafy.com</a>
+            </p>
+          </div>
+          <div className="   flex justify-end">
+            추못죽 © 2022 by A207, Inc. All rights reserved.
+          </div>
+        </div>
       </div>
     </footer>
   );

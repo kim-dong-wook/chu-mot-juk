@@ -5,12 +5,15 @@ import LeftPath from '../../assets/images/bt_left.png';
 import kakao from '../../assets/images/kakao.png';
 import naver from '../../assets/images/naver.png';
 import ridi from '../../assets/images/ridi.png';
+import logo from '../../assets/images/logo.png';
 // import { books as dummy } from '../../stores/books';
-import { getBooksByPlatform } from '../../api/API';
+import { getBooksByPlatform, getBooksBySugeestion } from '../../api/API';
 import $ from 'jquery';
 import BookList from './BookList';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { ageRangeState, genderState, isLoginState } from '../../stores/atom';
+import { useRecoilState } from 'recoil';
 
 const BookCarousel = ({ name }) => {
   const [prev, setPrev] = useState(7);
@@ -18,6 +21,11 @@ const BookCarousel = ({ name }) => {
   const [next, setNext] = useState(1);
   const [books, setBooks] = useState([]);
   const [Ids, setIds] = useState([]);
+  const [ageRange, setAgeRange] = useRecoilState(ageRangeState);
+  const [gender, setGenderState] = useRecoilState(genderState);
+  const [isLogin, setIsLoginState] = useRecoilState(isLoginState);
+  const [mf, setMF] = useState(true);
+  const [age, setAge] = useState(20);
 
   const navigate = useNavigate();
   // const Ids = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -81,6 +89,42 @@ const BookCarousel = ({ name }) => {
         );
         setPrev(5);
         setIds([0, 1, 2, 3, 4, 5]);
+      } else if (name === '맞춤추천') {
+        if (isLogin) {
+          if (ageRange === 1) {
+            setAge(10);
+          } else if (ageRange === 2) {
+            setAge(20);
+          } else if (ageRange === 3) {
+            setAge(30);
+          } else if (ageRange === 4) {
+            setAge(40);
+          }
+
+          if (gender === true) {
+            setMF('여성');
+          } else {
+            setMF('남성');
+          }
+          let recommendation = await getBooksBySugeestion(ageRange, !gender);
+          setBooks(
+            [...recommendation.data.slice(0, 10)].concat(
+              recommendation.data.slice(0, 10),
+            ),
+          );
+          setPrev(3);
+          setIds([0, 1, 2, 3]);
+        } else {
+          let recommendation = await getBooksBySugeestion(1, false);
+          setBooks(
+            [...recommendation.data.slice(0, 10)].concat(
+              recommendation.data.slice(0, 10),
+            ),
+          );
+          setPrev(3);
+          setIds([0, 1, 2, 3]);
+          console.log(recommendation.data);
+        }
       } else {
         setBooks(
           [...result.data.slice(0, 20)].concat(result.data.slice(0, 20)),
@@ -122,6 +166,26 @@ const BookCarousel = ({ name }) => {
                     <img className="w-8 mr-2" src={ridi} alt=""></img>
                     리디북스 인기작
                   </div>
+                ) : name === '맞춤추천' ? (
+                  isLogin ? (
+                    <div className="flex">
+                      <img
+                        className="w-8 mr-2 rounded-lg"
+                        src={logo}
+                        alt=""
+                      ></img>
+                      {age}대 {mf} 독자들은 이런 작품들을 좋아해요!
+                    </div>
+                  ) : (
+                    <div className="flex">
+                      <img
+                        className="w-8 mr-2 rounded-lg"
+                        src={logo}
+                        alt=""
+                      ></img>
+                      당신을 위한 맞춤 추천!
+                    </div>
+                  )
                 ) : (
                   ''
                 )}

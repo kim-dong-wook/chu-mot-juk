@@ -115,3 +115,40 @@ export const postUserTag = async (tagNo, userNo) => {
     return null;
   }
 };
+
+export const postUserBook = async (novelNo, userNo) => {
+  try {
+    let jsonData = {
+      novelNo,
+      userNo,
+    };
+    const response = await axiosBasic.post('novel/novels', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getTagNameByTagNo = async (tagName) => {
+  try {
+    const response = await axiosBasic.get('novel/search/tag/' + tagName);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBooksBySugeestion = async (ageGroup, gender) => {
+  try {
+    let jsonData = {
+      ageGroup,
+      gender,
+    };
+    const response = await axiosBasic.post('novel/suggestion', jsonData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
