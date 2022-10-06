@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Getter
 @Setter
 @Entity
@@ -20,7 +22,7 @@ public class NovelTag {
     private Novel novel;
 
 //    @JsonIgnore
-    @OneToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "tag_no")
     private Tag tag;
 
@@ -28,6 +30,12 @@ public class NovelTag {
         this.novel = novel;
         if (!novel.getNovelTags().contains(this))
             novel.getNovelTags().add(this);
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+        if (!tag.getNovelTagList().contains(this))
+            tag.getNovelTagList().add(this);
     }
 
 }

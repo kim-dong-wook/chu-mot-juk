@@ -19,13 +19,20 @@ public class UserTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long UserTagNo;
 
-    @OneToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "tag_no")
     private Tag tag;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_no")
     private User user;
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+        if(!tag.getUserTagList().contains(this)) {
+            user.getUserTagList().add(this);
+        }
+    }
 
     public void setUser(User user) {
         this.user = user;
