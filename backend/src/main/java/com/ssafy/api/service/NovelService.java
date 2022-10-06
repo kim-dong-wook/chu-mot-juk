@@ -174,6 +174,8 @@ public class NovelService {
         novelInfoRes.setNovelThumbnail(novel.getNovelThumbnail());
         novelInfoRes.setNovelPlatform(novel.getNovelPlatform());
         novelInfoRes.setNovelRomanceGuide(novel.getNovelRomanceGuide());
+        novelInfoRes.setNovelRate(novel.getNovelRate());
+        novelInfoRes.setNovelView(novel.getNovelView());
 
         List<String> tagList = new ArrayList<>();
         for (NovelTag nt : novel.getNovelTags()) {
@@ -201,7 +203,6 @@ public class NovelService {
     @Transactional
     public List<NovelInfoRes> getFamousNovels(List<User> users) {
         Map<Long, Integer> map = new HashMap<>();
-        System.out.println(users.size());
 
         for (User u : users) {
             List<LikeList> lList = likeListRepository.findLikeListsByUserUserNo(u.getUserNo()).get();
