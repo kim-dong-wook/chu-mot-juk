@@ -160,6 +160,8 @@ public class NovelService {
 //            throw new CustomException(ErrorCode.COMMENT_NOT_FOUND);
 //        });
 
+        String comment = String.valueOf(commentRepository.findKeywordByNovelNo(novelNo));
+
         novelInfoRes.setNovelNo(novel.getNovelNo());
         novelInfoRes.setNovelTitle(novel.getNovelTitle());
         novelInfoRes.setNovelWriter(novel.getNovelWriter());
@@ -179,11 +181,19 @@ public class NovelService {
         }
         novelInfoRes.setTagNames(tagList);
 
-//        String[] str = comment.split(",");
-//        List<String> commentList = Arrays.asList(str);
-//        novelInfoRes.setComments(commentList);
+        String[] str = comment.split(",");
+        List<String> commentList = Arrays.asList(str);
+        if(commentList.get(0).equals("Optional.empty") || commentList.get(0).equals("Optional[]")) {
+            novelInfoRes.setComments(null);
+        } else {
+            String firstComment = commentList.get(0);
+            commentList.set(0, firstComment.substring(9));
 
-        novelInfoRes.setComments(null);
+            String lastComment = commentList.get(commentList.size() - 1);
+            commentList.set(commentList.size() - 1, lastComment.substring(0, lastComment.length() - 1));
+
+            novelInfoRes.setComments(commentList);
+        }
 
         return novelInfoRes;
     }
