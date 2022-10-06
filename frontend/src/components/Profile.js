@@ -6,13 +6,15 @@ import {
   searchBookState,
   tagsState,
   isLoginState,
+  LikeTagNoState,
   ageRangeState,
   genderState,
   userIdState,
   nicknameState,
   profileImgState,
+  TagNosState,
 } from '../stores/atom';
-import { getBooksByGenre } from '../api/API';
+import { getBooksByGenre, getTagByBigtag } from '../api/API';
 import { axiosBasic } from '../api/API2';
 import {
   getBook,
@@ -36,6 +38,16 @@ const MyBox = () => {
   const [user_id, setUserId] = useRecoilState(userIdState); // 1234512345
   const [nickName, setNickName] = useRecoilState(nicknameState); // '박문대'
   const [profileImage, setProfileImage] = useRecoilState(profileImgState); // '주소'
+  const [userInfo, setUserInfo] = useState('');
+  // const [tags, setTags] = useRecoilState(tagsState);
+  const [hidden, setHidden] = useState(true);
+  const [books, setBooks] = useRecoilState(searchBookState);
+  const [loading, setLoading] = useState(true);
+  const [genreSeleted, setGenreSeleted] = useState('로맨스');
+  // @동
+  const [likeTags, setLikeTags] = useRecoilState(LikeTagNoState);
+  const [likeTagNos, setLikeTagNos] = useRecoilState(TagNosState);
+  const [rTags, setRTags] = useState(null);
 
   const getProfile = async () => {
     try {
@@ -69,6 +81,22 @@ const MyBox = () => {
       };
 
       console.log(body);
+
+      //@@@@@  프로필 프로필 태그
+      const userResult = await searchUserById(data.id);
+      setUserInfo(userResult.data);
+      // userInfo == userResult.data
+      let result7 = await userLikeTag(userResult.data.userNo);
+      console.log(result7.data);
+      setLikeTags(result7.data);
+      let NN = [];
+      result7.data.forEach(function (number) {
+        NN.push(number.tagNo);
+      });
+      setLikeTagNos(NN);
+      console.log(NN);
+      //@@@@@ 프로필 프로필 태그
+
       //  다좋은데 console 128(망) > 125(성공) > 126(카) 순서대로 됨 128왜감??
       await axiosBasic
         .post('/users', body) //토큰, 추가 정보 전송
@@ -80,7 +108,22 @@ const MyBox = () => {
         })
         .catch((err) => console.log(err), console.log('망'));
     } catch (err) {
+      //@@@@@  프로필 프로필 태그
+      const userResult = await searchUserById(user_id);
+      setUserInfo(userResult.data);
+      // userInfo == userResult.data
+      let result7 = await userLikeTag(userResult.data.userNo);
+      console.log(result7.data);
+      setLikeTags(result7.data);
+      let NN = [];
+      result7.data.forEach(function (number) {
+        NN.push(number.tagNo);
+      });
+      setLikeTagNos(NN);
+      console.log(NN);
+      //@@@@@ 프로필 프로필 태그
       console.log(err);
+      console.log('망');
       // alert('카카오 로그인 에러?');
     }
   };
@@ -88,12 +131,9 @@ const MyBox = () => {
   const onClickToggle = () => {
     setHidden(!hidden);
   };
-
-  const [tags, setTags] = useRecoilState(tagsState);
-  const [hidden, setHidden] = useState(true);
-  const [books, setBooks] = useRecoilState(searchBookState);
-  const [loading, setLoading] = useState(true);
-  const [genreSeleted, setGenreSeleted] = useState('로맨스');
+  const onClickReload = () => {
+    window.location.reload();
+  };
 
   const onClickGenre = (genre) => {
     const fetchData = async () => {
@@ -114,14 +154,21 @@ const MyBox = () => {
     console.log(genre);
     setGenreSeleted(genre);
   };
-  const [userInfo, setUserInfo] = useState('');
-  const fetchData = async () => {
-    const userResult = await searchUserById(user_id);
-    setUserInfo(userResult.data);
-    // userInfo == userResult.data
-    let result7 = await userLikeTag(userResult.data.userNo);
-    console.log(result7.data);
-    setTags(result7.data);
+  // const [userInfo, setUserInfo] = useState('');
+  // const fetchData1 = async () => {
+  //   const userResult = await searchUserById(user_id);
+  //   setUserInfo(userResult.data);
+  //   // userInfo == userResult.data
+  //   let result7 = await userLikeTag(userResult.data.userNo);
+  //   console.log(result7.data);
+  //   setTags(result7.data);
+  // };
+
+  const romanceBigtag = async () => {
+    let resultB = await getTagByBigtag(0);
+    setRTags(resultB.data);
+    // console.log(resultB.data);
+    // console.log(rTags);
   };
 
   useEffect(() => {
@@ -129,9 +176,11 @@ const MyBox = () => {
       top: 0,
     });
     getProfile();
-
-    fetchData();
+    romanceBigtag();
   }, []);
+
+  useEffect(() => {}, [likeTagNos]);
+
   return (
     <>
       <div className="tx-container">
@@ -195,11 +244,16 @@ const MyBox = () => {
                 </div>
                 <div class="justify-between pl-2 border-l-4  border-l-primary-2 flex flex-grow  ">
                   <div className="inline">
-                    {(tags ? tags.slice(0, 122) : []).map((tag, index) => (
+                    {(rTags ? rTags.slice(0, 148) : []).map((tag, index) => (
                       <span
                         id={index}
+                        key={index + 100}
                         target="_self"
-                        className="inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2  m-2 cursor-default"
+                        className={`${
+                          likeTagNos.indexOf(tag.tagNo) == -1
+                            ? 'hidden'
+                            : 'visible'
+                        }   inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2 m-2 cursor-default`}
                       >
                         #{tag.tagName}
                       </span>
@@ -252,15 +306,34 @@ const MyBox = () => {
                         </div>
                       </div>
                     </div>
-
-                    <button
-                      class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right 
+                    {hidden ? (
+                      <button
+                        class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right 
                     text-[24px] text-white bg-primary-2 py-1 px-5 
                        hover:bg-primary-3 "
-                      onClick={onClickToggle}
-                    >
-                      {hidden ? '전체 보기' : '숨기기'}
-                    </button>
+                        onClick={onClickToggle}
+                      >
+                        전체 보기
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={onClickReload}
+                          class="ml-[200px] rounded-full shrink-0 w-[159.234px] max-h-[45px] mr-4 right text-[24px] text-white bg-primary-4 py-1 px-3    hover:bg-primary-3     "
+                        >
+                          태그 적용
+                        </button>
+
+                        <button
+                          class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right 
+                    text-[24px] text-white bg-primary-2 py-1 px-5 
+                       hover:bg-primary-3 "
+                          onClick={onClickToggle}
+                        >
+                          숨기기
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -273,17 +346,6 @@ const MyBox = () => {
                 <TagLists genre={genreSeleted}></TagLists>
               </div>
 
-              {/* <div className="inline">
-                    {tags.slice(0, 22).map((tag, index) => (
-                      <span
-                        id={index}
-                        target="_self"
-                        className="inline-block items-center mr-0.5  whitespace-nowrap rounded-full bg-primary-2 text-[22px] px-3 py-2  m-2 cursor-default"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div> */}
               <div class=" border-y border-y-primary-2 py-[16px]  flex  flex-nowrap">
                 <div class="text-center w-64  mb-0   flex-shrink-0 flex flex-col">
                   <span class=" text-[30px]">연결 끊기</span>

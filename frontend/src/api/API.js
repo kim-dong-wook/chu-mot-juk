@@ -139,6 +139,15 @@ export const getTagNameByTagNo = async (tagName) => {
   }
 };
 
+export const getTagByBigtag = async (tagGenre) => {
+  try {
+    const response = await axiosBasic.get('novel/search/bigtag/' + tagGenre);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getBooksBySugeestion = async (ageGroup, gender) => {
   try {
     let jsonData = {
