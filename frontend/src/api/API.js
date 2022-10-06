@@ -129,3 +129,12 @@ export const postUserBook = async (novelNo, userNo) => {
     return null;
   }
 };
+
+export const getTagNameByTagNo = async (tagName) => {
+  try {
+    const response = await axiosBasic.get('novel/search/tag/' + tagName);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

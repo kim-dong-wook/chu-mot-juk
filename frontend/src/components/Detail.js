@@ -28,7 +28,7 @@ import {
   exceptUserLikeBook,
   exceptUserLiketag,
 } from '../api/API2';
-import { getBooksByTags, postUserBook } from '../api/API';
+import { getTagNameByTagNo, getBooksByTags, postUserBook } from '../api/API';
 import { books } from '../stores/books';
 import Temp from './Carousel/test/Temp';
 import { useNavigate } from 'react-router-dom';
@@ -89,35 +89,55 @@ const Detail = () => {
   const { novelNo } = useParams();
   const [book, setBook] = useState('');
   const [tagsss, setTags] = useState('');
+  const [deTagNos, setDeTagNos] = useState([]);
+
   const getDeBook = async () => {
     let result1 = await getBook(novelNo);
     console.log(result1.data);
     setBook(result1.data);
-  };
 
+    let deTagNo0 = await getTagNameByTagNo(result1.data.tagNames[0]);
+    let deTagNo1 = await getTagNameByTagNo(book.tagNames[1]);
+    // let deTagNo2 = await getTagNameByTagNo(book.tagNames[2]);
+    setDeTagNos([deTagNo0.data.tagNo, deTagNo1.data.tagNo]);
+    console.log([deTagNo0.data.tagNo, deTagNo1.data.tagNo]);
+  };
   // 디테일 테크 #현대물이 숫자 몇인지 ???
-  // 1번 백엔드에 물어봐서 if문으로 연결하기
+
   const getTags = async () => {
-    let result2 = await getBooksByTags([1, 2, 3]);
-    console.log(result2.data);
+    console.log(deTagNos);
+    let result2 = await getBooksByTags(deTagNos);
+    // console.log(result2.data);
     setTags(result2.data);
   };
 
   // 지금 디테일 좋아하는지 표시
+  const [like, setLike] = useState(false);
   const [user_id, setUserId] = useRecoilState(userIdState);
   const [userInfo, setUserInfo] = useState(null);
   const fetchData = async () => {
     const userResult = await searchUserById(user_id);
     setUserInfo(userResult.data);
     // userInfo.userNo => 2504 예시
-    let result1 = await userLikeBook(userInfo.userNo);
+    let result1 = await userLikeBook(userResult.data.userNo);
     // 목록들 가져와서 내가 좋아요한 책인지 확인 한값 useState로
+    console.log(result1.data);
+    result1.data.forEach(function (number) {
+      console.log(number.novel.novelNo);
+      console.log(novelNo);
+      if (novelNo == number.novel.novelNo) {
+        setLike(true);
+        console.log('hi');
+      }
+    });
+    console.log(like);
   };
 
-  const [like, setLike] = useState(false);
   const onClickLike = async () => {
     await postUserBook(novelNo, userInfo.userNo);
     setLike(!like);
+    console.log(userInfo.userNo);
+    console.log(novelNo);
   };
   const onClickDisLike = async () => {
     await exceptUserLikeBook(novelNo, userInfo.userNo);
@@ -130,6 +150,9 @@ const Detail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getDeBook();
     getTags();
     fetchData();
@@ -264,9 +287,13 @@ const Detail = () => {
                 {/* </div> */}
               </main>
               <aside className="col-span-4    border-2border-blue-600">
-                <p>댓글 관련 그 어떤것? 통계 면 이상형월드컵이랑 비슷?</p>
-                <p>??????????</p>
-                <Temp></Temp>
+                <div className="flex justify-between flex-col  space-y-8">
+                  <h1 class="font-extrabold mt-8 mx-auto text-transparent text-[40px] bg-clip-text bg-gradient-to-r from-primary-3 to-primary-2">
+                    독자들의 인기 리뷰
+                  </h1>
+
+                  <Temp></Temp>
+                </div>
               </aside>
             </div>
           </section>

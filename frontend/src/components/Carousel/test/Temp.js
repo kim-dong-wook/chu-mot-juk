@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,6 +11,13 @@ import './style.css';
 import { EffectCards } from 'swiper';
 
 const Temp = () => {
+  const [c1, setC1] = useState(false);
+  const onClick1 = () => {
+    setC1(!c1);
+  };
+  useEffect(() => {
+    setC1(false);
+  }, []);
   return (
     <div className="relative w-full h-full">
       <Swiper
@@ -20,10 +27,9 @@ const Temp = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
+          <div onClick={onClick1} class="card">
+            {!c1 ? '1위' : '상태창'}
+          </div>
         </SwiperSlide>
         <SwiperSlide>
           <img

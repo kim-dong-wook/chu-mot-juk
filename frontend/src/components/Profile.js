@@ -114,18 +114,20 @@ const MyBox = () => {
     console.log(genre);
     setGenreSeleted(genre);
   };
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState('');
   const fetchData = async () => {
     const userResult = await searchUserById(user_id);
     setUserInfo(userResult.data);
-    // userInfo.userNo
-    let result7 = await userLikeTag(userInfo.userNo);
+    // userInfo == userResult.data
+    let result7 = await userLikeTag(userResult.data.userNo);
     console.log(result7.data);
-    // setTags()
     setTags(result7.data);
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getProfile();
 
     fetchData();
@@ -204,7 +206,7 @@ const MyBox = () => {
                     ))}
                   </div>
                   <Link to="/testintro">
-                    <button class="my-auto shrink-0 max-h-[45px] mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
+                    <button class="my-auto shrink-0 w-[159.234px] max-h-[45px] mr-4 right text-[24px] text-white bg-primary-2 py-1 px-8    hover:bg-primary-3     ">
                       유형검사
                     </button>
                   </Link>
