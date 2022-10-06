@@ -58,8 +58,8 @@ const Header = () => {
             <Link to="/testintro">유형검사</Link>
             <Link to="/vsintro">이상형월드컵</Link>
             <Link to="/tagsearch">태그검색</Link>
-            <Link to="/detail">detail</Link>
-            <Link to="/temp">temp</Link>
+            {/* <Link to="/detail">detail</Link>
+            <Link to="/temp">temp</Link> */}
           </div>
 
           <div className=" space-x-8 text-primary-1 text-xl">
