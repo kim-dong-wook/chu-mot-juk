@@ -270,15 +270,29 @@ public class NovelController {
     }
 
     @GetMapping("/search/{tagNo}")
-    @ApiOperation(value = "태그 번호로 태그 이름 조회", notes = "태그 번호를 입력받아 태그 이름을 반환한다.")
+    @ApiOperation(value = "태그 번호로 태그 이름 조회", notes = "태그 번호를 입력받아 태그를 반환한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "권한 없음"),
             @ApiResponse(code = 404, message = "해당하는 태그 번호 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Tag> getTagNameByTagNo(@PathVariable("tagNo") Long tagNo) {
+    public ResponseEntity<Tag> getTagByTagNo(@PathVariable("tagNo") Long tagNo) {
         Tag tag = novelService.getTagNameByTagNo(tagNo);
+        return ResponseEntity.status(200).body(tag);
+    }
+
+    @GetMapping("/search/tag/{tagName}")
+    @ApiOperation(value = "태그 이름으로 태그 조회", notes = "태그 이름을 입력받아 태그를 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "권한 없음"),
+            @ApiResponse(code = 404, message = "해당하는 태그 이름 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<Tag> getTagByTagName(@PathVariable("tagName") String tagName) {
+        List<Tag> tagList = novelService.getTagByTagName(tagName);
+        Tag tag = tagList.get(0);
         return ResponseEntity.status(200).body(tag);
     }
 }

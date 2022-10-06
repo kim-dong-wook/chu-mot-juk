@@ -398,4 +398,12 @@ public class NovelService {
         return tag;
     }
 
+    public List<Tag> getTagByTagName(String tagName) {
+        List<Tag> tagList = tagRepository.findTagByTagName(tagName).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.TAG_NOT_FOUND);
+        });
+
+        return tagList;
+    }
+
 }
