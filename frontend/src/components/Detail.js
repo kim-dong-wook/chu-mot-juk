@@ -91,11 +91,11 @@ const Detail = () => {
     // const getTags = async () => {
     // console.log(deTagNos);
     let result2 = await getBooksByTags([
-      1, 2, 3,
+      deTagNo0.data.tagNo,
       // deTagNo0.data.tagNo,
       // deTagNo1.data.tagNo,
     ]);
-    // console.log(result2.data);
+    console.log(result2.data);
     setTags(result2.data);
   };
 
@@ -135,6 +135,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const onClickBook = (novelNo10) => {
     navigate('/detail/' + novelNo10);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -224,7 +225,7 @@ const Detail = () => {
                       </div>
                     </div>
                     <div className="flex justify-between flex-col max-w-[465px] space-y-4">
-                      <p className="px-[4px]" style={{ fontSize: '38px' }}>
+                      <p className="px-[4px]" style={{ fontSize: '33px' }}>
                         {book.novelTitle}
                       </p>
                       <p className="px-[4px]" style={{ fontSize: '23px' }}>
@@ -247,7 +248,7 @@ const Detail = () => {
                         {book ? book.novelIntro.slice(0, 111) : []}...
                       </p>
                       <div className="inline">
-                        {(book ? book.tagNames.slice(0, 14) : []).map(
+                        {(book ? book.tagNames.slice(0, 12) : []).map(
                           (tag, index) => (
                             <span
                               id={index}
@@ -276,11 +277,14 @@ const Detail = () => {
               </main>
               <aside className="col-span-4    border-2border-blue-600">
                 <div className="flex justify-between flex-col  space-y-8">
-                  <h1 class="font-extrabold mt-8 mx-auto text-transparent text-[40px] bg-clip-text bg-gradient-to-r from-primary-3 to-primary-2">
-                    독자들의 인기 리뷰
+                  <h1
+                    style={{ fontSize: '33px' }}
+                    class="font-extrabold mt-8 mx-auto text-[40px] bg-clip-text bg-gradient-to-r from-primary-3 to-primary-2"
+                  >
+                    주요 키워드
                   </h1>
-
-                  <Temp></Temp>
+                  <p>액자모양 크기 맞추기 </p>
+                  <Temp book={book}></Temp>
                 </div>
               </aside>
             </div>

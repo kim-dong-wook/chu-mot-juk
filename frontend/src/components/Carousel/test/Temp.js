@@ -10,7 +10,8 @@ import './style.css';
 // import required modules
 import { EffectCards } from 'swiper';
 
-const Temp = () => {
+const Temp = ({ book }) => {
+  console.log(book);
   const [c1, setC1] = useState(false);
   const onClick1 = () => {
     setC1(!c1);
@@ -26,59 +27,13 @@ const Temp = () => {
         modules={[EffectCards]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <div onClick={onClick1} class="card">
-            {!c1 ? '1위' : '상태창'}
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306514/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306515/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://img.ridicdn.net/cover/425306513/xxlarge#1"
-            alt=""
-          ></img>
-        </SwiperSlide>
+        {(book ? book.comments.slice(0, 10) : []).map((tag, index) => (
+          <SwiperSlide>
+            <div onClick={onClick1} class="card">
+              {!c1 ? `${index + 1}위` : `#${tag}`}
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
