@@ -6,6 +6,8 @@ echo '실행 시작'
  ./gradlew build
 
  echo '도커파일 이미지 빌드'
+ docker rmi springbootapp:v2 .
+  
  docker build -t springbootapp:v2 .
  echo '컨테이너 중지'
  docker stop springbootapp
