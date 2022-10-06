@@ -138,3 +138,12 @@ export const getTagNameByTagNo = async (tagName) => {
     console.log(error);
   }
 };
+
+export const getTagByBigtag = async (tagGenre) => {
+  try {
+    const response = await axiosBasic.get('novel/search/bigtag/' + tagGenre);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

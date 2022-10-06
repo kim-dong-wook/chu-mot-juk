@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { tagsState } from '../../stores/atom';
+import {
+  tagsState,
+  userIdState,
+  LikeTagNoState,
+  TagNosState,
+} from '../../stores/atom';
 import { getGenreTag } from '../../api/API';
 import $ from 'jquery';
-import { testState, testPageState, userIdState } from '../../stores/atom';
 import { postUserTag } from '../../api/API';
 import { searchUserById, exceptUserLiketag } from '../../api/API2';
+import { useNavigate } from 'react-router-dom';
 
 import './TagSearch.css';
 const TagList = ({ genre, category, tagType }) => {
-  const [selected, setSelected] = useRecoilState(tagsState);
+  // const [selected, setSelected] = useRecoilState(tagsState);
   const [hidden, setHidden] = useState(false);
   const [tags, setTags] = useState([]);
 
+  const [likeTags, setLikeTags] = useRecoilState(LikeTagNoState);
+  const [likeTagNos, setLikeTagNos] = useRecoilState(TagNosState);
+
   const [userInfo, setUserInfo] = useState(null);
   const [userId, setUserId] = useRecoilState(userIdState);
+  const navigate = useNavigate();
 
   const onClickToggle = () => {
     setHidden(!hidden);
@@ -37,17 +46,22 @@ const TagList = ({ genre, category, tagType }) => {
       e.target.classList.add('toggled');
       e.target.classList.remove('text-primary-4');
       e.target.classList.add('text-white');
-      setSelected([...selected].concat(tag.tagNo));
+      setLikeTags([...likeTags].concat(tag.tagNo));
       postTag(tag.tagNo);
+      // navigate('/mypage');
     } else {
       e.target.classList.remove('toggled');
       e.target.classList.remove('text-white');
       e.target.classList.add('text-primary-4');
-      setSelected(selected.filter((no) => no !== tag.tagNo));
-      exceptUserLiketag(tag, userInfo.userNo);
+      setLikeTags(likeTags.filter((no) => no !== tag.tagNo));
       deleteTag(tag.tagNo);
+      // navigate('/mypage');
     }
   };
+  // console.log(likeTags);
+  // console.log(tags);
+  // console.log(likeTagNos);
+
   useEffect(() => {
     setHidden(false);
     const fetchData = async () => {
@@ -80,7 +94,12 @@ const TagList = ({ genre, category, tagType }) => {
           <span
             key={tag.tagNo}
             target="_self"
-            className="inline-block items-center text-m whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 hover:scale-105 hover:shadow m-2 cursor-pointer"
+            className={`${
+              // 없으면 -1반환  있으면 인덱스값
+              likeTagNos.indexOf(tag.tagNo) == -1
+                ? 'text-primary-4 '
+                : '  toggled'
+            } inline-block  items-center text-m whitespace-nowrap rounded-full bg-primary-2 px-3 py-2 text-primary-4 hover:scale-105 hover:shadow m-2 cursor-pointer`}
             onClick={(event) => onClickTag(event, tag)}
           >
             #{tag.tagName}
