@@ -88,7 +88,7 @@ const PersonalTestResult = () => {
   if (!results) {
     return (
       <div
-        className="h-[873px] flex items-center justify-center"
+        className="h-screen mt-[-4rem] bg-cover flex items-center justify-center"
         style={{ backgroundImage: `url(${background})` }}
       >
         <div className="w-[90%] h-[90%] flex items-center justify-center bg-primary-1/50 backdrop-blur-sm rounded-3xl">
@@ -101,10 +101,10 @@ const PersonalTestResult = () => {
   }
   return (
     <div
-      className="h-[873px] flex items-center justify-center"
+      className="h-screen mt-[-4rem] bg-cover flex items-center justify-center"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="w-[90%] h-[90%] flex items-center justify-between bg-primary-1/50 backdrop-blur-sm rounded-3xl p-20">
+      <div className="w-[1728px] h-[785px] flex items-center justify-between bg-primary-1/50 backdrop-blur-sm rounded-3xl p-20">
         <div className="w-[30%] h-full">
           <img
             src={results[0].novelThumbnail}
