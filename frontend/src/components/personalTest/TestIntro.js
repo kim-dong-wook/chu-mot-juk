@@ -36,7 +36,7 @@ const TestIntro = () => {
   }, []);
   return (
     <div
-      className="h-[873px] flex flex-col items-center justify-center bg-cover overflow-hidden"
+      className="h-screen mt-[-4rem] flex flex-col items-center justify-center bg-cover overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="w-full h-full flex flex-col items-center justify-center">
