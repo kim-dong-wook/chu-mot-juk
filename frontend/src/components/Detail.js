@@ -283,7 +283,6 @@ const Detail = () => {
                   >
                     주요 키워드
                   </h1>
-                  <p>액자모양 크기 맞추기 </p>
                   <Temp book={book}></Temp>
                 </div>
               </aside>
