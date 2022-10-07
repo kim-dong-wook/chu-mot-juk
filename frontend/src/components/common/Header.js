@@ -126,9 +126,9 @@ const Header = () => {
                   <Link to="/mypage">
                     <Menu>마이페이지</Menu>
                   </Link>
-                  <Link to="/mybox">
+                  {/* <Link to="/mybox">
                     <Menu>보관함</Menu>
-                  </Link>
+                  </Link> */}
                   <Link to="/logout">
                     <Menu>로그아웃</Menu>
                   </Link>
