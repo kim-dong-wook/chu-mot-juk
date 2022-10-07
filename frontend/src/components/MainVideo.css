@@ -1,0 +1,44 @@
+/* 상위 전체 포지션  
+
+position: relative;
+안에 wrapper
+.wrapper {
+  font-size: 15px;
+}
+.wrapper {
+  margin: 0;
+  padding: 0;
+}
+안에 
+<section class="netflix-home-video">
+  top      div ??  네브바 관련??
+  bottom   div ??
+  video    id myVideo
+  content  div 
+    left   section 
+    right  section
+*/
+
+/* body {
+  overflow-x: hidden;
+  overflow-y: auto;
+} */
+
+.netflix-home-video video {
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  color: white;
+}
+
+.netflix-home-video .content {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  /* background-color: #fff; */
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+}
