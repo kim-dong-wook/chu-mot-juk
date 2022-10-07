@@ -53,10 +53,10 @@ const PersonalTest = () => {
   }, [testPage]);
   return (
     <div
-      className="h-[873px] relative flex items-center justify-center"
+      className="h-screen mt-[-4rem] bg-cover relative flex items-center justify-center"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="absolute z-50 top-2 w-9 h-6 overflow-hidden rounded-full">
+      <div className="absolute z-50 top-20 w-9 h-6 overflow-hidden rounded-full">
         <audio
           autoPlay
           controls
@@ -65,10 +65,9 @@ const PersonalTest = () => {
           <source src={bgm} type="audio/mp3"></source>
         </audio>
       </div>
-
       {loading ? <Loading /> : null}
       <div
-        className="w-[90%] h-[90%] flex items-center justify-center bg-primary-1/50 backdrop-blur-sm rounded-3xl"
+        className="w-[1728px] h-[785px] flex items-center justify-center bg-primary-1/50 backdrop-blur-sm rounded-3xl"
         ref={testBox}
       >
         <div
