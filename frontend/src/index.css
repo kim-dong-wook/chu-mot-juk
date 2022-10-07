@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'light-regular';
+  src: url(./assets/fonts/HeirofLightRegular.ttf);
+}
+
+@font-face {
+  font-family: 'light-bold';
+  src: url(./assets/fonts/HeirofLightBold.ttf);
+}
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(#eed8ca, white, #eed8ca);
+  /* background: no-repeat
+    url('http://www.monthlypeople.com/news/photo/202208/276613_274370_3009.jpg');
+  background-size: 100% 100%;
+  background-attachment: fixed; */
+  width: 100%;
+  height: 100%;
+  font-family: 'light-bold';
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

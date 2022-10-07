@@ -1,0 +1,12 @@
+.toggled {
+  transform: scale(1.05);
+  background-color: rgb(208 119 123);
+  font: white;
+  color: #f3f3f3;
+}
+
+.bookName {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
