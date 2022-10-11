@@ -34,7 +34,7 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 ### 메인 페이지
 
-![메인화면](README.assets/메인화면.png)
+![메인화면](README.assets/메인화면.PNG)
 
 
 
