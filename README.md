@@ -88,21 +88,17 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 ![기술 스택](README.assets/기술스택.PNG)
 
-1. Sprint/Quasar (Vue) Server: AWS EC2 Ubuntu 20.04 LTS
-2. Openvidu Server: Oracle Cloud Ubuntu 20.04 LTS (Openvidu Server의 경우 ARM CPU 사용불가)
-3. Compiler Server: Oracle Cloud Ubuntu 20.04 LTS
-4. Mysql: 20.04.2
-5. Spring Boot: 2.4.5
-6. Quasar: 1.0.5
-7. Openvidu: 2.22.0
-8. Nginx: 1.18.0
-9. Node.js: 10.19.0
-10. java: 1.8.0
-11. gcc: 9.4.0
-12. g++: 9.4.0
-13. Python: 3.8.10
-
-
+1. Server: AWS EC2 Ubuntu 22.04.1 LTS
+2. Visual Studio Code : 1.72.1
+3. IntelliJ IDEA : 2022.1.4(Ultimate Edition) 11.0.15 + 10-b2043.56 amd64
+4. Mysql: 8.0.28
+5. JVM : 11.0.16+8-post-Ubuntu-Oubuntu120.04
+6. Docker :20.10.18
+7. NginX :1.23.1
+8. Jenkins: 1.18.0-0ubuntu1.3
+9. Node.js: 16.14.2
+10. Vmware Workstation : 16.2.4
+11. Hadoop : 3.2.2
 
 ## ERD
 
