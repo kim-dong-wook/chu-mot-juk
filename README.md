@@ -102,12 +102,14 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 ## ERD
 
-![image-20220823111429633](README.assets/image-20220823111429633.png)
+![erd](README.assets/erd.PNG)
 
 
 
-## 기능 정의서/API 명세서/테스트 시나리오
+## API 명세서
+https://iasfk.notion.site/API-0e1da9aa4f8e4189ba7dae3f469cdb3e
 
+## 테스트시나리오
 
 
 
