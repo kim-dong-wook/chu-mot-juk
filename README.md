@@ -32,9 +32,9 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 
 
-### 초기 화면
+### 메인 페이지
 
-![로그인](README.assets/%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif)
+![메인화면](README.assets/메인화면.png)
 
 
 
