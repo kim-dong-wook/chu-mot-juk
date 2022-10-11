@@ -86,7 +86,7 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 ## 기술 스택
 
-![image-20220823113947380](README.assets/image-20220823113947380.png)
+![기술 스택](README.assets/기술스택.PNG)
 
 1. Sprint/Quasar (Vue) Server: AWS EC2 Ubuntu 20.04 LTS
 2. Openvidu Server: Oracle Cloud Ubuntu 20.04 LTS (Openvidu Server의 경우 ARM CPU 사용불가)
