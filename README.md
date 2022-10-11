@@ -38,41 +38,51 @@ https://drive.google.com/file/d/1wD2AeuQnoK3OyLOt5QG4jfPolMGPY_jr/view?usp=shari
 
 
 
-### 학생 관리
+### 로그인 전 기본 추천
 
-![학생 제거,추가](README.assets/%ED%95%99%EC%83%9D%20%EC%A0%9C%EA%B1%B0,%EC%B6%94%EA%B0%80.gif)
-
-
-
-### 시험 생성
-
-![시험 등록](README.assets/%EC%8B%9C%ED%97%98%20%EB%93%B1%EB%A1%9D.gif)
+![로그인 전 기본 추천](README.assets/로그인_전_기본추천.PNG)
 
 
 
-### 강의 시작
+### 로그인 후 사용자 정보 기반 추천 (성별, 나이)
 
-![강의 접속, 출결 확인](README.assets/%EA%B0%95%EC%9D%98%20%EC%A0%91%EC%86%8D,%20%EC%B6%9C%EA%B2%B0%20%ED%99%95%EC%9D%B8.gif)
-
-
-
-### code 전송
-
-![코드 보내기](README.assets/%EC%BD%94%EB%93%9C%20%EB%B3%B4%EB%82%B4%EA%B8%B0.gif)
+![로그인 후 사용자 정보 기반 추천](README.assets/로그인후_추천.PNG)
 
 
 
-### 코드 받아보기
+### 웹소설 취향 유형검사 시작화면
 
-![코드 보내기](README.assets/%EC%BD%94%EB%93%9C%20%EB%B3%B4%EB%82%B4%EA%B8%B0-16612210305399.gif)
-
-
-
-### 시험 응시하기
-
-![문제 풀기, 제출하기](README.assets/%EB%AC%B8%EC%A0%9C%20%ED%92%80%EA%B8%B0,%20%EC%A0%9C%EC%B6%9C%ED%95%98%EA%B8%B0.gif)
+![유형검사](README.assets/유형검사.PNG)
 
 
+
+### 유형 검사 진행화면
+
+![유형검사 진행화면](README.assets/유형검사_시작.PNG)
+
+
+
+### 유형 검사 결과화면
+
+![유형검사 결과화면](README.assets/유형검사결과.PNG)
+
+
+
+### 이상형 월드컵 시작화면
+
+![이상형 월드컵 시작화면](README.assets/이상형월드컵.PNG)
+
+### 이상형 월드컵 진행화면
+
+![이상형 월드컵 진행화면](README.assets/이상형월드컵_시작.PNG)
+
+### 이상형 월드컵 결과화면
+
+![이상형 월드컵 결과화면](README.assets/이상형월드컵_결과.PNG)
+
+### 태그검색 페이지
+
+![태그검색페이지](README.assets/태그검색페이지.PNG)
 
 ## 기술 스택
 
