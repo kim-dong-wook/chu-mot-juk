@@ -22,9 +22,19 @@
 
 이성민(Data,DevOps) - 웹 크롤링, 데이터 전처리, 하둡 에코시스템 구축
 
+
+
 ## :paperclip: 발표 자료
 
 https://drive.google.com/file/d/1YYx4bnAN-2mFJwcSGTj6Wa0jTdxgIC25/view?usp=sharing
+
+
+
+## :information_desk_person: 시연 영상
+
+https://drive.google.com/file/d/1EYV4XUc1tD-0ijzvns_jcNYJVTkW3aIp/view?usp=sharing
+
+
 
 ## :video_camera: 광고 영상
 
