@@ -64,10 +64,7 @@ public class NovelService {
 
     public List<Novel> getNovelsByTag(NovelTagSearchReq tags) {
         List<Novel> shelf = new ArrayList<>();
-        //여기 클린코딩 해야 되니까 이렇게 말고 다르게 하는 법 생각해보자
         List<NovelTag> book;
-        //교집합 처리를 어떻게 할 것인가
-        // -> list 하나 더 추가?
         for (Long a : tags.getTags()) {
             if (a != null) {
                 List<Novel> booklist = new ArrayList<>();
@@ -94,7 +91,7 @@ public class NovelService {
         else
             return shelf;
     }
-
+/*
     @Transactional
     public void addNovels() throws IOException, ParseException {
 
@@ -149,16 +146,12 @@ public class NovelService {
             }
         }
     }//add novels
-
+*/
     public NovelInfoRes getNovelInfoByNovelNo(Long novelNo) {
         NovelInfoRes novelInfoRes = new NovelInfoRes();
         Novel novel = novelRepository.findNovelByNovelNo(novelNo).orElseThrow(() -> {
             throw new CustomException(ErrorCode.NOVEL_NOT_FOUND);
         });
-
-//        String comment = commentRepository.findKeywordByNovelNo(novelNo).orElseThrow(() -> {
-//            throw new CustomException(ErrorCode.COMMENT_NOT_FOUND);
-//        });
 
         String comment = String.valueOf(commentRepository.findKeywordByNovelNo(novelNo));
 
